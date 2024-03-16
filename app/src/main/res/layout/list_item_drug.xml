@@ -30,6 +30,12 @@
             android:layout_height="wrap_content"
             android:text="Amount: "
             android:textSize="14sp" />
+        <TextView
+            android:id="@+id/drugExpiration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Expiration Date: "
+            android:textSize="14sp" />
     </LinearLayout>
 
 </LinearLayout>
