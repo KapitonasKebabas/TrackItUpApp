@@ -31,6 +31,7 @@ class UserMedicineActivity : AppCompatActivity() {
             object : UserMedicineCallback {
                 override fun onSuccess(gameResponses: List<MedicineResponse>) {
                     userMedicine     = gameResponses
+                    fetchMedicineData()
                     findViewById<ProgressBar>(R.id.pb_loading).visibility = View.GONE
                 }
                 override fun onFailure(message: String) {
@@ -39,5 +40,10 @@ class UserMedicineActivity : AppCompatActivity() {
                 }
             }
         )
+    }
+
+    fun fetchMedicineData()
+    {
+
     }
 }
