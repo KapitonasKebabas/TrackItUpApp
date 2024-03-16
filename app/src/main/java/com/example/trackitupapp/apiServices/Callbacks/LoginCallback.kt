@@ -1,4 +1,4 @@
-package com.example.trackitupapp.apiServices.Interfaces
+package com.example.trackitupapp.apiServices.Callbacks
 
 interface LoginCallback {
     fun onSuccess()

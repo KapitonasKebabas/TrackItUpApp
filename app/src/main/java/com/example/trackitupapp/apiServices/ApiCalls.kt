@@ -1,7 +1,7 @@
 package com.example.trackitupapp.apiServices
 
 import android.content.Context
-import com.example.trackitupapp.apiServices.Interfaces.LoginCallback
+import com.example.trackitupapp.apiServices.Callbacks.LoginCallback
 import com.example.trackitupapp.apiServices.responses.LoginResponse
 import com.example.trackitupapp.enums.ProfilePreferences
 import com.example.trackitupapp.managers.TokenManager

@@ -1,4 +1,4 @@
-package com.example.trackitupapp
+package com.example.trackitupapp.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,8 +8,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
+import com.example.trackitupapp.R
 import com.example.trackitupapp.apiServices.ApiCalls
-import com.example.trackitupapp.apiServices.Interfaces.LoginCallback
+import com.example.trackitupapp.apiServices.Callbacks.LoginCallback
 import com.example.trackitupapp.managers.TokenManager
 import com.example.trackitupapp.managers.UserManager
 
