@@ -17,4 +17,13 @@ class ApiServiceInstance
 
         val apiServices: ApiServices = retrofit.create(ApiServices::class.java)
     }
+
+    object Medicine {
+        private val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL + "medicine/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val apiServices: ApiServices = retrofit.create(ApiServices::class.java)
+    }
 }

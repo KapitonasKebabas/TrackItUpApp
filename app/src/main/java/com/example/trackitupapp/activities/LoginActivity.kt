@@ -11,6 +11,7 @@ import android.widget.TextView
 import com.example.trackitupapp.R
 import com.example.trackitupapp.apiServices.ApiCalls
 import com.example.trackitupapp.apiServices.Callbacks.LoginCallback
+import com.example.trackitupapp.managers.RegisterActivity
 import com.example.trackitupapp.managers.TokenManager
 import com.example.trackitupapp.managers.UserManager
 
@@ -27,13 +28,24 @@ class LoginActivity : AppCompatActivity() {
         calls           = ApiCalls()
 
         btnLogin()
+        btnReg()
     }
 
     private fun gotoNextActivity()
     {
-        val intent = Intent(this@LoginActivity, MydrugsActivity::class.java)
+        val intent = Intent(this@LoginActivity, UserMedicineActivity::class.java)
         startActivity(intent)
         finish()
+    }
+
+    private fun btnReg()
+    {
+        val btnReg = findViewById<Button>(R.id.btn_regActivity)
+
+        btnReg.setOnClickListener {
+            val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun btnLogin()

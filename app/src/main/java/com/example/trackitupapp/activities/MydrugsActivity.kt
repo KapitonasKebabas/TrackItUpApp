@@ -25,7 +25,7 @@ class MydrugsActivity : AppCompatActivity() {
             Drug("Paracetamol", R.drawable.paracetamol, "10 tablets"),
             Drug("Aspirin", R.drawable.aspirin, "20 tablets"),
             Drug("Ibuprofen", R.drawable.ibuprofen, "15 tablets"),
-            Drug("Omeprazole", R.drawable.omeprazole, "30 capsules")
+            //Drug("Omeprazole", R.drawable.omeprazole, "30 capsules")
         )
 
         val adapter = DrugListAdapter(this, drugs)
