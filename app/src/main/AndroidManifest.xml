@@ -7,14 +7,17 @@
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
-        android:usesCleartextTraffic="true"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TrackItUpApp"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".activities.UserMedicineActivity"
+            android:exported="false" />
         <activity
             android:name=".activities.LoginActivity"
             android:exported="true">
@@ -26,7 +29,10 @@
         </activity>
         <activity
             android:name=".activities.MainActivity"
-            android:exported="false"/>
+            android:exported="false" />
+        <activity
+            android:name=".activities.MydrugsActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

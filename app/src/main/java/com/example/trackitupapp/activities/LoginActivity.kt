@@ -31,7 +31,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun gotoNextActivity()
     {
-        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+        val intent = Intent(this@LoginActivity, MydrugsActivity::class.java)
         startActivity(intent)
         finish()
     }
