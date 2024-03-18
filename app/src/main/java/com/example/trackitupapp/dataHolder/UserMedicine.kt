@@ -10,6 +10,10 @@ object UserMedicine {
         myList = list.toMutableList()
     }
 
+    fun addItemToList(medicine: MedicineResponse) {
+        myList.add(medicine)
+    }
+
     fun getList(): List<MedicineResponse> {
         return myList.toList()
     }

@@ -1,17 +1,24 @@
 package com.example.trackitupapp.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.Spinner
+import android.widget.Toast
 import com.example.trackitupapp.AprovedMedicineItem
 import com.example.trackitupapp.R
 import com.example.trackitupapp.apiServices.ApiCalls
+import com.example.trackitupapp.apiServices.Callbacks.MedicineCallback
+import com.example.trackitupapp.apiServices.Callbacks.UserMedicineCallback
 import com.example.trackitupapp.apiServices.responses.AprovedMedecineResponse
+import com.example.trackitupapp.apiServices.responses.MedicineResponse
 import com.example.trackitupapp.dataHolder.AprovedMedicine
+import com.example.trackitupapp.dataHolder.UserMedicine
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner
 
 class AddUserMedicineActivity : AppCompatActivity() {
@@ -52,7 +59,25 @@ class AddUserMedicineActivity : AppCompatActivity() {
         }
     }
 
-    fun addMedicine()
+    fun addMedicine(medicine: MedicineResponse)
     {
+        calls.callAddUserMedicine(
+            applicationContext,
+            medicine,
+            object : MedicineCallback {
+                override fun onSuccess(medicine: MedicineResponse) {
+                    UserMedicine.addItemToList(medicine)
+
+                    val intent = Intent(this@AddUserMedicineActivity, UserMedicineActivity::class.java)
+                    startActivity(intent)
+                }
+                override fun onFailure(message: String) {
+                    Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
+
+                    val intent = Intent(this@AddUserMedicineActivity, UserMedicineActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+        )
     }
 }
