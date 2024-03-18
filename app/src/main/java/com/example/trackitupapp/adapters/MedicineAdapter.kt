@@ -12,11 +12,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trackitupapp.apiServices.responses.MedicineResponse
 import com.example.trackitupapp.R
+import com.example.trackitupapp.activities.EditMedicine
 import com.example.trackitupapp.dataHolder.AprovedMedicine
 
 class MedicineAdapter (private val context: Context, private val medicine: List<MedicineResponse>) : RecyclerView.Adapter<MedicineAdapter.ViewHolder>()  {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
         val name: TextView = itemView.findViewById(R.id.tv_name)
         val expDate: TextView = itemView.findViewById(R.id.tv_amount)
         val qty: TextView = itemView.findViewById(R.id.tv_expDate)
@@ -31,6 +33,8 @@ class MedicineAdapter (private val context: Context, private val medicine: List<
         val medicine = medicine[position]
         holder.itemView.apply {
             holder.name.text    = medicine.medecine_name
+            holder.expDate.text = "Expiration Date: ${medicine.exp_date}"
+            holder.qty.text     = "Amount:  ${medicine.qty}"
             holder.expDate.text = medicine.exp_date
             holder.qty.text     = medicine.qty.toString()
 
@@ -42,11 +46,11 @@ class MedicineAdapter (private val context: Context, private val medicine: List<
                 holder.img.setImageBitmap(bitmap)
             }
         }
-        /*holder.itemView.setOnClickListener{
-            val intent = Intent(context, GameActivity::class.java)
+        holder.itemView.setOnClickListener{
+            val intent = Intent(context, EditMedicine::class.java)
             intent.putExtra("id", medicine.pk)
             context.startActivity(intent)
-        }*/
+        }
     }
 
     override fun getItemCount(): Int {
