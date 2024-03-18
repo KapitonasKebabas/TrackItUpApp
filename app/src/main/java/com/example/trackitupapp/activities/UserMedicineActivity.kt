@@ -1,10 +1,11 @@
 package com.example.trackitupapp.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.ProgressBar
-import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trackitupapp.R
@@ -21,7 +22,19 @@ class UserMedicineActivity : AppCompatActivity() {
         setContentView(R.layout.activity_user_medicine)
 
         calls = ApiCalls()
+        adduserMedicineBtn()
         getUserMedecine()
+    }
+
+    fun adduserMedicineBtn()
+    {
+        var addBtn = findViewById<Button>(R.id.btn_addUserMedicine)
+
+        addBtn.setOnClickListener()
+        {
+            val intent = Intent(this@UserMedicineActivity, AddUserMedicineActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     fun getUserMedecine()
