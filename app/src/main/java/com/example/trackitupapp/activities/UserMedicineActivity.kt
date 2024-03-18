@@ -6,7 +6,9 @@ import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
 import com.example.trackitupapp.R
+import com.example.trackitupapp.adapters.MedicineAdapter
 import com.example.trackitupapp.apiServices.ApiCalls
 import com.example.trackitupapp.apiServices.Callbacks.UserMedicineCallback
 import com.example.trackitupapp.apiServices.responses.MedicineResponse
@@ -14,15 +16,12 @@ import com.example.trackitupapp.dataHolder.UserMedicine
 
 class UserMedicineActivity : AppCompatActivity() {
     private lateinit var calls: ApiCalls
-    private var userMedicine: List<MedicineResponse> = emptyList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_medicine)
 
         calls = ApiCalls()
         getUserMedecine()
-
-        userMedicine = UserMedicine.getList()
     }
 
     fun getUserMedecine()
@@ -46,6 +45,9 @@ class UserMedicineActivity : AppCompatActivity() {
 
     fun fetchMedicineData()
     {
+        val userMedicineRecyclerView = findViewById<RecyclerView>(R.id.rv_medicineHolder)
+        val medicineAdapter = MedicineAdapter(this@UserMedicineActivity, UserMedicine.getList())
 
+        userMedicineRecyclerView.adapter = medicineAdapter
     }
 }

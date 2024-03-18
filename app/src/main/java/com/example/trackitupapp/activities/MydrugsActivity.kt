@@ -20,8 +20,8 @@ class MydrugsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mydrugs)
-
-        val drugListView: ListView = findViewById(R.id.drugListView)
+/*
+        val drugListView: ListView = (R.id.drugListView)
 
         // Sample drug data
         val drugs = listOf(
@@ -33,8 +33,8 @@ class MydrugsActivity : AppCompatActivity() {
 
         val adapter = DrugListAdapter(this, drugs)
         drugListView.adapter = adapter
-    }
-}
+    }*/
+}/*
 data class Drug(val name: String, val imageResId: Int, var amount: String, var expirationDate: String, var shareInformation: Boolean = false)
 
 
@@ -96,5 +96,5 @@ class DrugListAdapter(context: Context, private val drugs: List<Drug>) :
 
         dialog.show()
     }
-
+*/
 }
