@@ -21,7 +21,7 @@ class EditMedicineActivity : AppCompatActivity() {
     private lateinit var calls: ApiCalls
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_edit_medicine)
+        setContentView(R.layout.edit_medicine)
 
         calls = ApiCalls()
 

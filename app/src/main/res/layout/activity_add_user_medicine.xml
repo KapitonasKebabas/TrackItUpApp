@@ -11,26 +11,86 @@
         android:layout_width="383dp"
         android:layout_height="91dp"
         android:hint="Search and Select Medicine"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/editSwitch"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.19" />
+        app:layout_constraintVertical_bias="0.279" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/amountLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/sp_aprovedMedicine"
+        app:layout_constraintStart_toStartOf="@+id/sp_aprovedMedicine"
+        app:layout_constraintTop_toBottomOf="@+id/sp_aprovedMedicine">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Amount" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/expirationLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="@+id/sp_aprovedMedicine"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/sp_aprovedMedicine"
+        app:layout_constraintTop_toBottomOf="@+id/amountLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editExpirationDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Expiration Date" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Switch
+        android:id="@+id/editSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Share Medicine"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/sp_aprovedMedicine"
+        app:layout_constraintStart_toStartOf="@+id/sp_aprovedMedicine"
+        app:layout_constraintTop_toBottomOf="@+id/expirationLayout"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/shareAmountLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/sp_aprovedMedicine"
+        app:layout_constraintStart_toStartOf="@+id/sp_aprovedMedicine"
+        app:layout_constraintTop_toBottomOf="@+id/editSwitch"
+        android:visibility="gone">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editShareAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Share Amount" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btn_addUserMedicine"
         android:layout_width="241dp"
         android:layout_height="84dp"
-        android:layout_marginBottom="44dp"
         android:text="Prideti"
-        android:textSize="20dp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sp_aprovedMedicine"
-        app:layout_constraintVertical_bias="0.961" />
-
+        app:layout_constraintTop_toBottomOf="@+id/shareAmountLayout"
+        app:layout_constraintVertical_bias="0.5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
