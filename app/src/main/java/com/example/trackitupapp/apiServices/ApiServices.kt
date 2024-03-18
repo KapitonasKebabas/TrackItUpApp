@@ -1,6 +1,7 @@
 package com.example.trackitupapp.apiServices
 
 
+import com.example.trackitupapp.apiServices.responses.AprovedMedecineResponse
 import com.example.trackitupapp.apiServices.responses.LoginResponse
 import com.example.trackitupapp.apiServices.responses.MedicineResponse
 import com.example.trackitupapp.apiServices.responses.RegisterResponse
@@ -34,4 +35,9 @@ interface ApiServices {
     fun userMedicine(
         @Header("Authorization") token: String
     ): Call<List<MedicineResponse>>
+
+    @GET("aproved/list/")
+    fun userAprovedMedicine(
+        @Header("Authorization") token: String
+    ): Call<List<AprovedMedecineResponse>>
 }

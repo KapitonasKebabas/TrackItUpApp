@@ -8,9 +8,13 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import com.example.trackitupapp.R
 import com.example.trackitupapp.apiServices.ApiCalls
+import com.example.trackitupapp.apiServices.Callbacks.AprovedMedicineCallback
 import com.example.trackitupapp.apiServices.Callbacks.LoginCallback
+import com.example.trackitupapp.apiServices.responses.AprovedMedecineResponse
+import com.example.trackitupapp.dataHolder.AprovedMedicine
 import com.example.trackitupapp.managers.RegisterActivity
 import com.example.trackitupapp.managers.TokenManager
 import com.example.trackitupapp.managers.UserManager
@@ -48,6 +52,23 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    fun initAfterLoginData()
+    {
+        calls.callAprovedMedicine(
+            applicationContext,
+            object : AprovedMedicineCallback {
+                override fun onSuccess(aprovedMedicineList: List<AprovedMedecineResponse>) {
+                    AprovedMedicine.addToList(aprovedMedicineList)
+                    findViewById<ProgressBar>(R.id.pb_loading).visibility = View.GONE
+                }
+                override fun onFailure(message: String) {
+                    Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
+                    findViewById<ProgressBar>(R.id.pb_loading).visibility = View.GONE
+                }
+            }
+        )
+    }
+
     private fun btnLogin()
     {
         val btnLogin = findViewById<Button>(R.id.btn_login)
@@ -64,6 +85,7 @@ class LoginActivity : AppCompatActivity() {
                 object : LoginCallback {
                     override fun onSuccess() {
                         progressBar.visibility = View.GONE
+                        initAfterLoginData()
                         gotoNextActivity()
                     }
 

@@ -1,9 +1,11 @@
 package com.example.trackitupapp.apiServices
 
 import android.content.Context
+import com.example.trackitupapp.apiServices.Callbacks.AprovedMedicineCallback
 import com.example.trackitupapp.apiServices.Callbacks.LoginCallback
 import com.example.trackitupapp.apiServices.Callbacks.RegisterCallback
 import com.example.trackitupapp.apiServices.Callbacks.UserMedicineCallback
+import com.example.trackitupapp.apiServices.responses.AprovedMedecineResponse
 import com.example.trackitupapp.apiServices.responses.LoginResponse
 import com.example.trackitupapp.apiServices.responses.MedicineResponse
 import com.example.trackitupapp.apiServices.responses.RegisterResponse
@@ -98,6 +100,29 @@ class ApiCalls {
 
             }
             override fun onFailure(call: Call<List<MedicineResponse>>, t: Throwable)
+            {
+                param.onFailure("${t.message}")
+            }
+        })
+    }
+
+    fun callAprovedMedicine( applicationContext: Context, param: AprovedMedicineCallback)
+    {
+        val call = ApiServiceInstance.Medicine.apiServices.userAprovedMedicine("Token " + tokenManager.getToken(applicationContext).toString())
+
+        call.enqueue(object : Callback<List<AprovedMedecineResponse>>
+        {
+            override fun onResponse(call: Call<List<AprovedMedecineResponse>>, response: Response<List<AprovedMedecineResponse>>)
+            {
+                if(response.isSuccessful) {
+                    param.onSuccess(response.body() ?: emptyList())
+                }
+                else{
+                    param.onFailure("Error")
+                }
+
+            }
+            override fun onFailure(call: Call<List<AprovedMedecineResponse>>, t: Throwable)
             {
                 param.onFailure("${t.message}")
             }

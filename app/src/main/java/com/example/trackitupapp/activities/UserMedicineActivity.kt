@@ -10,6 +10,7 @@ import com.example.trackitupapp.R
 import com.example.trackitupapp.apiServices.ApiCalls
 import com.example.trackitupapp.apiServices.Callbacks.UserMedicineCallback
 import com.example.trackitupapp.apiServices.responses.MedicineResponse
+import com.example.trackitupapp.dataHolder.UserMedicine
 
 class UserMedicineActivity : AppCompatActivity() {
     private lateinit var calls: ApiCalls
@@ -19,8 +20,9 @@ class UserMedicineActivity : AppCompatActivity() {
         setContentView(R.layout.activity_user_medicine)
 
         calls = ApiCalls()
-
         getUserMedecine()
+
+        userMedicine = UserMedicine.getList()
     }
 
     fun getUserMedecine()
@@ -29,8 +31,8 @@ class UserMedicineActivity : AppCompatActivity() {
         calls.callUserMedicine(
             applicationContext,
             object : UserMedicineCallback {
-                override fun onSuccess(gameResponses: List<MedicineResponse>) {
-                    userMedicine     = gameResponses
+                override fun onSuccess(userMedicineList: List<MedicineResponse>) {
+                    UserMedicine.addToList(userMedicineList)
                     fetchMedicineData()
                     findViewById<ProgressBar>(R.id.pb_loading).visibility = View.GONE
                 }
