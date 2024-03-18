@@ -16,7 +16,7 @@
         android:theme="@style/Theme.TrackItUpApp"
         tools:targetApi="31">
         <activity
-            android:name=".activities.EditMedicine"
+            android:name=".activities.EditMedicineActivity"
             android:exported="false" />
         <activity
             android:name=".activities.AddUserMedicineActivity"

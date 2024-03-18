@@ -203,4 +203,27 @@ class ApiCalls {
             })
         }
     }
+
+    fun callAddUserMedicine(applicationContext: Context, medicine: MedicineResponse, param: MedicineCallback)
+    {
+        val call = ApiServiceInstance.Medicine.apiServices.createUserMedicine("Token " + tokenManager.getToken(applicationContext).toString(), medicine)
+
+        call.enqueue(object : Callback<MedicineResponse>
+        {
+            override fun onResponse(call: Call<MedicineResponse>, response: Response<MedicineResponse>)
+            {
+                if(response.isSuccessful) {
+                    param.onSuccess(response.body()!!)
+                }
+                else{
+                    param.onFailure("Error")
+                }
+
+            }
+            override fun onFailure(call: Call<MedicineResponse>, t: Throwable)
+            {
+                param.onFailure("${t.message}")
+            }
+        })
+    }
 }

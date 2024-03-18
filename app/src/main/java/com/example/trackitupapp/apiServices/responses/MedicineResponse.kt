@@ -7,7 +7,7 @@ data class MedicineResponse(
     val medecine_description: String,
     val medecine_is_prescription: Boolean,
     var qty: Int,
-    val exp_date: String,
-    val is_shared: Boolean,
+    var exp_date: String,
+    var is_shared: Boolean,
     val shared_qty: Int
 )

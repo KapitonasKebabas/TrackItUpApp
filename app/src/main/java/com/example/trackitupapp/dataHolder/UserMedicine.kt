@@ -1,5 +1,6 @@
 package com.example.trackitupapp.dataHolder
 
+import com.example.trackitupapp.apiServices.responses.AprovedMedecineResponse
 import com.example.trackitupapp.apiServices.responses.MedicineResponse
 
 object UserMedicine {
@@ -11,5 +12,9 @@ object UserMedicine {
 
     fun getList(): List<MedicineResponse> {
         return myList.toList()
+    }
+
+    fun getObjectByPk(pk: Int): MedicineResponse? {
+        return UserMedicine.myList.find { it.pk == pk }
     }
 }

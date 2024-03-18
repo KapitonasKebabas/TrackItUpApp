@@ -12,7 +12,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trackitupapp.apiServices.responses.MedicineResponse
 import com.example.trackitupapp.R
-import com.example.trackitupapp.activities.EditMedicine
+import com.example.trackitupapp.activities.EditMedicineActivity
 import com.example.trackitupapp.dataHolder.AprovedMedicine
 
 class MedicineAdapter (private val context: Context, private val medicine: List<MedicineResponse>) : RecyclerView.Adapter<MedicineAdapter.ViewHolder>()  {
@@ -47,7 +47,7 @@ class MedicineAdapter (private val context: Context, private val medicine: List<
             }
         }
         holder.itemView.setOnClickListener{
-            val intent = Intent(context, EditMedicine::class.java)
+            val intent = Intent(context, EditMedicineActivity::class.java)
             intent.putExtra("id", medicine.pk)
             context.startActivity(intent)
         }

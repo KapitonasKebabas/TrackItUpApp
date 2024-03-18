@@ -68,4 +68,10 @@ interface ApiServices {
         @Header("Authorization") token: String,
         @Field("username") username: String
     ): Call<SimpleResponse>
+
+    @POST("add/") // Adjust the endpoint as needed
+    fun createUserMedicine(
+        @Header("Authorization") token: String,
+        @Body userMedicine: MedicineResponse // Pass the UserMedicine object in the request body
+    ): Call<MedicineResponse>
 }
