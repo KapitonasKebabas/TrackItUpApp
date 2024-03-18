@@ -13,6 +13,7 @@ import com.example.trackitupapp.R
 import com.example.trackitupapp.apiServices.ApiCalls
 import com.example.trackitupapp.apiServices.Callbacks.AprovedMedicineCallback
 import com.example.trackitupapp.apiServices.Callbacks.LoginCallback
+import com.example.trackitupapp.apiServices.Callbacks.SimpleCallback
 import com.example.trackitupapp.apiServices.responses.AprovedMedecineResponse
 import com.example.trackitupapp.dataHolder.AprovedMedicine
 import com.example.trackitupapp.managers.RegisterActivity
@@ -31,8 +32,7 @@ class LoginActivity : AppCompatActivity() {
         userManager     = UserManager()
         calls           = ApiCalls()
 
-        btnLogin()
-        btnReg()
+        checkCurrentAuth()
     }
 
     private fun gotoNextActivity()
@@ -67,6 +67,25 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         )
+    }
+
+    fun checkCurrentAuth()
+    {
+        findViewById<ProgressBar>(R.id.pb_loading).visibility = View.VISIBLE
+        calls.callCheckToken(
+            applicationContext,
+            object : SimpleCallback {
+                override fun onSuccess(message: String) {
+                    findViewById<ProgressBar>(R.id.pb_loading).visibility = View.GONE
+                    gotoNextActivity()
+                }
+
+                override fun onFailure(message: String) {
+                    btnLogin()
+                    btnReg()
+                    findViewById<ProgressBar>(R.id.pb_loading).visibility = View.GONE
+                }
+            })
     }
 
     private fun btnLogin()

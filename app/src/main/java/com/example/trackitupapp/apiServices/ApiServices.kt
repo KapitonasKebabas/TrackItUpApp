@@ -5,12 +5,18 @@ import com.example.trackitupapp.apiServices.responses.AprovedMedecineResponse
 import com.example.trackitupapp.apiServices.responses.LoginResponse
 import com.example.trackitupapp.apiServices.responses.MedicineResponse
 import com.example.trackitupapp.apiServices.responses.RegisterResponse
+import com.example.trackitupapp.apiServices.responses.SimpleResponse
+import com.example.trackitupapp.apiServices.responses.UserMedicineResponse
 import retrofit2.Call
+import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.PUT
+import retrofit2.http.Path
 
 interface ApiServices {
 
@@ -34,10 +40,31 @@ interface ApiServices {
     @GET("list/")
     fun userMedicine(
         @Header("Authorization") token: String
-    ): Call<List<MedicineResponse>>
+    ): Call<UserMedicineResponse>
 
     @GET("aproved/list/")
     fun userAprovedMedicine(
         @Header("Authorization") token: String
     ): Call<List<AprovedMedecineResponse>>
+
+    @DELETE("delete/{id}/")
+    fun deleteUserMedicine(
+        @Header("Authorization") token: String,
+        @Path("id") id: Int
+
+    ): Call<SimpleResponse>
+
+    @PUT("update/{id}/")
+    fun updateUserMedicine(
+        @Header("Authorization") token: String,
+        @Path("id") id: Int,
+        @Body userMedicine: MedicineResponse
+    ): Call<MedicineResponse>
+
+    @POST("checkauth/")
+    @FormUrlEncoded
+    fun checkauth(
+        @Header("Authorization") token: String,
+        @Field("username") username: String
+    ): Call<SimpleResponse>
 }

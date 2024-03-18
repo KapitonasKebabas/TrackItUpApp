@@ -2,7 +2,7 @@ package com.example.trackitupapp.apiServices.Callbacks
 
 import com.example.trackitupapp.apiServices.responses.MedicineResponse
 
-interface UserMedicineCallback {
-    fun onSuccess(medicineResponse: List<MedicineResponse>)
+interface SimpleCallback {
+    fun onSuccess(message: String)
     fun onFailure(message: String)
 }

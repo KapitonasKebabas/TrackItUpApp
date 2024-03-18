@@ -1,14 +1,19 @@
 package com.example.trackitupapp.apiServices
 
+import AESCrypt
 import android.content.Context
 import com.example.trackitupapp.apiServices.Callbacks.AprovedMedicineCallback
 import com.example.trackitupapp.apiServices.Callbacks.LoginCallback
+import com.example.trackitupapp.apiServices.Callbacks.MedicineCallback
 import com.example.trackitupapp.apiServices.Callbacks.RegisterCallback
+import com.example.trackitupapp.apiServices.Callbacks.SimpleCallback
 import com.example.trackitupapp.apiServices.Callbacks.UserMedicineCallback
 import com.example.trackitupapp.apiServices.responses.AprovedMedecineResponse
 import com.example.trackitupapp.apiServices.responses.LoginResponse
 import com.example.trackitupapp.apiServices.responses.MedicineResponse
 import com.example.trackitupapp.apiServices.responses.RegisterResponse
+import com.example.trackitupapp.apiServices.responses.SimpleResponse
+import com.example.trackitupapp.apiServices.responses.UserMedicineResponse
 import com.example.trackitupapp.enums.ProfilePreferences
 import com.example.trackitupapp.managers.TokenManager
 import com.example.trackitupapp.managers.UserManager
@@ -87,19 +92,19 @@ class ApiCalls {
     {
         val call = ApiServiceInstance.Medicine.apiServices.userMedicine("Token " + tokenManager.getToken(applicationContext).toString())
 
-        call.enqueue(object : Callback<List<MedicineResponse>>
+        call.enqueue(object : Callback<UserMedicineResponse>
         {
-            override fun onResponse(call: Call<List<MedicineResponse>>, response: Response<List<MedicineResponse>>)
+            override fun onResponse(call: Call<UserMedicineResponse>, response: Response<UserMedicineResponse>)
             {
                 if(response.isSuccessful) {
-                    param.onSuccess(response.body() ?: emptyList())
+                    param.onSuccess(response.body()?.results ?: emptyList())
                 }
                 else{
                     param.onFailure("Error")
                 }
 
             }
-            override fun onFailure(call: Call<List<MedicineResponse>>, t: Throwable)
+            override fun onFailure(call: Call<UserMedicineResponse>, t: Throwable)
             {
                 param.onFailure("${t.message}")
             }
@@ -127,5 +132,75 @@ class ApiCalls {
                 param.onFailure("${t.message}")
             }
         })
+    }
+
+    fun callUserMedicineUpdate(applicationContext: Context, userMedicine: MedicineResponse, param: MedicineCallback)
+    {
+        val call = ApiServiceInstance.Medicine.apiServices.updateUserMedicine("Token " + tokenManager.getToken(applicationContext).toString(), userMedicine.pk, userMedicine)
+
+        call.enqueue(object : Callback<MedicineResponse>
+        {
+            override fun onResponse(call: Call<MedicineResponse>, response: Response<MedicineResponse>)
+            {
+                if(response.isSuccessful) {
+                    param.onSuccess(response.body()!!)
+                }
+                else{
+                    param.onFailure("Error")
+                }
+
+            }
+            override fun onFailure(call: Call<MedicineResponse>, t: Throwable)
+            {
+                param.onFailure("${t.message}")
+            }
+        })
+    }
+
+    fun callUserMedicineDelete(applicationContext: Context, userMedicine: MedicineResponse, param: SimpleCallback)
+    {
+        val call = ApiServiceInstance.Medicine.apiServices.deleteUserMedicine("Token " + tokenManager.getToken(applicationContext).toString(), userMedicine.pk)
+
+        call.enqueue(object : Callback<SimpleResponse>
+        {
+            override fun onResponse(call: Call<SimpleResponse>, response: Response<SimpleResponse>)
+            {
+                if(response.isSuccessful) {
+                    param.onSuccess("Deleted")
+                }
+                else{
+                    param.onFailure("Error")
+                }
+
+            }
+            override fun onFailure(call: Call<SimpleResponse>, t: Throwable)
+            {
+                param.onFailure("${t.message}")
+            }
+        })
+    }
+
+    fun callCheckToken(applicationContext: Context, param: SimpleCallback)
+    {
+        val username = userManager.getUserDataByFieldString(applicationContext, ProfilePreferences.Username.toString())
+
+        if(username != "") {
+            val call = ApiServiceInstance.Auth.apiServices.checkauth("Token " + tokenManager.getToken(applicationContext).toString(), AESCrypt.decrypt(username))
+            call.enqueue(object : Callback<SimpleResponse> {
+                override fun onResponse(call: Call<SimpleResponse>, response: Response<SimpleResponse>) {
+                    if(response.isSuccessful) {
+                        param.onSuccess("") // Notify the callback with the result
+                    }
+                    else
+                    {
+                        param.onFailure("Error")
+                    }
+                }
+
+                override fun onFailure(call: Call<SimpleResponse>, t: Throwable) {
+                    param.onFailure("${t.message}")
+                }
+            })
+        }
     }
 }
