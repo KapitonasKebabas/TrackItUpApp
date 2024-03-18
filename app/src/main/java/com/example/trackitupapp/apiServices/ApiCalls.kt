@@ -8,6 +8,7 @@ import com.example.trackitupapp.apiServices.Callbacks.MedicineCallback
 import com.example.trackitupapp.apiServices.Callbacks.RegisterCallback
 import com.example.trackitupapp.apiServices.Callbacks.SimpleCallback
 import com.example.trackitupapp.apiServices.Callbacks.UserMedicineCallback
+import com.example.trackitupapp.apiServices.calls.MedicineCall
 import com.example.trackitupapp.apiServices.responses.AprovedMedicinesResponse
 import com.example.trackitupapp.apiServices.responses.LoginResponse
 import com.example.trackitupapp.apiServices.responses.MedicineResponse
@@ -204,7 +205,7 @@ class ApiCalls {
         }
     }
 
-    fun callAddUserMedicine(applicationContext: Context, medicine: MedicineResponse, param: MedicineCallback)
+    fun callAddUserMedicine(applicationContext: Context, medicine: MedicineCall, param: MedicineCallback)
     {
         val call = ApiServiceInstance.Medicine.apiServices.createUserMedicine("Token " + tokenManager.getToken(applicationContext).toString(), medicine)
 

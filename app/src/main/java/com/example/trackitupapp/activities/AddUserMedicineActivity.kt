@@ -15,6 +15,7 @@ import com.example.trackitupapp.R
 import com.example.trackitupapp.apiServices.ApiCalls
 import com.example.trackitupapp.apiServices.Callbacks.MedicineCallback
 import com.example.trackitupapp.apiServices.Callbacks.UserMedicineCallback
+import com.example.trackitupapp.apiServices.calls.MedicineCall
 import com.example.trackitupapp.apiServices.responses.AprovedMedecineResponse
 import com.example.trackitupapp.apiServices.responses.MedicineResponse
 import com.example.trackitupapp.dataHolder.AprovedMedicine
@@ -59,7 +60,7 @@ class AddUserMedicineActivity : AppCompatActivity() {
         }
     }
 
-    fun addMedicine(medicine: MedicineResponse)
+    fun addMedicine(medicine: MedicineCall)
     {
         calls.callAddUserMedicine(
             applicationContext,

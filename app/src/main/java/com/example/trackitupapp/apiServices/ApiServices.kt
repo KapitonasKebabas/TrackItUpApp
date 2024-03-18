@@ -1,6 +1,7 @@
 package com.example.trackitupapp.apiServices
 
 
+import com.example.trackitupapp.apiServices.calls.MedicineCall
 import com.example.trackitupapp.apiServices.responses.AprovedMedecineResponse
 import com.example.trackitupapp.apiServices.responses.AprovedMedicinesResponse
 import com.example.trackitupapp.apiServices.responses.LoginResponse
@@ -72,6 +73,6 @@ interface ApiServices {
     @POST("add/") // Adjust the endpoint as needed
     fun createUserMedicine(
         @Header("Authorization") token: String,
-        @Body userMedicine: MedicineResponse // Pass the UserMedicine object in the request body
+        @Body userMedicine: MedicineCall // Pass the UserMedicine object in the request body
     ): Call<MedicineResponse>
 }
