@@ -14,11 +14,15 @@ object UserMedicine {
         myList.add(medicine)
     }
 
+    fun deleteItemFromList(pk: Int) {
+        myList.removeIf { it.pk == pk }
+    }
+
     fun getList(): List<MedicineResponse> {
         return myList.toList()
     }
 
     fun getObjectByPk(pk: Int): MedicineResponse? {
-        return UserMedicine.myList.find { it.pk == pk }
+        return myList.find { it.pk == pk }
     }
 }

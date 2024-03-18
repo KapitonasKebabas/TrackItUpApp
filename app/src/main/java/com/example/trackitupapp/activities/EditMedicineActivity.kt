@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.trackitupapp.R
 import com.example.trackitupapp.apiServices.ApiCalls
 import com.example.trackitupapp.apiServices.Callbacks.MedicineCallback
+import com.example.trackitupapp.apiServices.Callbacks.SimpleCallback
 import com.example.trackitupapp.apiServices.responses.AprovedMedecineResponse
 import com.example.trackitupapp.apiServices.responses.MedicineResponse
 import com.example.trackitupapp.dataHolder.AprovedMedicine
@@ -85,6 +86,8 @@ class EditMedicineActivity : AppCompatActivity() {
     {
         var medicine = UserMedicine.getObjectByPk(newMedicine.pk)!!
         medicine = newMedicine
+
+        Toast.makeText(applicationContext, "Update successfully!", Toast.LENGTH_LONG).show()
 
         val intent = Intent(this, UserMedicineActivity::class.java)
         this.startActivity(intent)
