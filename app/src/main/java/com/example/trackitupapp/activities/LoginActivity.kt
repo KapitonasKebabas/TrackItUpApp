@@ -77,6 +77,7 @@ class LoginActivity : AppCompatActivity() {
             object : SimpleCallback {
                 override fun onSuccess(message: String) {
                     findViewById<ProgressBar>(R.id.pb_loading).visibility = View.GONE
+                    initAfterLoginData()
                     gotoNextActivity()
                 }
 

@@ -8,7 +8,7 @@ import com.example.trackitupapp.apiServices.Callbacks.MedicineCallback
 import com.example.trackitupapp.apiServices.Callbacks.RegisterCallback
 import com.example.trackitupapp.apiServices.Callbacks.SimpleCallback
 import com.example.trackitupapp.apiServices.Callbacks.UserMedicineCallback
-import com.example.trackitupapp.apiServices.responses.AprovedMedecineResponse
+import com.example.trackitupapp.apiServices.responses.AprovedMedicinesResponse
 import com.example.trackitupapp.apiServices.responses.LoginResponse
 import com.example.trackitupapp.apiServices.responses.MedicineResponse
 import com.example.trackitupapp.apiServices.responses.RegisterResponse
@@ -115,19 +115,19 @@ class ApiCalls {
     {
         val call = ApiServiceInstance.Medicine.apiServices.userAprovedMedicine("Token " + tokenManager.getToken(applicationContext).toString())
 
-        call.enqueue(object : Callback<List<AprovedMedecineResponse>>
+        call.enqueue(object : Callback<AprovedMedicinesResponse>
         {
-            override fun onResponse(call: Call<List<AprovedMedecineResponse>>, response: Response<List<AprovedMedecineResponse>>)
+            override fun onResponse(call: Call<AprovedMedicinesResponse>, response: Response<AprovedMedicinesResponse>)
             {
                 if(response.isSuccessful) {
-                    param.onSuccess(response.body() ?: emptyList())
+                    param.onSuccess(response.body()?.results ?: emptyList())
                 }
                 else{
                     param.onFailure("Error")
                 }
 
             }
-            override fun onFailure(call: Call<List<AprovedMedecineResponse>>, t: Throwable)
+            override fun onFailure(call: Call<AprovedMedicinesResponse>, t: Throwable)
             {
                 param.onFailure("${t.message}")
             }

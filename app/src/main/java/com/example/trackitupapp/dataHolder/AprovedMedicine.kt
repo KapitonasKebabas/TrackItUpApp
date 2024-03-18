@@ -12,4 +12,8 @@ object AprovedMedicine {
     fun getList(): List<AprovedMedecineResponse> {
         return myList.toList()
     }
+
+    fun getObjectByPk(pk: Int): AprovedMedecineResponse? {
+        return myList.find { it.pk == pk }
+    }
 }
