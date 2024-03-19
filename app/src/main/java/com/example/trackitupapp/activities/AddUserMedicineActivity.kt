@@ -68,7 +68,17 @@ class AddUserMedicineActivity : AppCompatActivity() {
             val editSwitch: Switch = findViewById(R.id.editSwitch)
             val shareAmountEditText: EditText = findViewById(R.id.editShareAmount)
 
-            addMedicine(MedicineCall(selectedPk, amountEditText.toString().toInt(),expirationEditText.toString(),editSwitch.isActivated,shareAmountEditText.toString().toInt()))
+            if (shareAmountEditText.text.toString() == "")
+            {
+                shareAmountEditText.setText("1")
+            }
+
+            if(amountEditText.text.toString() == "1")
+            {
+                shareAmountEditText.setText("1")
+            }
+
+            addMedicine(MedicineCall(selectedPk, amountEditText.text.toString().toInt(),expirationEditText.text.toString(),editSwitch.isActivated,shareAmountEditText.text.toString().toInt()))
 
             }
         }
@@ -95,7 +105,6 @@ class AddUserMedicineActivity : AppCompatActivity() {
                         startActivity(intent)
                     }
                 }
-            )
-        }
-
+        )
     }
+}
