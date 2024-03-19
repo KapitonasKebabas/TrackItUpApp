@@ -42,8 +42,6 @@ class MedicineAdapter (private val context: Context, private val medicine: List<
             holder.name.text    = medicine.medecine_name
             holder.expDate.text = "Expiration Date: ${medicine.exp_date}"
             holder.qty.text     = "Amount:  ${medicine.qty}"
-            holder.expDate.text = medicine.exp_date
-            holder.qty.text     = medicine.qty.toString()
 
             val photoBase64 = AprovedMedicine.getObjectByPk(medicine.medecine)?.photo
             val decodedBytes = Base64.decode(photoBase64 ?: "", Base64.DEFAULT)
