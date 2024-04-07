@@ -1,4 +1,5 @@
 package com.example.trackitupapp.activities
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -19,6 +20,7 @@ import com.example.trackitupapp.dataHolder.UserMedicine
 
 class EditMedicineActivity : AppCompatActivity() {
     private lateinit var calls: ApiCalls
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_medicine)

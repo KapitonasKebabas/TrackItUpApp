@@ -1,5 +1,6 @@
 package com.example.trackitupapp.activities
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -54,6 +55,7 @@ class AddUserMedicineActivity : AppCompatActivity() {
         spinner.adapter = adapter
     }
 
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
     fun addUserMedicineBtn() {
         val addBtn = findViewById<Button>(R.id.btn_addUserMedicine)
 
@@ -65,7 +67,7 @@ class AddUserMedicineActivity : AppCompatActivity() {
 
             val amountEditText: EditText = findViewById(R.id.editAmount)
             val expirationEditText: EditText = findViewById(R.id.editExpirationDate)
-            val editSwitch: Switch = findViewById(R.id.editSwitch)
+            val editSwitch = findViewById<Switch>(R.id.addSwitch)
             val shareAmountEditText: EditText = findViewById(R.id.editShareAmount)
 
             if (shareAmountEditText.text.toString() == "")
@@ -73,12 +75,13 @@ class AddUserMedicineActivity : AppCompatActivity() {
                 shareAmountEditText.setText("1")
             }
 
-            if(amountEditText.text.toString() == "1")
+            if(amountEditText.text.toString() == "")
             {
                 shareAmountEditText.setText("1")
             }
 
-            addMedicine(MedicineCall(selectedPk, amountEditText.text.toString().toInt(),expirationEditText.text.toString(),editSwitch.isActivated,shareAmountEditText.text.toString().toInt()))
+
+            addMedicine(MedicineCall(selectedPk, amountEditText.text.toString().toInt(),expirationEditText.text.toString(),editSwitch.isChecked,shareAmountEditText.text.toString().toInt()))
 
             }
         }

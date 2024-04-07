@@ -2,6 +2,7 @@ package com.example.trackitupapp.apiServices
 
 import AESCrypt
 import android.content.Context
+import com.example.trackitupapp.activities.LoginActivity
 import com.example.trackitupapp.apiServices.Callbacks.AprovedMedicineCallback
 import com.example.trackitupapp.apiServices.Callbacks.LoginCallback
 import com.example.trackitupapp.apiServices.Callbacks.MedicineCallback
@@ -183,17 +184,21 @@ class ApiCalls {
 
     fun callCheckToken(applicationContext: Context, param: SimpleCallback)
     {
-        val username = userManager.getUserDataByFieldString(applicationContext, ProfilePreferences.Username.toString())
+        var username = userManager.getUserDataByFieldString(applicationContext, ProfilePreferences.Username.toString())
 
         if(username != "") {
-            val call = ApiServiceInstance.Auth.apiServices.checkauth("Token " + tokenManager.getToken(applicationContext).toString(), AESCrypt.decrypt(username))
+            val call = ApiServiceInstance.Auth.apiServices.checkauth(
+                "Token " + tokenManager.getToken(applicationContext).toString(),
+                AESCrypt.decrypt(username)
+            )
             call.enqueue(object : Callback<SimpleResponse> {
-                override fun onResponse(call: Call<SimpleResponse>, response: Response<SimpleResponse>) {
-                    if(response.isSuccessful) {
+                override fun onResponse(
+                    call: Call<SimpleResponse>,
+                    response: Response<SimpleResponse>
+                ) {
+                    if (response.isSuccessful) {
                         param.onSuccess("") // Notify the callback with the result
-                    }
-                    else
-                    {
+                    } else {
                         param.onFailure("Error")
                     }
                 }

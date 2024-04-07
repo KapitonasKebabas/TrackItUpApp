@@ -33,6 +33,7 @@ class LoginActivity : AppCompatActivity() {
         calls           = ApiCalls()
 
         checkCurrentAuth()
+        btnLogin()
     }
 
     private fun gotoNextActivity()
@@ -54,6 +55,8 @@ class LoginActivity : AppCompatActivity() {
 
     fun initAfterLoginData()
     {
+
+        findViewById<ProgressBar>(R.id.pb_loading).visibility = View.VISIBLE
         calls.callAprovedMedicine(
             applicationContext,
             object : AprovedMedicineCallback {
@@ -82,14 +85,14 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(message: String) {
-                    btnLogin()
+
                     btnReg()
                     findViewById<ProgressBar>(R.id.pb_loading).visibility = View.GONE
                 }
             })
     }
 
-    private fun btnLogin()
+    fun btnLogin()
     {
         val btnLogin = findViewById<Button>(R.id.btn_login)
         btnLogin.setOnClickListener {

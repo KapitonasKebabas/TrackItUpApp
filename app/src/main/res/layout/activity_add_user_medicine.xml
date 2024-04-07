@@ -54,14 +54,15 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Switch
-        android:id="@+id/editSwitch"
+        android:id="@+id/addSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Share Medicine"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="@+id/sp_aprovedMedicine"
         app:layout_constraintStart_toStartOf="@+id/sp_aprovedMedicine"
-        app:layout_constraintTop_toBottomOf="@+id/expirationLayout"/>
+        app:layout_constraintTop_toBottomOf="@+id/expirationLayout"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/shareAmountLayout"
@@ -70,7 +71,7 @@
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="@+id/sp_aprovedMedicine"
         app:layout_constraintStart_toStartOf="@+id/sp_aprovedMedicine"
-        app:layout_constraintTop_toBottomOf="@+id/editSwitch"
+        app:layout_constraintTop_toBottomOf="@+id/addSwitch"
         android:visibility="gone">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -94,5 +95,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/shareAmountLayout"
         app:layout_constraintVertical_bias="0.5" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
