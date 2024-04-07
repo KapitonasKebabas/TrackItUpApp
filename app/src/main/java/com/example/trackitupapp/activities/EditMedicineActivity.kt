@@ -91,15 +91,18 @@ class EditMedicineActivity : AppCompatActivity() {
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
+        val existingDate = expirationEditText.text.toString()
+        val dateParts = existingDate.split("-")
+
         val datePickerDialog = DatePickerDialog(
             this,
             { _, year, month, dayOfMonth ->
                 val selectedDate = String.format("%04d-%02d-%02d", year, month + 1, dayOfMonth)
                 expirationEditText.setText(selectedDate)
             },
-            year,
-            month,
-            day
+            dateParts[0].toInt(),
+            dateParts[1].toInt() - 1,
+            dateParts[2].toInt()
         )
         datePickerDialog.show()
     }
