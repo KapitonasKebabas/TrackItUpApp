@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">TrackItUpApp</string>
     <string name="medicineExpiring">expires in less than a week.</string>

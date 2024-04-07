@@ -6,22 +6,20 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trackitupapp.R
 import com.example.trackitupapp.adapters.MedicineAdapter
 import com.example.trackitupapp.apiServices.ApiCalls
 import com.example.trackitupapp.apiServices.Callbacks.UserMedicineCallback
 import com.example.trackitupapp.apiServices.responses.MedicineResponse
+import com.example.trackitupapp.constants.Constants
 import com.example.trackitupapp.dataHolder.UserMedicine
 import com.google.android.material.snackbar.Snackbar
-import java.text.SimpleDateFormat
 import java.util.Calendar
 
 class UserMedicineActivity : AppCompatActivity() {
@@ -68,8 +66,6 @@ class UserMedicineActivity : AppCompatActivity() {
     fun fetchMedicineData()
     {
         val medicineList = UserMedicine.getList()
-        Toast.makeText(this@UserMedicineActivity, "duomenys surinkti", Toast.LENGTH_SHORT).show()
-
         val userMedicineRecyclerView = findViewById<RecyclerView>(R.id.rv_medicineHolder)
 
         checkExpDate(userMedicineRecyclerView, medicineList)
@@ -91,13 +87,13 @@ class UserMedicineActivity : AppCompatActivity() {
             val isExpiring = isExpirationDateWithinAWeek(medicineResponse.exp_date)
 
             if (isExpiring) {
-                val message = "'${medicineResponse.medecine_name}' liko mažiau nei savaitė"
+                val message = "'${medicineResponse.medecine_name}' " + getString(R.string.medicineExpiring)
                 showTopSnackbar(userMedicineRecyclerView, message)
             }
         }
     }
 
-    fun showTopSnackbar(rootView: View, message: String) {
+    private fun showTopSnackbar(rootView: View, message: String) {
         val snackbar = Snackbar.make(rootView, message, Snackbar.LENGTH_SHORT)
         val snackbarView = snackbar.view
 
@@ -115,12 +111,9 @@ class UserMedicineActivity : AppCompatActivity() {
 
     private fun isExpirationDateWithinAWeek(expirationDate: String): Boolean {
         val currentDate = Calendar.getInstance().time
-
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd")
-        val expDate = dateFormat.parse(expirationDate)
+        val expDate = Constants.DATE_FORMAT.parse(expirationDate)
 
         val differenceInMilliS = expDate.time - currentDate.time
-
         val differenceInDays = differenceInMilliS / (1000 * 60 * 60 * 24)
 
         return differenceInDays <= 7
