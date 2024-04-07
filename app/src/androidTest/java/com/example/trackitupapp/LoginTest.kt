@@ -41,18 +41,17 @@ class LoginTest {
         val username = "test"
         val password = "test"
 
-        // Įvesti vartotojo vardą ir slaptažodį
+
         onView(withId(R.id.username)).perform(typeText(username), closeSoftKeyboard())
         onView(withId(R.id.password)).perform(typeText(password), closeSoftKeyboard())
 
-        // Paspausti prisijungimo mygtuką
+
         onView(withId(R.id.btn_login)).perform(click())
         Thread.sleep(3000)
 
-        // Patikrinti, ar LoginActivity yra uždarytas
+
         onView(withId(R.id.username)).check(doesNotExist())
 
-        // Uždaryti LoginActivity
         activityScenario.close()
 
     }

@@ -1,6 +1,7 @@
 package com.example.trackitupapp.activities
 
 import android.annotation.SuppressLint
+import android.app.DatePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -26,11 +27,15 @@ import com.example.trackitupapp.dataHolder.AprovedMedicine
 import com.example.trackitupapp.dataHolder.UserMedicine
 import com.google.android.material.textfield.TextInputLayout
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
+
 
 class AddUserMedicineActivity : AppCompatActivity() {
     private lateinit var calls: ApiCalls
-    private lateinit var editSwitch: Switch
-    private lateinit var shareAmountLayout: TextInputLayout
+    private lateinit var expirationEditText: EditText
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_user_medicine)
@@ -39,28 +44,50 @@ class AddUserMedicineActivity : AppCompatActivity() {
 
         populateSpinner()
         addUserMedicineBtn()
+        setupDatePicker()
     }
 
     private fun populateSpinner() {
-        val aprovedMedecineList = AprovedMedicine.getList()
+        val aprovedMedicineList = AprovedMedicine.getList()
         val spinner: Spinner = findViewById<Spinner>(R.id.sp_aprovedMedicine)
-
         val adapter = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_item,
-            aprovedMedecineList.map { AprovedMedicineItem(it.pk, it.name) }
+            aprovedMedicineList.map { AprovedMedicineItem(it.pk, it.name) }
         )
-
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter
     }
 
-    @SuppressLint("UseSwitchCompatOrMaterialCode")
-    fun addUserMedicineBtn() {
-        val addBtn = findViewById<Button>(R.id.btn_addUserMedicine)
+    private fun setupDatePicker() {
+        expirationEditText = findViewById<EditText>(R.id.editExpirationDate)
+        expirationEditText.setOnClickListener {
+            showDatePickerDialog()
+        }
+    }
 
-        addBtn.setOnClickListener()
-        {
+    private fun showDatePickerDialog() {
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(
+            this,
+            DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+                val selectedDate = String.format("%04d-%02d-%02d", year, month + 1, dayOfMonth)
+                expirationEditText.setText(selectedDate)
+            },
+            year,
+            month,
+            day
+        )
+        datePickerDialog.show()
+    }
+
+    private fun addUserMedicineBtn() {
+        val addBtn = findViewById<Button>(R.id.btn_addUserMedicine)
+        addBtn.setOnClickListener {
             val aprovedMedicineSpiner = findViewById<Spinner>(R.id.sp_aprovedMedicine)
             val selectedMedicineItem = aprovedMedicineSpiner.selectedItem as AprovedMedicineItem
             val selectedPk = selectedMedicineItem.pk //PK of medicine field
@@ -70,24 +97,25 @@ class AddUserMedicineActivity : AppCompatActivity() {
             val editSwitch = findViewById<Switch>(R.id.addSwitch)
             val shareAmountEditText: EditText = findViewById(R.id.editShareAmount)
 
-            if (shareAmountEditText.text.toString() == "")
-            {
+            if (shareAmountEditText.text.toString() == "") {
                 shareAmountEditText.setText("1")
             }
 
-            if(amountEditText.text.toString() == "")
-            {
+            if (amountEditText.text.toString() == "") {
                 shareAmountEditText.setText("1")
             }
 
+            val expirationDate = expirationEditText.text.toString()
+            val amount = amountEditText.text.toString().toInt()
+            val shareAmount = shareAmountEditText.text.toString().toInt()
+            val isSwitchChecked = editSwitch.isChecked
 
-            addMedicine(MedicineCall(selectedPk, amountEditText.text.toString().toInt(),expirationEditText.text.toString(),editSwitch.isChecked,shareAmountEditText.text.toString().toInt()))
-
-            }
+            val medicineCall = MedicineCall(selectedPk, amount, expirationDate, isSwitchChecked, shareAmount)
+            addMedicine(medicineCall)
         }
+    }
 
-    fun addMedicine(medicine: MedicineCall)
-    {
+    private fun addMedicine(medicine: MedicineCall) {
         calls.callAddUserMedicine(
             applicationContext,
             medicine,
@@ -95,19 +123,19 @@ class AddUserMedicineActivity : AppCompatActivity() {
                 override fun onSuccess(medicine: MedicineResponse) {
                     UserMedicine.addItemToList(medicine)
 
-                        val intent =
-                            Intent(this@AddUserMedicineActivity, UserMedicineActivity::class.java)
-                        startActivity(intent)
-                    }
-
-                    override fun onFailure(message: String) {
-                        Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
-
-                        val intent =
-                            Intent(this@AddUserMedicineActivity, UserMedicineActivity::class.java)
-                        startActivity(intent)
-                    }
+                    val intent =
+                        Intent(this@AddUserMedicineActivity, UserMedicineActivity::class.java)
+                    startActivity(intent)
                 }
+
+                override fun onFailure(message: String) {
+                    Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
+
+                    val intent =
+                        Intent(this@AddUserMedicineActivity, UserMedicineActivity::class.java)
+                    startActivity(intent)
+                }
+            }
         )
     }
 }

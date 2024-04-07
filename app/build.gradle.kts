@@ -46,6 +46,7 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     // Searchible Spinner
     implementation("com.toptoche.searchablespinner:searchablespinnerlibrary:1.3.1")
+    implementation("androidx.test.espresso:espresso-contrib:3.5.1")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

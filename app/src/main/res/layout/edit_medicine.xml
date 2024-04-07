@@ -29,9 +29,12 @@
             android:id="@+id/editExpirationDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Expiration Date" />
+            android:hint="Expiration Date"
+            android:focusable="false"
+            android:onClick="showDatePickerDialog"/>
 
     </com.google.android.material.textfield.TextInputLayout>
+
     <Switch
         android:id="@+id/editSwitch"
         android:layout_width="wrap_content"
@@ -39,5 +42,7 @@
         android:text="Share Medicine"
         android:layout_marginTop="16dp"/>
 
-
 </LinearLayout>
+
+
+
