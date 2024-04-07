@@ -32,7 +32,7 @@ class LoginActivity : AppCompatActivity() {
         userManager     = UserManager()
         calls           = ApiCalls()
 
-        checkCurrentAuth()
+        //checkCurrentAuth()
         btnLogin()
     }
 
