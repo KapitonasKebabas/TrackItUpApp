@@ -1,14 +1,18 @@
 package com.example.trackitupapp.activities
 
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
+import android.widget.FrameLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trackitupapp.R
 import com.example.trackitupapp.adapters.MedicineAdapter
@@ -16,6 +20,7 @@ import com.example.trackitupapp.apiServices.ApiCalls
 import com.example.trackitupapp.apiServices.Callbacks.UserMedicineCallback
 import com.example.trackitupapp.apiServices.responses.MedicineResponse
 import com.example.trackitupapp.dataHolder.UserMedicine
+import com.google.android.material.snackbar.Snackbar
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
@@ -65,9 +70,10 @@ class UserMedicineActivity : AppCompatActivity() {
         val medicineList = UserMedicine.getList()
         Toast.makeText(this@UserMedicineActivity, "duomenys surinkti", Toast.LENGTH_SHORT).show()
 
-        checkExpDate(medicineList)
-
         val userMedicineRecyclerView = findViewById<RecyclerView>(R.id.rv_medicineHolder)
+
+        checkExpDate(userMedicineRecyclerView, medicineList)
+
         val medicineAdapter = MedicineAdapter(this@UserMedicineActivity, medicineList)
         userMedicineRecyclerView.adapter = medicineAdapter
     }
@@ -80,25 +86,31 @@ class UserMedicineActivity : AppCompatActivity() {
         userMedicineRecyclerView.adapter = medicineAdapter
     }
 
-    private fun checkExpDate(medicineList: List<MedicineResponse>) {
+    private fun checkExpDate(userMedicineRecyclerView: RecyclerView, medicineList: List<MedicineResponse>) {
         for (medicineResponse in medicineList) {
             val isExpiring = isExpirationDateWithinAWeek(medicineResponse.exp_date)
 
             if (isExpiring) {
-                val inflater = layoutInflater
-                val layout = inflater.inflate(R.layout.popup_message_top, null)
-
-                val textView = layout.findViewById<TextView>(R.id.popup_message)
-                textView.text = "'${medicineResponse.medecine_name}' liko mažiau nei savaitė"
-
-                with (Toast(applicationContext)) {
-                    setGravity(Gravity.TOP or Gravity.FILL_HORIZONTAL, 0, 0)
-                    duration = Toast.LENGTH_SHORT
-                    view = layout
-                    show()
-                }
+                val message = "'${medicineResponse.medecine_name}' liko mažiau nei savaitė"
+                showTopSnackbar(userMedicineRecyclerView, message)
             }
         }
+    }
+
+    fun showTopSnackbar(rootView: View, message: String) {
+        val snackbar = Snackbar.make(rootView, message, Snackbar.LENGTH_SHORT)
+        val snackbarView = snackbar.view
+
+        val params = snackbarView.layoutParams as FrameLayout.LayoutParams
+        params.gravity = Gravity.TOP
+
+        snackbarView.layoutParams = params
+
+        val textView = snackbarView.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
+        textView.setTextColor(Color.WHITE)
+        textView.gravity = Gravity.CENTER_HORIZONTAL
+
+        snackbar.show()
     }
 
     private fun isExpirationDateWithinAWeek(expirationDate: String): Boolean {
@@ -111,6 +123,6 @@ class UserMedicineActivity : AppCompatActivity() {
 
         val differenceInDays = differenceInMilliS / (1000 * 60 * 60 * 24)
 
-        return differenceInDays < 7
+        return differenceInDays <= 7
     }
 }
