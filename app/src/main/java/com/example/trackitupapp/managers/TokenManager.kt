@@ -7,13 +7,14 @@ class TokenManager {
     companion object {
         private const val PREF_NAME = "app_preferences"
         private const val TOKEN_KEY = "token"
+        private const val TOKEN_TYPE = "Token"
     }
 
     fun saveToken(context: Context, token: String) {
         val sharedPreferences: SharedPreferences    = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor        = sharedPreferences.edit()
 
-        editor.putString(TOKEN_KEY, token)
+        editor.putString(TOKEN_KEY, "$TOKEN_TYPE $token")
         editor.apply()
     }
 

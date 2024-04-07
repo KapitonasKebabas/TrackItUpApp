@@ -92,7 +92,7 @@ class ApiCalls {
 
     fun callUserMedicine( applicationContext: Context, param: UserMedicineCallback)
     {
-        val call = ApiServiceInstance.Medicine.apiServices.userMedicine("Token " + tokenManager.getToken(applicationContext).toString())
+        val call = ApiServiceInstance.Medicine.apiServices.userMedicine(tokenManager.getToken(applicationContext).toString())
 
         call.enqueue(object : Callback<UserMedicineResponse>
         {
@@ -115,7 +115,7 @@ class ApiCalls {
 
     fun callAprovedMedicine( applicationContext: Context, param: AprovedMedicineCallback)
     {
-        val call = ApiServiceInstance.Medicine.apiServices.userAprovedMedicine("Token " + tokenManager.getToken(applicationContext).toString())
+        val call = ApiServiceInstance.Medicine.apiServices.userAprovedMedicine(tokenManager.getToken(applicationContext).toString())
 
         call.enqueue(object : Callback<AprovedMedicinesResponse>
         {
@@ -138,7 +138,7 @@ class ApiCalls {
 
     fun callUserMedicineUpdate(applicationContext: Context, userMedicine: MedicineResponse, param: MedicineCallback)
     {
-        val call = ApiServiceInstance.Medicine.apiServices.updateUserMedicine("Token " + tokenManager.getToken(applicationContext).toString(), userMedicine.pk, userMedicine)
+        val call = ApiServiceInstance.Medicine.apiServices.updateUserMedicine(tokenManager.getToken(applicationContext).toString(), userMedicine.pk, userMedicine)
 
         call.enqueue(object : Callback<MedicineResponse>
         {
@@ -161,7 +161,7 @@ class ApiCalls {
 
     fun callUserMedicineDelete(applicationContext: Context, userMedicine: MedicineResponse, param: SimpleCallback)
     {
-        val call = ApiServiceInstance.Medicine.apiServices.deleteUserMedicine("Token " + tokenManager.getToken(applicationContext).toString(), userMedicine.pk)
+        val call = ApiServiceInstance.Medicine.apiServices.deleteUserMedicine(tokenManager.getToken(applicationContext).toString(), userMedicine.pk)
 
         call.enqueue(object : Callback<SimpleResponse>
         {
@@ -188,7 +188,7 @@ class ApiCalls {
 
         if(username != "") {
             val call = ApiServiceInstance.Auth.apiServices.checkauth(
-                "Token " + tokenManager.getToken(applicationContext).toString(),
+                tokenManager.getToken(applicationContext).toString(),
                 AESCrypt.decrypt(username)
             )
             call.enqueue(object : Callback<SimpleResponse> {
@@ -212,7 +212,7 @@ class ApiCalls {
 
     fun callAddUserMedicine(applicationContext: Context, medicine: MedicineCall, param: MedicineCallback)
     {
-        val call = ApiServiceInstance.Medicine.apiServices.createUserMedicine("Token " + tokenManager.getToken(applicationContext).toString(), medicine)
+        val call = ApiServiceInstance.Medicine.apiServices.createUserMedicine(tokenManager.getToken(applicationContext).toString(), medicine)
 
         call.enqueue(object : Callback<MedicineResponse>
         {
