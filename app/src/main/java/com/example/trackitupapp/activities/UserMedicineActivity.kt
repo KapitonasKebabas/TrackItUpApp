@@ -21,6 +21,7 @@ import com.example.trackitupapp.constants.Constants
 import com.example.trackitupapp.dataHolder.UserMedicine
 import com.google.android.material.snackbar.Snackbar
 import java.util.Calendar
+import com.google.android.material.R as materialR
 
 class UserMedicineActivity : AppCompatActivity() {
     private lateinit var calls: ApiCalls
@@ -102,7 +103,7 @@ class UserMedicineActivity : AppCompatActivity() {
 
         snackbarView.layoutParams = params
 
-        val textView = snackbarView.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
+        val textView = snackbarView.findViewById<TextView>(materialR.id.snackbar_text)
         textView.setTextColor(Color.WHITE)
         textView.gravity = Gravity.CENTER_HORIZONTAL
 
