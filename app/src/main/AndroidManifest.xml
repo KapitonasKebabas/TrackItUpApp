@@ -25,7 +25,7 @@
             android:name=".activities.AddUserMedicineActivity"
             android:exported="false" />
         <activity
-            android:name=".managers.RegisterActivity"
+            android:name=".activities.RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".activities.UserMedicineActivity"
