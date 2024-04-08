@@ -43,6 +43,16 @@ class RegisterActivity : AppCompatActivity() {
                     errorMessageBuilder.append("\n")
                 }
             }
+
+            if (responseObj.has(ProfilePreferences.Password.toString())) {
+                val pswErrors =
+                    responseObj.getJSONArray(ProfilePreferences.Password.toString())
+
+                for (i in 0 until pswErrors.length()) {
+                    errorMessageBuilder.append(pswErrors.optString(i))
+                    errorMessageBuilder.append("\n")
+                }
+            }
         }
 
         return errorMessageBuilder.toString()
