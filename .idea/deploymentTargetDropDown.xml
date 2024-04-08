@@ -8,7 +8,19 @@
       <entry key="Login">
         <State />
       </entry>
+      <entry key="UserMedicineUpdateTest">
+        <State />
+      </entry>
       <entry key="app">
+        <State />
+      </entry>
+      <entry key="testCancel()">
+        <State />
+      </entry>
+      <entry key="testUpdate()">
+        <State />
+      </entry>
+      <entry key="testUpdateNegativeValues()">
         <State />
       </entry>
     </value>
