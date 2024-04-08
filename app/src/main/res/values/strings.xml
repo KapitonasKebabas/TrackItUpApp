@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">TrackItUpApp</string>
     <string name="medicineExpiring">expires in less than a week.</string>
+    <string name="User_psw_isEmpty">Please enter password</string>
+    <string name="User_login_isEmpty">Please enter username</string>
+    <string name="User_loginPsw_isEmpty">Please enter username and password</string>
 </resources>

@@ -104,6 +104,7 @@ class EditMedicineActivity : AppCompatActivity() {
             dateParts[1].toInt() - 1,
             dateParts[2].toInt()
         )
+        datePickerDialog.datePicker.minDate = System.currentTimeMillis() - 1000
         datePickerDialog.show()
     }
 

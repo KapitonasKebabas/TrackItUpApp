@@ -99,26 +99,36 @@ class LoginActivity : AppCompatActivity() {
         btnLogin.setOnClickListener {
             val username    = findViewById<EditText>(R.id.username).text.toString()
             val password    = findViewById<EditText>(R.id.password).text.toString()
-            val progressBar = findViewById<ProgressBar>(R.id.pb_loading)
 
-            progressBar.visibility = View.VISIBLE
-            calls.callLogIn(
-                applicationContext,
-                username,
-                password,
-                object : LoginCallback {
-                    override fun onSuccess() {
-                        progressBar.visibility = View.GONE
-                        initAfterLoginData()
-                        gotoNextActivity()
-                    }
+            if(username.isEmpty() && password.isEmpty()){
+                findViewById<TextView>(R.id.tv_token).text = getString(R.string.User_loginPsw_isEmpty)
+            } else if (username.isEmpty()) {
+                findViewById<TextView>(R.id.tv_token).text = getString(R.string.User_login_isEmpty)
+            } else if (password.isEmpty()) {
+                findViewById<TextView>(R.id.tv_token).text = getString(R.string.User_psw_isEmpty)
+            }
+            else{
+                val progressBar = findViewById<ProgressBar>(R.id.pb_loading)
 
-                    override fun onFailure(message: String) {
-                        findViewById<TextView>(R.id.tv_token).text = message
-                        progressBar.visibility = View.GONE
+                progressBar.visibility = View.VISIBLE
+                calls.callLogIn(
+                    applicationContext,
+                    username,
+                    password,
+                    object : LoginCallback {
+                        override fun onSuccess() {
+                            progressBar.visibility = View.GONE
+                            initAfterLoginData()
+                            gotoNextActivity()
+                        }
+
+                        override fun onFailure(message: String) {
+                            findViewById<TextView>(R.id.tv_token).text = message
+                            progressBar.visibility = View.GONE
+                        }
                     }
-                }
-            )
+                )
+            }
         }
     }
 }
