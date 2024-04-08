@@ -126,7 +126,7 @@ class UserMedicineUpdateTest {
 
         Thread.sleep(1000)
 
-        onView(withId(R.id.editAmount)).check(matches(withText(updatedAmount)))
+        onView(withId(R.id.editAmount)).check(matches(withText(updatedAmount.toString())))
         onView(withId(R.id.editExpirationDate)).check(matches(withText(updatedExpiryDate)))
     }
 
@@ -164,7 +164,7 @@ class UserMedicineUpdateTest {
 
         Thread.sleep(1000)
 
-        onView(withId(R.id.editAmount)).check(matches(withText(updatedAmount)))
+        onView(withId(R.id.editAmount)).check(matches(withText(updatedAmount.toString())))
         onView(withId(R.id.editExpirationDate)).check(matches(withText(updatedExpiryDate)))
     }
 
@@ -200,7 +200,7 @@ class UserMedicineUpdateTest {
 
         Thread.sleep(1000)
 
-        onView(withId(R.id.editAmount)).check(matches(not(withText(updatedAmountNegative))))
+        onView(withId(R.id.editAmount)).check(matches(not(withText(updatedAmountNegative.toString()))))
         onView(withId(R.id.editExpirationDate)).check(matches(not(withText(updatedExpiryDateNegative))))
     }
 
