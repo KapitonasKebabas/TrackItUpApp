@@ -34,6 +34,7 @@ class LoginActivity : AppCompatActivity() {
 
         //checkCurrentAuth()
         btnLogin()
+        btnReg()
     }
 
     private fun gotoNextActivity()
