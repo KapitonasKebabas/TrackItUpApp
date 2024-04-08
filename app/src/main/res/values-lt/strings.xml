@@ -2,4 +2,7 @@
 <resources>
     <string name="app_name">TrackItUpApp</string>
     <string name="medicineExpiring">galiojimo laikas baigiasi už mažiau nei savaitės.</string>
+    <string name="User_psw_isEmpty">Įveskite slaptažodį</string>
+    <string name="User_login_isEmpty">Įveskite vartotojo vardą</string>
+    <string name="User_loginPsw_isEmpty">Įveskite vartotojo vardą ir slaptažodį</string>
 </resources>

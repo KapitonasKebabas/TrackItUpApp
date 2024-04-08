@@ -100,11 +100,11 @@ class LoginActivity : AppCompatActivity() {
             val password    = findViewById<EditText>(R.id.password).text.toString()
 
             if(username.isEmpty() && password.isEmpty()){
-                findViewById<TextView>(R.id.tv_token).text = "Please enter username and password"
+                findViewById<TextView>(R.id.tv_token).text = getString(R.string.User_loginPsw_isEmpty)
             } else if (username.isEmpty()) {
-                findViewById<TextView>(R.id.tv_token).text = "Please enter username"
+                findViewById<TextView>(R.id.tv_token).text = getString(R.string.User_login_isEmpty)
             } else if (password.isEmpty()) {
-                findViewById<TextView>(R.id.tv_token).text = "Please enter password"
+                findViewById<TextView>(R.id.tv_token).text = getString(R.string.User_psw_isEmpty)
             }
             else{
                 val progressBar = findViewById<ProgressBar>(R.id.pb_loading)
