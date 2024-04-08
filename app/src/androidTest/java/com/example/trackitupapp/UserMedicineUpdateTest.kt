@@ -17,17 +17,19 @@ import com.example.trackitupapp.activities.LoginActivity
 import com.example.trackitupapp.activities.UserMedicineActivity
 import com.example.trackitupapp.constants.Constants.DATE_FORMAT
 import org.hamcrest.CoreMatchers
+import org.hamcrest.CoreMatchers.not
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.time.LocalDate
 
 @RunWith(AndroidJUnit4::class)
 class UserMedicineUpdateTest {
     object Constants {
-        val updatedAmount = "111"
+        val updatedAmount = 111
         val updatedExpiryDate = DATE_FORMAT.format(DATE_FORMAT.parse("2024-04-10"))
-        val updatedAmountNegative = "0"
+        val updatedAmountNegative = -111
         val updatedExpiryDateNegative = DATE_FORMAT.format(DATE_FORMAT.parse("2020-04-10"))
     }
 
@@ -105,7 +107,7 @@ class UserMedicineUpdateTest {
         Thread.sleep(1000)
 
         onView(withId(R.id.editAmount))
-            .perform(clearText(), typeText(updatedAmount), closeSoftKeyboard())
+            .perform(clearText(), typeText(updatedAmount.toString()), closeSoftKeyboard())
 
         onView(withId(R.id.editExpirationDate)).perform(click())
         onView(withClassName(CoreMatchers.`is`("android.widget.DatePicker")))
@@ -141,7 +143,7 @@ class UserMedicineUpdateTest {
         Thread.sleep(1000)
 
         onView(withId(R.id.editAmount))
-            .perform(clearText(), typeText(updatedAmount), closeSoftKeyboard())
+            .perform(clearText(), typeText(updatedAmount.toString()), closeSoftKeyboard())
 
         onView(withId(R.id.editExpirationDate)).perform(click())
         onView(withClassName(CoreMatchers.`is`("android.widget.DatePicker")))
@@ -179,7 +181,7 @@ class UserMedicineUpdateTest {
         Thread.sleep(1000)
 
         onView(withId(R.id.editAmount))
-            .perform(clearText(), typeText(updatedAmountNegative), closeSoftKeyboard())
+            .perform(clearText(), typeText(updatedAmountNegative.toString()), closeSoftKeyboard())
 
         onView(withId(R.id.editExpirationDate)).perform(click())
         onView(withClassName(CoreMatchers.`is`("android.widget.DatePicker")))
@@ -198,8 +200,8 @@ class UserMedicineUpdateTest {
 
         Thread.sleep(1000)
 
-        onView(withId(R.id.editAmount)).check(matches(withText(updatedAmountNegative)))
-        onView(withId(R.id.editExpirationDate)).check(matches(withText(updatedExpiryDateNegative)))
+        onView(withId(R.id.editAmount)).check(matches(not(withText(updatedAmountNegative))))
+        onView(withId(R.id.editExpirationDate)).check(matches(not(withText(updatedExpiryDateNegative))))
     }
 
 }
