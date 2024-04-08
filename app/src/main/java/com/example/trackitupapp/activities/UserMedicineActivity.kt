@@ -6,9 +6,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
+import android.widget.AdapterView
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.FrameLayout
 import android.widget.ProgressBar
+import android.widget.RadioButton
+import android.widget.RadioGroup
+import android.widget.SearchView
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -32,6 +38,7 @@ class UserMedicineActivity : AppCompatActivity() {
         calls = ApiCalls()
         adduserMedicineBtn()
         getUserMedecine()
+        setupFilters()
     }
 
     fun adduserMedicineBtn()
@@ -118,5 +125,80 @@ class UserMedicineActivity : AppCompatActivity() {
         val differenceInDays = differenceInMilliS / (1000 * 60 * 60 * 24)
 
         return differenceInDays <= 7
+    }
+
+    private fun setupFilters() {
+        val prescriptionFilter = findViewById<CheckBox>(R.id.PrescriptionMedicine)
+        val search = findViewById<SearchView>(R.id.search_filter)
+        val ascRadioButton = findViewById<RadioButton>(R.id.radio_asc)
+        val descRadioButton = findViewById<RadioButton>(R.id.radio_desc)
+
+        prescriptionFilter.visibility = View.VISIBLE;
+        search.visibility = View.VISIBLE;
+        ascRadioButton.visibility = View.VISIBLE;
+        descRadioButton.visibility = View.VISIBLE;
+
+
+        ascRadioButton.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                sortByDateAscending()
+            }
+        }
+
+        descRadioButton.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                sortByDateDescending()
+            }
+        }
+
+        search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+              return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                newText?.let {
+                    filterByName(it)
+                }
+                return true
+            }
+        })
+
+        prescriptionFilter.setOnCheckedChangeListener { buttonView, isChecked ->
+            var isPrescriptionChecked = isChecked
+            if(!isChecked){
+                refreshRVView()
+            }
+            else
+            filterByPrescription()
+        }
+    }
+
+    private fun sortByDateAscending() {
+        val sortedList = UserMedicine.getList().sortedBy { it.exp_date }
+        updateMedicineAdapter(sortedList)
+    }
+
+    private fun sortByDateDescending() {
+        val sortedList = UserMedicine.getList().sortedByDescending { it.exp_date }
+        updateMedicineAdapter(sortedList)
+    }
+
+    private fun filterByPrescription() {
+        val filteredList = UserMedicine.getList().filter { it.medecine_is_prescription }
+        updateMedicineAdapter(filteredList)
+    }
+
+    private fun filterByName(name: String) {
+        val filteredList = UserMedicine.getList().filter {
+            it.medecine_name.contains(name, ignoreCase = true)
+        }
+        updateMedicineAdapter(filteredList)
+    }
+
+    private fun updateMedicineAdapter(updatedList: List<MedicineResponse>) {
+        val userMedicineRecyclerView = findViewById<RecyclerView>(R.id.rv_medicineHolder)
+        val medicineAdapter = MedicineAdapter(this@UserMedicineActivity, updatedList)
+        userMedicineRecyclerView.adapter = medicineAdapter
     }
 }

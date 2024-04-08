@@ -20,9 +20,13 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_medicineHolder"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        android:layout_width="408dp"
+        android:layout_height="623dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_editor_absoluteX="1dp" />
 
     <Button
         android:id="@+id/btn_addUserMedicine"
@@ -36,5 +40,54 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.959" />
+
+    <SearchView
+        android:id="@+id/search_filter"
+        android:layout_width="357dp"
+        android:layout_height="34dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.107" />
+
+    <CheckBox
+        android:id="@+id/PrescriptionMedicine"
+        android:layout_width="155dp"
+        android:layout_height="30dp"
+        android:text="Receptinis"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.105"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.034" />
+
+    <RadioGroup
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.831"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023">
+
+        <RadioButton
+            android:id="@+id/radio_asc"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="30dp"
+            android:text="Date (min->max)" />
+
+        <RadioButton
+            android:id="@+id/radio_desc"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="30dp"
+            android:text="Date (max->min)" />
+    </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
