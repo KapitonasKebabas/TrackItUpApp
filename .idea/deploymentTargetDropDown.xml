@@ -17,6 +17,9 @@
       <entry key="testUpdate()">
         <State />
       </entry>
+      <entry key="testUpdateNegativeValues()">
+        <State />
+      </entry>
     </value>
   </component>
 </project>
