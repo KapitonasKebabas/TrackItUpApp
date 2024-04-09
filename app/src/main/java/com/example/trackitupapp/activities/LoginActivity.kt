@@ -16,7 +16,6 @@ import com.example.trackitupapp.apiServices.Callbacks.LoginCallback
 import com.example.trackitupapp.apiServices.Callbacks.SimpleCallback
 import com.example.trackitupapp.apiServices.responses.AprovedMedecineResponse
 import com.example.trackitupapp.dataHolder.AprovedMedicine
-import com.example.trackitupapp.managers.RegisterActivity
 import com.example.trackitupapp.managers.TokenManager
 import com.example.trackitupapp.managers.UserManager
 

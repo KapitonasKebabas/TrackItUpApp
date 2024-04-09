@@ -13,76 +13,99 @@ import org.json.JSONObject
 import retrofit2.Response
 
 class RegisterActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_register)
-    }
 
-    private fun generateError(response: Response<RegisterResponse>): String {
+    private lateinit var calls: ApiCalls
+    private fun handleError(response: Response<RegisterResponse>) {
         val errorResponse = response.errorBody()?.string()
-        val jObjError = JSONObject(errorResponse ?: "")
-        val errorMessageBuilder = StringBuilder()
+        val jObjError = errorResponse?.let { JSONObject(it) }
+
 
         // Access the "response" object
-        if (jObjError.has("response")) {
+        if(jObjError?.has("response") == true) {
             val responseObj = jObjError.getJSONObject("response")
 
             if (responseObj.has(ProfilePreferences.Username.toString())) {
+                val errorMessageBuilder = StringBuilder()
                 val usernameErrors =
                     responseObj.getJSONArray(ProfilePreferences.Username.toString())
 
                 for (i in 0 until usernameErrors.length()) {
-                    //TODO handle error
                     errorMessageBuilder.append(usernameErrors.optString(i))
                     errorMessageBuilder.append("\n")
                 }
+
+                findViewById<TextView>(R.id.tv_userError).text = errorMessageBuilder.toString()
             }
 
             if (responseObj.has(ProfilePreferences.Email.toString())) {
+                val errorMessageBuilder = StringBuilder()
                 val emailErrors =
                     responseObj.getJSONArray(ProfilePreferences.Email.toString())
 
                 for (i in 0 until emailErrors.length()) {
-                    //TODO handle error
                     errorMessageBuilder.append(emailErrors.optString(i))
                     errorMessageBuilder.append("\n")
                 }
+
+                findViewById<TextView>(R.id.tv_emailError).text = errorMessageBuilder.toString()
+            }
+
+            if (responseObj.has(ProfilePreferences.Password.toString())) {
+                val errorMessageBuilder = StringBuilder()
+                val pswErrors =
+                    responseObj.getJSONArray(ProfilePreferences.Password.toString())
+
+                for (i in 0 until pswErrors.length()) {
+                    errorMessageBuilder.append(pswErrors.optString(i))
+                    errorMessageBuilder.append("\n")
+                }
+
+                findViewById<TextView>(R.id.tv_pswError).text = errorMessageBuilder.toString()
             }
         }
-
-        return errorMessageBuilder.toString()
     }
 
-    private fun callRegister(
-        username: String,
-        firstName: String,
-        lastName: String,
-        email: String,
-        password: String
-    ) {
-        val calls = ApiCalls()
+    private fun btnReg() {
+        val btnReg = findViewById<Button>(R.id.btn_reg_registerAct)
+        btnReg.setOnClickListener()
+        {
+            val username    = findViewById<TextView>(R.id.et_username_registerAct).text.toString()
+            val firstName   = findViewById<TextView>(R.id.et_firstName_registerAct).text.toString()
+            val lastName    = findViewById<TextView>(R.id.et_lastName_registerAct).text.toString()
+            val email       = findViewById<TextView>(R.id.et_email_registerAct).text.toString()
+            val password    = findViewById<TextView>(R.id.et_password_registerAct).text.toString()
 
-        calls.callRegister(
-            username,
-            firstName,
-            lastName,
-            email,
-            password,
-            object : RegisterCallback {
-                override fun onSuccess(message: String) {
-                    //TODO Handle message
-                    finish()
+            calls.callRegister(
+                username,
+                firstName,
+                lastName,
+                email,
+                password,
+                object : RegisterCallback
+                {
+                    override fun onSuccess(message: String) {
+
+                        finish()
+                    }
+
+                    override fun onSuccessFail(message: Response<RegisterResponse>) {
+                        handleError(message)
+                    }
+
+                    override fun onFailure(message: String) {
+                        //callMessage(message)
+                    }
                 }
+            )
+        }
+    }
 
-                override fun onSuccessFail(message: Response<RegisterResponse>) {
-                    generateError(message)
-                }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_register)
 
-                override fun onFailure(message: String) {
-                    //TODO Handle message
-                }
-            }
-        )
+        calls = ApiCalls()
 
+        btnReg()
     }
 }
