@@ -2,13 +2,13 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="All Tests">
+      <entry key="MainActivity">
         <State />
       </entry>
-      <entry key="Login">
+      <entry key="RegisterTest">
         <State />
       </entry>
-      <entry key="app">
+      <entry key="testEmptyFields()">
         <State />
       </entry>
     </value>
