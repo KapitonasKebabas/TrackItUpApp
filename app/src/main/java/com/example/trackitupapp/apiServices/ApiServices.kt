@@ -6,6 +6,7 @@ import com.example.trackitupapp.apiServices.responses.AprovedMedecineResponse
 import com.example.trackitupapp.apiServices.responses.AprovedMedicinesResponse
 import com.example.trackitupapp.apiServices.responses.LoginResponse
 import com.example.trackitupapp.apiServices.responses.MedicineResponse
+import com.example.trackitupapp.apiServices.responses.RefreshTokenResponse
 import com.example.trackitupapp.apiServices.responses.RegisterResponse
 import com.example.trackitupapp.apiServices.responses.SimpleResponse
 import com.example.trackitupapp.apiServices.responses.UserMedicineResponse
@@ -75,4 +76,10 @@ interface ApiServices {
         @Header("Authorization") token: String,
         @Body userMedicine: MedicineCall // Pass the UserMedicine object in the request body
     ): Call<MedicineResponse>
+
+    @POST("refresh/")
+    @FormUrlEncoded
+    fun refreshToken(
+        @Field("refresh") refresh: String
+    ): Call<RefreshTokenResponse>
 }
