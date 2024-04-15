@@ -2,21 +2,18 @@ package com.example.trackitupapp.activities
 
 import android.content.Intent
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
-import android.widget.AdapterView
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.FrameLayout
 import android.widget.ProgressBar
 import android.widget.RadioButton
-import android.widget.RadioGroup
 import android.widget.SearchView
-import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trackitupapp.R
 import com.example.trackitupapp.adapters.MedicineAdapter
@@ -30,7 +27,7 @@ import java.util.Calendar
 import com.google.android.material.R as materialR
 
 class UserMedicineActivity : AppCompatActivity() {
-    private lateinit var calls: ApiCalls
+    lateinit var calls: ApiCalls
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_medicine)
@@ -90,7 +87,7 @@ class UserMedicineActivity : AppCompatActivity() {
         userMedicineRecyclerView.adapter = medicineAdapter
     }
 
-    private fun checkExpDate(userMedicineRecyclerView: RecyclerView, medicineList: List<MedicineResponse>) {
+    fun checkExpDate(userMedicineRecyclerView: RecyclerView, medicineList: List<MedicineResponse>) {
         for (medicineResponse in medicineList) {
             val isExpiring = isExpirationDateWithinAWeek(medicineResponse.exp_date)
 
@@ -101,7 +98,7 @@ class UserMedicineActivity : AppCompatActivity() {
         }
     }
 
-    private fun showTopSnackbar(rootView: View, message: String) {
+    fun showTopSnackbar(rootView: View, message: String) {
         val snackbar = Snackbar.make(rootView, message, Snackbar.LENGTH_SHORT)
         val snackbarView = snackbar.view
 
@@ -117,7 +114,7 @@ class UserMedicineActivity : AppCompatActivity() {
         snackbar.show()
     }
 
-    private fun isExpirationDateWithinAWeek(expirationDate: String): Boolean {
+    fun isExpirationDateWithinAWeek(expirationDate: String): Boolean {
         val currentDate = Calendar.getInstance().time
         val expDate = Constants.DATE_FORMAT.parse(expirationDate)
 

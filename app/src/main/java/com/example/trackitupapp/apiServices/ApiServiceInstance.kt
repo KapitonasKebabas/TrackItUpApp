@@ -1,13 +1,12 @@
 package com.example.trackitupapp.apiServices
 
-import com.example.trackitupapp.apiServices.ApiServices
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class ApiServiceInstance
 {
     companion object {
-        private const val BASE_URL = "http://84.240.51.3:5000/"
+        private const val BASE_URL = "http://158.129.231.7:8000/"
     }
     object Auth {
         private val retrofit = Retrofit.Builder()
