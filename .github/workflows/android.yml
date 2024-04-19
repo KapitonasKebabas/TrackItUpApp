@@ -20,3 +20,11 @@ jobs:
 
     - name: Build with Gradle
       run: ./gradlew assembleDebug
+
+    - name: Deploy to Firebase App Distribution
+      uses: wzieba/Firebase-App-Distribution-Github-Action@v1
+      with:
+        token: ${{ secrets.FIREBASE_TOKEN }}
+        app: ${{ secrets.FIREBASE_APP }}
+        groups: 'internal-testers'
+        distribution: 'release'
