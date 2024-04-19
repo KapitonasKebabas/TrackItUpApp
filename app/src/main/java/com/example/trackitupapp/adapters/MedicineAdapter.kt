@@ -26,8 +26,8 @@ class MedicineAdapter (private val context: Context, private val medicine: List<
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val name: TextView = itemView.findViewById(R.id.tv_name)
-        val expDate: TextView = itemView.findViewById(R.id.tv_amount)
-        val qty: TextView = itemView.findViewById(R.id.tv_expDate)
+        val qty: TextView = itemView.findViewById(R.id.tv_amount)
+        val expDate: TextView = itemView.findViewById(R.id.tv_expDate)
         val img: ImageView = itemView.findViewById(R.id.iv_img)
         val deleteBtn: Button = itemView.findViewById(R.id.btn_delete)
     }

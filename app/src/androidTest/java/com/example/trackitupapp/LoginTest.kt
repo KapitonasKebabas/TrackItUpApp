@@ -33,6 +33,56 @@ class LoginTest {
         activityScenario.close()
     }
 
+    @Test
+    fun testEmptyUsername() {
+        // Aktyvuoti LoginActivity
+        val activityScenario = ActivityScenario.launch(LoginActivity::class.java)
+
+        // Palikti vartotojo vardo lauką tuščią, tačiau įvesti slaptažodį
+        onView(withId(R.id.username)).perform(typeText(""), closeSoftKeyboard())
+        onView(withId(R.id.password)).perform(typeText("test"), closeSoftKeyboard())
+
+        // Paspausti prisijungimo mygtuką
+        onView(withId(R.id.btn_login)).perform(click())
+
+        // Patikrinti, ar buvo parodyta klaidos žinutė dėl tuščio vartotojo vardo
+        onView(withId(R.id.tv_token)).check(matches(withText("Please enter username")))
+        activityScenario.close()
+    }
+
+    @Test
+    fun testEmptyPassword() {
+        // Aktyvuoti LoginActivity
+        val activityScenario = ActivityScenario.launch(LoginActivity::class.java)
+
+        // Palikti slaptažodžio lauką tuščią, tačiau įvesti vartotojo vardą
+        onView(withId(R.id.username)).perform(typeText("test"), closeSoftKeyboard())
+        onView(withId(R.id.password)).perform(typeText(""), closeSoftKeyboard())
+
+        // Paspausti prisijungimo mygtuką
+        onView(withId(R.id.btn_login)).perform(click())
+
+        // Patikrinti, ar buvo parodyta klaidos žinutė dėl tuščio slaptažodžio
+        onView(withId(R.id.tv_token)).check(matches(withText("Please enter password")))
+        activityScenario.close()
+    }
+
+    @Test
+    fun testBothEmpty() {
+        // Aktyvuoti LoginActivity
+        val activityScenario = ActivityScenario.launch(LoginActivity::class.java)
+
+        // Palikti abu laukus tuščius
+        onView(withId(R.id.username)).perform(typeText(""), closeSoftKeyboard())
+        onView(withId(R.id.password)).perform(typeText(""), closeSoftKeyboard())
+
+        // Paspausti prisijungimo mygtuką
+        onView(withId(R.id.btn_login)).perform(click())
+
+        // Patikrinti, ar buvo parodyta klaidos žinutė dėl abiejų tuščių laukų
+        onView(withId(R.id.tv_token)).check(matches(withText("Please enter username and password")))
+        activityScenario.close()
+    }
 
     @Test
     fun testValidLoginCredentials() {

@@ -1,6 +1,5 @@
-package com.example.trackitupapp.managers
+package com.example.trackitupapp.activities
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -16,16 +15,17 @@ import retrofit2.Response
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var calls: ApiCalls
-    private fun generateError(response: Response<RegisterResponse>) : String {
+    private fun handleError(response: Response<RegisterResponse>) {
         val errorResponse = response.errorBody()?.string()
         val jObjError = errorResponse?.let { JSONObject(it) }
-        val errorMessageBuilder = StringBuilder()
+
 
         // Access the "response" object
         if(jObjError?.has("response") == true) {
             val responseObj = jObjError.getJSONObject("response")
 
             if (responseObj.has(ProfilePreferences.Username.toString())) {
+                val errorMessageBuilder = StringBuilder()
                 val usernameErrors =
                     responseObj.getJSONArray(ProfilePreferences.Username.toString())
 
@@ -33,9 +33,12 @@ class RegisterActivity : AppCompatActivity() {
                     errorMessageBuilder.append(usernameErrors.optString(i))
                     errorMessageBuilder.append("\n")
                 }
+
+                findViewById<TextView>(R.id.tv_userError).text = errorMessageBuilder.toString()
             }
 
             if (responseObj.has(ProfilePreferences.Email.toString())) {
+                val errorMessageBuilder = StringBuilder()
                 val emailErrors =
                     responseObj.getJSONArray(ProfilePreferences.Email.toString())
 
@@ -43,10 +46,23 @@ class RegisterActivity : AppCompatActivity() {
                     errorMessageBuilder.append(emailErrors.optString(i))
                     errorMessageBuilder.append("\n")
                 }
+
+                findViewById<TextView>(R.id.tv_emailError).text = errorMessageBuilder.toString()
+            }
+
+            if (responseObj.has(ProfilePreferences.Password.toString())) {
+                val errorMessageBuilder = StringBuilder()
+                val pswErrors =
+                    responseObj.getJSONArray(ProfilePreferences.Password.toString())
+
+                for (i in 0 until pswErrors.length()) {
+                    errorMessageBuilder.append(pswErrors.optString(i))
+                    errorMessageBuilder.append("\n")
+                }
+
+                findViewById<TextView>(R.id.tv_pswError).text = errorMessageBuilder.toString()
             }
         }
-
-        return errorMessageBuilder.toString()
     }
 
     private fun btnReg() {
@@ -68,28 +84,21 @@ class RegisterActivity : AppCompatActivity() {
                 object : RegisterCallback
                 {
                     override fun onSuccess(message: String) {
-                        callMessage(message)
+
                         finish()
                     }
 
                     override fun onSuccessFail(message: Response<RegisterResponse>) {
-                        callMessage(generateError(message))
+                        handleError(message)
                     }
 
                     override fun onFailure(message: String) {
-                        callMessage(message)
+                        //callMessage(message)
                     }
                 }
             )
         }
     }
-
-    private fun callMessage(message: String?)
-    {
-        val messageField = findViewById<TextView>(R.id.tv_registerError)
-        messageField.text = message
-    }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

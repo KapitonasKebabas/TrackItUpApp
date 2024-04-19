@@ -13,6 +13,7 @@ import com.example.trackitupapp.apiServices.calls.MedicineCall
 import com.example.trackitupapp.apiServices.responses.AprovedMedicinesResponse
 import com.example.trackitupapp.apiServices.responses.LoginResponse
 import com.example.trackitupapp.apiServices.responses.MedicineResponse
+import com.example.trackitupapp.apiServices.responses.RefreshTokenResponse
 import com.example.trackitupapp.apiServices.responses.RegisterResponse
 import com.example.trackitupapp.apiServices.responses.SimpleResponse
 import com.example.trackitupapp.apiServices.responses.UserMedicineResponse
@@ -27,6 +28,14 @@ class ApiCalls {
     var tokenManager    = TokenManager()
     var userManager     = UserManager()
 
+    private fun waitForToken(context: Context)
+    {
+        while (TokenManager().isTokenUpdating(context)) {
+            //TODO(CHECK IF WORKS)
+            Thread.sleep(100)
+        }
+    }
+
     fun callLogIn(
         applicationContext: Context,
         username: String,
@@ -34,7 +43,7 @@ class ApiCalls {
         param: LoginCallback
     )
     {
-        val call = ApiServiceInstance.Auth.apiServices.login(username, AESCrypt.encrypt(password))
+        val call = ApiServiceInstance.Auth.apiServices.login(username, password)
         call.enqueue(object : Callback<LoginResponse>
         {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>)
@@ -42,12 +51,12 @@ class ApiCalls {
                 if (response.isSuccessful)
                 {
                     val loginResponse = response.body()
-                    val tokenResponse = loginResponse?.token
+                    val token = loginResponse?.access
+                    val refreshToken = loginResponse?.refresh
 
-                    if(!tokenResponse.isNullOrEmpty())
+                    if(!token.isNullOrEmpty() && !refreshToken.isNullOrEmpty())
                     {
-                        tokenManager.saveToken(applicationContext, tokenResponse.toString())
-                        userManager.saveDataByFieldString(applicationContext, ProfilePreferences.Username.toString(), AESCrypt.encrypt(username))
+                        tokenManager.insertTokenResponse(applicationContext, token.toString(), refreshToken.toString())
                         param.onSuccess()
                     }
                     else
@@ -70,7 +79,7 @@ class ApiCalls {
 
     fun callRegister(username: String, firstName: String, lastName: String, email: String, password: String, param: RegisterCallback)
     {
-        val call = ApiServiceInstance.Auth.apiServices.register(username, firstName, lastName, email, AESCrypt.encrypt(password))
+        val call = ApiServiceInstance.Auth.apiServices.register(username, firstName, lastName, email, password)
 
         call.enqueue(object : Callback<RegisterResponse> {
             override fun onResponse(
@@ -232,4 +241,33 @@ class ApiCalls {
             }
         })
     }
+
+    fun callRefreshToken(applicationContext: Context, param: LoginCallback) {
+        waitForToken(applicationContext)
+
+        val tokenManager = TokenManager()
+        val refreshToken = tokenManager.getRefToken(applicationContext)
+
+        val call = ApiServiceInstance.Auth.apiServices.refreshToken(refreshToken.toString())
+
+        call.enqueue(object : Callback<RefreshTokenResponse>
+        {
+            override fun onResponse(call: Call<RefreshTokenResponse>, response: Response<RefreshTokenResponse>)
+            {
+                if(response.isSuccessful){
+                    tokenManager.saveToken(applicationContext, response.body()!!.access)
+                    param.onSuccess() // Notify the callback with the result
+                }
+                else{
+                    param.onFailure("")
+                }
+            }
+
+            override fun onFailure(call: Call<RefreshTokenResponse>, t: Throwable)
+            {
+                param.onFailure("${t.message}")
+            }
+        })
+    }
+
 }
