@@ -20,10 +20,3 @@ jobs:
 
     - name: Build with Gradle
       run: ./gradlew assembleDebug
-
-    - name: Checks out flutter
-      uses: actions/checkout@v2
-      with:
-          repository: flutter/flutter
-          ref: refs/heads/master
-          path: flutter
