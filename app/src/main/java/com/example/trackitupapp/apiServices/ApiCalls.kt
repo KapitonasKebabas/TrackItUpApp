@@ -43,7 +43,7 @@ class ApiCalls {
         param: LoginCallback
     )
     {
-        val call = ApiServiceInstance.Auth.apiServices.login(username, AESCrypt.encrypt(password))
+        val call = ApiServiceInstance.Auth.apiServices.login(username, password)
         call.enqueue(object : Callback<LoginResponse>
         {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>)
@@ -79,7 +79,7 @@ class ApiCalls {
 
     fun callRegister(username: String, firstName: String, lastName: String, email: String, password: String, param: RegisterCallback)
     {
-        val call = ApiServiceInstance.Auth.apiServices.register(username, firstName, lastName, email, AESCrypt.encrypt(password))
+        val call = ApiServiceInstance.Auth.apiServices.register(username, firstName, lastName, email, password)
 
         call.enqueue(object : Callback<RegisterResponse> {
             override fun onResponse(
