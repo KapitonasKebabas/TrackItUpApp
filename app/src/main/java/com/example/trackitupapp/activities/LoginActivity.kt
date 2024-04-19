@@ -1,14 +1,8 @@
 package com.example.trackitupapp.activities
 
-import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.text.SpannableString
-import android.text.Spanned
-import android.text.method.LinkMovementMethod
-import android.text.style.ClickableSpan
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -16,11 +10,11 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.trackitupapp.R
 import com.example.trackitupapp.apiServices.ApiCalls
 import com.example.trackitupapp.apiServices.Callbacks.AprovedMedicineCallback
 import com.example.trackitupapp.apiServices.Callbacks.LoginCallback
-import com.example.trackitupapp.apiServices.Callbacks.SimpleCallback
 import com.example.trackitupapp.apiServices.responses.AprovedMedecineResponse
 import com.example.trackitupapp.dataHolder.AprovedMedicine
 import com.example.trackitupapp.enums.ProfilePreferences
@@ -65,7 +59,20 @@ class LoginActivity : AppCompatActivity() {
         }
         timer.schedule(doAsynchronousTask, 0, 660000)
 
-        //TODO FINISH MainActivity
+        findViewById<ProgressBar>(R.id.pb_loading).visibility = View.VISIBLE
+        calls.callAprovedMedicine(
+            applicationContext,
+            object : AprovedMedicineCallback {
+                override fun onSuccess(aprovedMedicineList: List<AprovedMedecineResponse>) {
+                    AprovedMedicine.addToList(aprovedMedicineList)
+                    findViewById<ProgressBar>(R.id.pb_loading).visibility = View.GONE
+                }
+
+                override fun onFailure(message: String) {
+                    Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
+                    findViewById<ProgressBar>(R.id.pb_loading).visibility = View.GONE
+                }
+            })
 
         val intent = Intent(this, UserMedicineActivity::class.java)
         this.startActivity(intent)

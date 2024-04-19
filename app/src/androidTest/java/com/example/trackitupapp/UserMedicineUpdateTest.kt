@@ -84,7 +84,7 @@ class UserMedicineUpdateTest {
         onView(withId(R.id.rv_medicineHolder))
             .perform(
                 RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                    1,
+                    3,
                     click()
                 )
             )
@@ -99,7 +99,7 @@ class UserMedicineUpdateTest {
         onView(withId(R.id.rv_medicineHolder))
             .perform(
                 RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                    1,
+                    2,
                     click()
                 )
             )
@@ -173,7 +173,7 @@ class UserMedicineUpdateTest {
         onView(withId(R.id.rv_medicineHolder))
             .perform(
                 RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                    3,
+                    1,
                     click()
                 )
             )
