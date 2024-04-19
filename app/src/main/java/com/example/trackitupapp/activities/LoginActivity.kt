@@ -81,6 +81,7 @@ class LoginActivity : AppCompatActivity() {
                 }
             })
 
+
         calls.callStatuses(
             applicationContext,
             object : StatusesCallback {
