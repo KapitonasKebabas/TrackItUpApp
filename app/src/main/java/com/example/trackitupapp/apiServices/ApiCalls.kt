@@ -4,6 +4,7 @@ import AESCrypt
 import android.content.Context
 import com.example.trackitupapp.activities.LoginActivity
 import com.example.trackitupapp.apiServices.Callbacks.AprovedMedicineCallback
+import com.example.trackitupapp.apiServices.Callbacks.LogOutCallback
 import com.example.trackitupapp.apiServices.Callbacks.LoginCallback
 import com.example.trackitupapp.apiServices.Callbacks.MedicineCallback
 import com.example.trackitupapp.apiServices.Callbacks.OrderCallback
@@ -17,6 +18,7 @@ import com.example.trackitupapp.apiServices.calls.MedicineCall
 import com.example.trackitupapp.apiServices.calls.OrderCall
 import com.example.trackitupapp.apiServices.responses.AprovedMedicinesResponse
 import com.example.trackitupapp.apiServices.responses.LoginResponse
+import com.example.trackitupapp.apiServices.responses.LogoutResponse
 import com.example.trackitupapp.apiServices.responses.MedicineResponse
 import com.example.trackitupapp.apiServices.responses.OrderResponse
 import com.example.trackitupapp.apiServices.responses.OrdersResponse
@@ -394,4 +396,40 @@ class ApiCalls {
         })
     }
 
+    fun callLogout(
+        applicationContext: Context,
+        param: LogOutCallback
+    )
+    {
+        waitForToken(applicationContext)
+
+        val token = tokenManager.getToken(applicationContext).toString()
+        val refresh = tokenManager.getRefToken(applicationContext).toString()
+
+        val call = ApiServiceInstance.Auth.apiServices.logout(token, refresh)
+
+        call.enqueue(object : Callback<LogoutResponse>
+        {
+            override fun onResponse(call: Call<LogoutResponse>, response: Response<LogoutResponse>)
+            {
+                userManager.deleteProfile(applicationContext)
+                tokenManager.deleteToken(applicationContext)
+
+                if(response.isSuccessful) {
+                    param.onSuccess()
+                }
+                else
+                {
+                    param.onFailure(response.message())
+                }
+            }
+            override fun onFailure(call: Call<LogoutResponse>, t: Throwable)
+            {
+                UserManager().deleteProfile(applicationContext)
+                TokenManager().deleteToken(applicationContext)
+
+                param.onFailure("${t.message}")
+            }
+        })
+    }
 }
