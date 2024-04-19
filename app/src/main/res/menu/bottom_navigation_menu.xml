@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/my_medicine"
+        android:title="My Medicine"
+        android:icon="@drawable/ic_my_medicine" />
+
+    <item
+        android:id="@+id/share_medicine"
+
+        android:title="Share Medicine"
+        android:icon="@drawable/ic_share_medicine" />
+
+    <item
+        android:id="@+id/orders"
+        android:title="Orders"
+        android:icon="@drawable/ic_orders" />
+
+    <item
+        android:id="@+id/settings"
+        android:title="Settings"
+        android:icon="@drawable/ic_settings" />
+</menu>

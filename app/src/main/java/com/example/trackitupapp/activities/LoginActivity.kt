@@ -3,6 +3,10 @@ package com.example.trackitupapp.activities
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -15,8 +19,11 @@ import com.example.trackitupapp.R
 import com.example.trackitupapp.apiServices.ApiCalls
 import com.example.trackitupapp.apiServices.Callbacks.AprovedMedicineCallback
 import com.example.trackitupapp.apiServices.Callbacks.LoginCallback
+import com.example.trackitupapp.apiServices.Callbacks.StatusesCallback
 import com.example.trackitupapp.apiServices.responses.AprovedMedecineResponse
+import com.example.trackitupapp.apiServices.responses.StatusResponse
 import com.example.trackitupapp.dataHolder.AprovedMedicine
+import com.example.trackitupapp.dataHolder.Statuses
 import com.example.trackitupapp.enums.ProfilePreferences
 import com.example.trackitupapp.managers.TokenManager
 import com.example.trackitupapp.managers.UserManager
@@ -37,8 +44,8 @@ class LoginActivity : AppCompatActivity() {
         val btnReg = findViewById<Button>(R.id.btn_regActivity)
 
         btnReg.setOnClickListener {
-            val intent = Intent(applicationContext, RegisterActivity::class.java)
-            applicationContext.startActivity(intent)
+            val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -74,6 +81,19 @@ class LoginActivity : AppCompatActivity() {
                 }
             })
 
+        calls.callStatuses(
+            applicationContext,
+            object : StatusesCallback {
+                override fun onSuccess(statuses: List<StatusResponse>) {
+                    Statuses.addToList(statuses)
+                }
+
+                override fun onFailure(message: String) {
+                }
+
+            }
+        )
+
         val intent = Intent(this, UserMedicineActivity::class.java)
         this.startActivity(intent)
 
@@ -97,7 +117,7 @@ class LoginActivity : AppCompatActivity() {
 
         setButtons()
 
-        /*val textView = findViewById<TextView>(R.id.question)
+        val textView = findViewById<TextView>(R.id.question)
         textView.movementMethod = LinkMovementMethod.getInstance()
 
         val spannableString = SpannableString(getString(R.string.login_psw_forget))
@@ -105,7 +125,7 @@ class LoginActivity : AppCompatActivity() {
         val respasswClickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
                 // Handle click on "Reset password"
-                GoToActivities.ResetPasswordActivity(this@LoginActivity)
+                
             }
         }
 
@@ -116,7 +136,7 @@ class LoginActivity : AppCompatActivity() {
         // Set clickable spans for "Reset password"
         spannableString.setSpan(respasswClickableSpan, respasswStartIndex, respasswEndIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
-        textView.text = spannableString*/
+        textView.text = spannableString
     }
 
     private fun logIn() {

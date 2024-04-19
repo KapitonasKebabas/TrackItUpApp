@@ -3,9 +3,9 @@ package com.example.trackitupapp.apiServices
 
 import com.example.trackitupapp.apiServices.calls.MedicineCall
 import com.example.trackitupapp.apiServices.calls.OrderCall
-import com.example.trackitupapp.apiServices.responses.AprovedMedecineResponse
 import com.example.trackitupapp.apiServices.responses.AprovedMedicinesResponse
 import com.example.trackitupapp.apiServices.responses.LoginResponse
+import com.example.trackitupapp.apiServices.responses.LogoutResponse
 import com.example.trackitupapp.apiServices.responses.MedicineResponse
 import com.example.trackitupapp.apiServices.responses.OrderResponse
 import com.example.trackitupapp.apiServices.responses.OrdersResponse
@@ -115,4 +115,11 @@ interface ApiServices {
     fun refreshToken(
         @Field("refresh") refresh: String
     ): Call<RefreshTokenResponse>
+
+    @POST("delete/")
+    @FormUrlEncoded
+    fun logout(
+        @Header("Authorization") token: String,
+        @Field("refresh") refresh: String
+    ): Call<LogoutResponse>
 }
