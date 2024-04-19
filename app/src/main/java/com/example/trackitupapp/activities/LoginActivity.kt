@@ -15,8 +15,11 @@ import com.example.trackitupapp.R
 import com.example.trackitupapp.apiServices.ApiCalls
 import com.example.trackitupapp.apiServices.Callbacks.AprovedMedicineCallback
 import com.example.trackitupapp.apiServices.Callbacks.LoginCallback
+import com.example.trackitupapp.apiServices.Callbacks.StatusesCallback
 import com.example.trackitupapp.apiServices.responses.AprovedMedecineResponse
+import com.example.trackitupapp.apiServices.responses.StatusResponse
 import com.example.trackitupapp.dataHolder.AprovedMedicine
+import com.example.trackitupapp.dataHolder.Statuses
 import com.example.trackitupapp.enums.ProfilePreferences
 import com.example.trackitupapp.managers.TokenManager
 import com.example.trackitupapp.managers.UserManager
@@ -73,6 +76,19 @@ class LoginActivity : AppCompatActivity() {
                     findViewById<ProgressBar>(R.id.pb_loading).visibility = View.GONE
                 }
             })
+
+        calls.callStatuses(
+            applicationContext,
+            object : StatusesCallback {
+                override fun onSuccess(statuses: List<StatusResponse>) {
+                    Statuses.addToList(statuses)
+                }
+
+                override fun onFailure(message: String) {
+                }
+
+            }
+        )
 
         val intent = Intent(this, UserMedicineActivity::class.java)
         this.startActivity(intent)

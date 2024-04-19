@@ -5,7 +5,7 @@
       <entry key="All Tests">
         <State />
       </entry>
-      <entry key="UserMedicineUpdateTest">
+      <entry key="Login">
         <State />
       </entry>
       <entry key="app">
@@ -23,9 +23,6 @@
           </targetSelectedWithDropDown>
           <timeTargetWasSelectedWithDropDown value="2024-04-15T07:41:20.765263200Z" />
         </State>
-      </entry>
-      <entry key="testCancel()">
-        <State />
       </entry>
     </value>
   </component>

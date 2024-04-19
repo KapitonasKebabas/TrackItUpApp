@@ -3,6 +3,7 @@ package com.example.trackitupapp.managers
 import AESCrypt
 import android.content.Context
 import android.content.SharedPreferences
+import com.example.trackitupapp.enums.ProfilePreferences
 
 class UserManager {
     private lateinit var sharedPreferences: SharedPreferences
@@ -49,6 +50,20 @@ class UserManager {
         var editor: SharedPreferences.Editor    = sharedPreferences.edit()
 
         editor.remove(fieldname)
+        editor.apply()
+    }
+
+    public fun deleteProfile(context: Context) {
+        sharedPreferences = context.getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor    = sharedPreferences.edit()
+
+        editor.remove(ProfilePreferences.UserId.toString())
+        editor.remove(ProfilePreferences.Username.toString())
+        editor.remove(ProfilePreferences.Password.toString())
+        editor.remove(ProfilePreferences.Email.toString())
+        editor.remove(ProfilePreferences.FirstName.toString())
+        editor.remove(ProfilePreferences.LastName.toString())
+        editor.remove(ProfilePreferences.IsStaff.toString())
         editor.apply()
     }
 }
