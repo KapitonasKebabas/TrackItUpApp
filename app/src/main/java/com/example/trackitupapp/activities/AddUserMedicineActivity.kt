@@ -1,35 +1,24 @@
 package com.example.trackitupapp.activities
 
-import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ProgressBar
 import android.widget.Spinner
 import android.widget.Switch
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.example.trackitupapp.AprovedMedicineItem
 import com.example.trackitupapp.R
 import com.example.trackitupapp.apiServices.ApiCalls
 import com.example.trackitupapp.apiServices.Callbacks.MedicineCallback
-import com.example.trackitupapp.apiServices.Callbacks.UserMedicineCallback
 import com.example.trackitupapp.apiServices.calls.MedicineCall
-import com.example.trackitupapp.apiServices.responses.AprovedMedecineResponse
 import com.example.trackitupapp.apiServices.responses.MedicineResponse
 import com.example.trackitupapp.dataHolder.AprovedMedicine
 import com.example.trackitupapp.dataHolder.UserMedicine
-import com.google.android.material.textfield.TextInputLayout
-import com.toptoche.searchablespinnerlibrary.SearchableSpinner
-import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Locale
 
 
 class AddUserMedicineActivity : AppCompatActivity() {
