@@ -1,22 +1,6 @@
-name: Android CI
-
-on:
-  push:
-    branches:
-      - main  # Adjust branch name if needed
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Set up JDK
-      uses: actions/setup-java@v2
-      with:
-        java-version: '11'
-
-    - name: Build with Gradle
-      run: ./gradlew assembleDebug
+- name: Checks out flutter
+        uses: actions/checkout@v2
+        with:
+          repository: flutter/flutter
+          ref: refs/heads/master
+          path: flutter
