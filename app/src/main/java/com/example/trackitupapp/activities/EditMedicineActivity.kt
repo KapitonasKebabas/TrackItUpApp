@@ -1,6 +1,7 @@
 package com.example.trackitupapp.activities
 
-import android.annotation.SuppressLint
+
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -14,9 +15,7 @@ import com.example.trackitupapp.apiServices.ApiCalls
 import com.example.trackitupapp.apiServices.Callbacks.MedicineCallback
 import com.example.trackitupapp.apiServices.responses.MedicineResponse
 import com.example.trackitupapp.dataHolder.UserMedicine
-import android.app.DatePickerDialog
 import java.util.Calendar
-import java.util.Locale
 
 class EditMedicineActivity : AppCompatActivity() {
     private lateinit var calls: ApiCalls

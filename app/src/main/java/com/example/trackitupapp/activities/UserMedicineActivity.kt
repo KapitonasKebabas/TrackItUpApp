@@ -22,9 +22,9 @@ import com.example.trackitupapp.apiServices.Callbacks.UserMedicineCallback
 import com.example.trackitupapp.apiServices.responses.MedicineResponse
 import com.example.trackitupapp.constants.Constants
 import com.example.trackitupapp.dataHolder.UserMedicine
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import java.util.Calendar
-import com.google.android.material.R as materialR
 
 class UserMedicineActivity : AppCompatActivity() {
     lateinit var calls: ApiCalls
@@ -36,21 +36,41 @@ class UserMedicineActivity : AppCompatActivity() {
         adduserMedicineBtn()
         getUserMedecine()
         setupFilters()
+
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.my_medicine -> {
+                    bottomNavigationView.menu.findItem(R.id.my_medicine).isChecked = true
+                    true
+                }
+                R.id.share_medicine -> {
+                   // startActivity(Intent(this@UserMedicineActivity, ShareMedicineActivity::class.java))
+                    true
+                }
+                R.id.orders -> {
+                   // startActivity(Intent(this@UserMedicineActivity, OrderActivity::class.java))
+                    true
+                }
+                R.id.settings -> {
+                    startActivity(Intent(this@UserMedicineActivity, SettingsActivity::class.java))
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
-    fun adduserMedicineBtn()
-    {
-        var addBtn = findViewById<Button>(R.id.btn_addUserMedicine)
+    private fun adduserMedicineBtn() {
+        val addBtn = findViewById<Button>(R.id.btn_addUserMedicine)
 
-        addBtn.setOnClickListener()
-        {
+        addBtn.setOnClickListener {
             val intent = Intent(this@UserMedicineActivity, AddUserMedicineActivity::class.java)
             startActivity(intent)
         }
     }
 
-    fun getUserMedecine()
-    {
+    private fun getUserMedecine() {
         findViewById<ProgressBar>(R.id.pb_loading).visibility = View.VISIBLE
         calls.callUserMedicine(
             applicationContext,
@@ -60,6 +80,7 @@ class UserMedicineActivity : AppCompatActivity() {
                     fetchMedicineData()
                     findViewById<ProgressBar>(R.id.pb_loading).visibility = View.GONE
                 }
+
                 override fun onFailure(message: String) {
                     Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
                     findViewById<ProgressBar>(R.id.pb_loading).visibility = View.GONE
@@ -68,8 +89,7 @@ class UserMedicineActivity : AppCompatActivity() {
         )
     }
 
-    fun fetchMedicineData()
-    {
+    private fun fetchMedicineData() {
         val medicineList = UserMedicine.getList()
         val userMedicineRecyclerView = findViewById<RecyclerView>(R.id.rv_medicineHolder)
 
@@ -79,8 +99,7 @@ class UserMedicineActivity : AppCompatActivity() {
         userMedicineRecyclerView.adapter = medicineAdapter
     }
 
-    fun refreshRVView()
-    {
+    fun refreshRVView() {
         val userMedicineRecyclerView = findViewById<RecyclerView>(R.id.rv_medicineHolder)
         val medicineAdapter = MedicineAdapter(this@UserMedicineActivity, UserMedicine.getList())
 
@@ -107,7 +126,7 @@ class UserMedicineActivity : AppCompatActivity() {
 
         snackbarView.layoutParams = params
 
-        val textView = snackbarView.findViewById<TextView>(materialR.id.snackbar_text)
+        val textView = snackbarView.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
         textView.setTextColor(Color.WHITE)
         textView.gravity = Gravity.CENTER_HORIZONTAL
 
@@ -130,19 +149,19 @@ class UserMedicineActivity : AppCompatActivity() {
         val ascRadioButton = findViewById<RadioButton>(R.id.radio_asc)
         val descRadioButton = findViewById<RadioButton>(R.id.radio_desc)
 
-        prescriptionFilter.visibility = View.VISIBLE;
-        search.visibility = View.VISIBLE;
-        ascRadioButton.visibility = View.VISIBLE;
-        descRadioButton.visibility = View.VISIBLE;
+        prescriptionFilter.visibility = View.VISIBLE
+        search.visibility = View.VISIBLE
+        ascRadioButton.visibility = View.VISIBLE
+        descRadioButton.visibility = View.VISIBLE
 
 
-        ascRadioButton.setOnCheckedChangeListener { buttonView, isChecked ->
+        ascRadioButton.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 sortByDateAscending()
             }
         }
 
-        descRadioButton.setOnCheckedChangeListener { buttonView, isChecked ->
+        descRadioButton.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 sortByDateDescending()
             }
@@ -150,7 +169,7 @@ class UserMedicineActivity : AppCompatActivity() {
 
         search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-              return false
+                return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {

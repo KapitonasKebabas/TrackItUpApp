@@ -10,11 +10,12 @@
         android:id="@+id/btn_login"
         android:layout_width="125dp"
         android:layout_height="55dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="40dp"
         android:text="Log in"
         app:layout_constraintEnd_toEndOf="@+id/btn_regActivity"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="@+id/btn_regActivity"
-        app:layout_constraintTop_toBottomOf="@+id/til_password" />
+        app:layout_constraintTop_toBottomOf="@+id/question" />
 
     <Button
         android:id="@+id/btn_regActivity"
@@ -38,6 +39,16 @@
         app:layout_constraintStart_toStartOf="@+id/til_username"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/question"
+        android:layout_width="239dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="28dp"
+        android:text="@string/login_psw_forget"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/til_password" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_username"

@@ -4,4 +4,5 @@
     <string name="User_psw_isEmpty">Please enter password</string>
     <string name="User_login_isEmpty">Please enter username</string>
     <string name="User_loginPsw_isEmpty">Please enter username and password</string>
+    <string name="login_psw_forget">Forgot password? - Reset password</string>
 </resources>
