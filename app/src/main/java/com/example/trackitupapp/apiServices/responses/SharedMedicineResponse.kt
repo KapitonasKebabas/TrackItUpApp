@@ -6,6 +6,7 @@ data class SharedMedicineResponse(
     val medecine_name: String,
     val medecine_description: String,
     val shared_qty: Int,
+    val shared_reserved_qty: String,
     val user_pk: Int,
     val user_name: String
 )
