@@ -17,39 +17,24 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_medicineHolder"
         android:layout_width="409dp"
-        android:layout_height="568dp"
+        android:layout_height="610dp"
+        android:layout_marginTop="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toBottomOf="@+id/search_filter"
-        tools:layout_editor_absoluteX="3dp" />
+        tools:layout_editor_absoluteX="0dp" />
 
     <Button
         android:id="@+id/btn_addUserMedicine"
         android:layout_width="61dp"
         android:layout_height="64dp"
-        android:layout_marginBottom="12dp"
         android:text="+"
         android:textAlignment="center"
         android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.234"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.959" />
-
-    <Button
-        android:id="@+id/btn_openChat"
-        android:layout_width="100dp"
-        android:layout_height="64dp"
-        android:text="Chat"
-        android:textAlignment="center"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/rv_medicineHolder"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.781"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.959" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <SearchView
         android:id="@+id/search_filter"
@@ -112,16 +97,5 @@
         app:menu="@menu/bottom_navigation_menu" />
 
 
-    <Button
-        android:id="@+id/btn_shared_medicine"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Find"
-        app:layout_constraintBottom_toBottomOf="@+id/rv_medicineHolder"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.863"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.959" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

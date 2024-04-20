@@ -2,26 +2,27 @@ package com.example.trackitupapp.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trackitupapp.R
-import com.example.trackitupapp.adapters.SharedMedicineAdapter
+import com.example.trackitupapp.adapters.OrderMedicineAdapter
 import com.example.trackitupapp.apiServices.ApiCalls
 import com.example.trackitupapp.apiServices.Callbacks.SharedMedicineCallback
 import com.example.trackitupapp.apiServices.responses.SharedMedicineResponse
 import com.example.trackitupapp.dataHolder.SharedMedicine
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class SharedMedicineActivity : AppCompatActivity() {
+class OrdersActivity : AppCompatActivity() {
     private lateinit var calls: ApiCalls
-    private var sharedMedicineList: List<SharedMedicineResponse> = emptyList()
-    private lateinit var adapter: SharedMedicineAdapter
+    private var reservedMedicineList: List<SharedMedicineResponse> = emptyList()
+    private lateinit var adapter: OrderMedicineAdapter // Initialize the adapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_shared_medicine)
+        setContentView(R.layout.activity_orders)
 
         calls = ApiCalls()
 
@@ -32,24 +33,24 @@ class SharedMedicineActivity : AppCompatActivity() {
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.my_medicine -> {
-                    startActivity(Intent(this@SharedMedicineActivity, UserMedicineActivity::class.java))
+                    startActivity(Intent(this@OrdersActivity, UserMedicineActivity::class.java))
                     true
                 }
                 R.id.share_medicine -> {
+                    startActivity(Intent(this@OrdersActivity, SharedMedicineActivity::class.java))
                     true
                 }
                 R.id.orders -> {
-                    startActivity(Intent(this@SharedMedicineActivity, OrdersActivity::class.java))
                     true
                 }
                 R.id.settings -> {
-                    startActivity(Intent(this@SharedMedicineActivity, SettingsActivity::class.java))
+                    startActivity(Intent(this@OrdersActivity, SettingsActivity::class.java))
                     true
                 }
                 else -> false
             }
         }
-        bottomNavigationView.menu.findItem(R.id.share_medicine).isChecked = true
+        bottomNavigationView.menu.findItem(R.id.orders).isChecked = true
     }
 
     private fun fetchSharedMedicineData() {
@@ -65,19 +66,18 @@ class SharedMedicineActivity : AppCompatActivity() {
         })
     }
 
-    private fun fillRecycler()
-    {
-        sharedMedicineList = SharedMedicine.getList()
-        val sharedMedicineRecyclerView = findViewById<RecyclerView>(R.id.rv_sharedMedicineHolder)
+    private fun fillRecycler() {
+        reservedMedicineList = SharedMedicine.getList()
+        val sharedMedicineRecyclerView = findViewById<RecyclerView>(R.id.rv_medicineHolder)
 
-        adapter = SharedMedicineAdapter(this@SharedMedicineActivity, sharedMedicineList)
+        adapter = OrderMedicineAdapter(this@OrdersActivity, reservedMedicineList) // Initialize the adapter
         sharedMedicineRecyclerView.adapter = adapter
     }
 
     private fun setupFilters() {
         val search = findViewById<SearchView>(R.id.search_filter)
 
-        search.visibility = android.view.View.VISIBLE
+        search.visibility = View.VISIBLE
 
         search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -94,10 +94,10 @@ class SharedMedicineActivity : AppCompatActivity() {
     }
 
     private fun filterByName(name: String) {
-        val filteredList = sharedMedicineList.filter {
+        val filteredList = reservedMedicineList.filter {
             it.medecine_name.contains(name, ignoreCase = true)
         }
-        adapter = SharedMedicineAdapter(this, filteredList)
+        adapter = OrderMedicineAdapter(this, filteredList)
         adapter.notifyDataSetChanged() // Notify adapter about the data change
     }
 }

@@ -16,25 +16,25 @@ import com.example.trackitupapp.activities.ChatActivity
 import com.example.trackitupapp.apiServices.responses.SharedMedicineResponse
 import com.example.trackitupapp.dataHolder.AprovedMedicine
 
-class SharedMedicineAdapter(private val context: Context, private val medicines: List<SharedMedicineResponse>) : RecyclerView.Adapter<SharedMedicineAdapter.ViewHolder>() {
+class OrderMedicineAdapter(private val context: Context, private val medicines: List<SharedMedicineResponse>) : RecyclerView.Adapter<OrderMedicineAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById(R.id.tv_name_shared)
-        val qty: TextView = itemView.findViewById(R.id.tv_amount_shared)
-        val user: TextView = itemView.findViewById(R.id.tv_user_shared) // User TextView
+        val qty: TextView = itemView.findViewById(R.id.tv_amount_reserved)
+        val user: TextView = itemView.findViewById(R.id.tv_user_shared)
         val img: ImageView = itemView.findViewById(R.id.iv_img)
         val chatBtn: Button = itemView.findViewById(R.id.btn_shared_medicine)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.shared_list_item_drug, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.orders_list_item_drug, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val medicine = medicines[position]
         holder.name.text = medicine.medecine_name
-        holder.qty.text = "Sharing Amount: ${medicine.shared_qty}"
+        holder.qty.text = "Reserved Amount: ${medicine.shared_reserved_qty}" // Change qty to shared_reserved_qty
         holder.user.text = "User: ${medicine.user_name}" // Set user information
 
         val photoBase64 = AprovedMedicine.getObjectByPk(medicine.medecine)?.photo
