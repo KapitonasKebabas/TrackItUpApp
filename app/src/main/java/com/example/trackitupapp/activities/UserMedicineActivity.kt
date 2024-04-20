@@ -34,6 +34,7 @@ class UserMedicineActivity : AppCompatActivity() {
 
         calls = ApiCalls()
         adduserMedicineBtn()
+        openChatBtn()
         getUserMedecine()
         setupFilters()
 
@@ -66,6 +67,17 @@ class UserMedicineActivity : AppCompatActivity() {
 
         addBtn.setOnClickListener {
             val intent = Intent(this@UserMedicineActivity, AddUserMedicineActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    fun openChatBtn()
+    {
+        var addBtn = findViewById<Button>(R.id.btn_openChat)
+
+        addBtn.setOnClickListener()
+        {
+            val intent = Intent(this@UserMedicineActivity, ChatActivity::class.java)
             startActivity(intent)
         }
     }
