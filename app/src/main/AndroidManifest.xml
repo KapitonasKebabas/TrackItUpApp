@@ -22,6 +22,9 @@
             android:name=".activities.RegisterActivity"
             android:exported="false" />
         <activity
+            android:name=".activities.SharedMedicineActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.EditMedicineActivity"
             android:exported="false" />
         <activity
