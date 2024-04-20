@@ -1,5 +1,6 @@
 package com.example.trackitupapp.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
@@ -13,15 +14,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trackitupapp.R
 import com.example.trackitupapp.activities.ChatActivity
-import com.example.trackitupapp.apiServices.responses.SharedMedicineResponse
+import com.example.trackitupapp.apiServices.responses.OrderResponse
 import com.example.trackitupapp.dataHolder.AprovedMedicine
 
-class OrderMedicineAdapter(private val context: Context, private val medicines: List<SharedMedicineResponse>) : RecyclerView.Adapter<OrderMedicineAdapter.ViewHolder>() {
+class OrderMedicineAdapter(private val context: Context, private val orders: List<OrderResponse>) : RecyclerView.Adapter<OrderMedicineAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById(R.id.tv_name_shared)
         val qty: TextView = itemView.findViewById(R.id.tv_amount_reserved)
-        val user: TextView = itemView.findViewById(R.id.tv_user_shared)
+        val user: TextView = itemView.findViewById(R.id.tv_User_sharing)
         val img: ImageView = itemView.findViewById(R.id.iv_img)
         val chatBtn: Button = itemView.findViewById(R.id.btn_shared_medicine)
     }
@@ -31,13 +32,14 @@ class OrderMedicineAdapter(private val context: Context, private val medicines: 
         return ViewHolder(view)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val medicine = medicines[position]
-        holder.name.text = medicine.medecine_name
-        holder.qty.text = "Reserved Amount: ${medicine.shared_reserved_qty}" // Change qty to shared_reserved_qty
-        holder.user.text = "User: ${medicine.user_name}" // Set user information
+        val order = orders[position]
+        holder.name.text = order.medecine_name
+        holder.qty.text = "Reserved Amount: ${order.qty}" // Change qty to shared_reserved_qty
+        holder.user.text = "User: ${order.user_seller_username}" // Set user information
 
-        val photoBase64 = AprovedMedicine.getObjectByPk(medicine.medecine)?.photo
+        val photoBase64 = AprovedMedicine.getObjectByPk(order.aproved_medecine)?.photo
         val decodedBytes = Base64.decode(photoBase64 ?: "", Base64.DEFAULT)
         if (decodedBytes.isNotEmpty()) {
             val bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
@@ -46,12 +48,12 @@ class OrderMedicineAdapter(private val context: Context, private val medicines: 
 
         holder.chatBtn.setOnClickListener {
             val intent = Intent(context, ChatActivity::class.java)
-            intent.putExtra("orderId", 1)
+            intent.putExtra("orderId", order.pk)
             context.startActivity(intent)
         }
     }
 
     override fun getItemCount(): Int {
-        return medicines.size
+        return orders.size
     }
 }

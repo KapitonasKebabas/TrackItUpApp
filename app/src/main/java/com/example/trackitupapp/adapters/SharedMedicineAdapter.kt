@@ -10,8 +10,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trackitupapp.R
+import com.example.trackitupapp.activities.AskForMedicineActivity
 import com.example.trackitupapp.activities.ChatActivity
 import com.example.trackitupapp.apiServices.responses.SharedMedicineResponse
 import com.example.trackitupapp.dataHolder.AprovedMedicine
@@ -44,9 +46,9 @@ class SharedMedicineAdapter(private val context: Context, private val medicines:
             holder.img.setImageBitmap(bitmap)
         }
 
-        holder.chatBtn.setOnClickListener {
-            val intent = Intent(context, ChatActivity::class.java)
-            intent.putExtra("orderId", 1)
+        holder.itemView.setOnClickListener {
+            val intent = Intent(context, AskForMedicineActivity::class.java)
+            intent.putExtra("sharedId", medicine.pk)
             context.startActivity(intent)
         }
     }

@@ -10,14 +10,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.trackitupapp.R
 import com.example.trackitupapp.adapters.OrderMedicineAdapter
 import com.example.trackitupapp.apiServices.ApiCalls
+import com.example.trackitupapp.apiServices.Callbacks.OrderCallback
+import com.example.trackitupapp.apiServices.Callbacks.OrdersCallback
 import com.example.trackitupapp.apiServices.Callbacks.SharedMedicineCallback
+import com.example.trackitupapp.apiServices.responses.OrderResponse
 import com.example.trackitupapp.apiServices.responses.SharedMedicineResponse
+import com.example.trackitupapp.dataHolder.Orders
 import com.example.trackitupapp.dataHolder.SharedMedicine
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class OrdersActivity : AppCompatActivity() {
     private lateinit var calls: ApiCalls
-    private var reservedMedicineList: List<SharedMedicineResponse> = emptyList()
+    private var ordersList: List<OrderResponse> = emptyList()
     private lateinit var adapter: OrderMedicineAdapter // Initialize the adapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,24 +58,26 @@ class OrdersActivity : AppCompatActivity() {
     }
 
     private fun fetchSharedMedicineData() {
-        calls.callSharedMedicine(applicationContext, object : SharedMedicineCallback {
-            override fun onSuccess(medicineResponse: List<SharedMedicineResponse>) {
-                SharedMedicine.addToList(medicineResponse)
-                fillRecycler()
-            }
+        calls.callOrders(
+            applicationContext,
+            object : OrdersCallback {
+                override fun onSuccess(ordersResponse: List<OrderResponse>) {
+                    Orders.addToList(ordersResponse)
+                    fillRecycler()
+                }
 
-            override fun onFailure(message: String) {
-                Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
-            }
-        })
+                override fun onFailure(message: String) {
+                    Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
+                }
+            })
     }
 
     private fun fillRecycler() {
-        reservedMedicineList = SharedMedicine.getList()
-        val sharedMedicineRecyclerView = findViewById<RecyclerView>(R.id.rv_medicineHolder)
+        ordersList = Orders.getList()
+        val orderRecyclerView = findViewById<RecyclerView>(R.id.rv_medicineHolder)
 
-        adapter = OrderMedicineAdapter(this@OrdersActivity, reservedMedicineList) // Initialize the adapter
-        sharedMedicineRecyclerView.adapter = adapter
+        adapter = OrderMedicineAdapter(this@OrdersActivity, ordersList) // Initialize the adapter
+        orderRecyclerView.adapter = adapter
     }
 
     private fun setupFilters() {
@@ -94,7 +100,7 @@ class OrdersActivity : AppCompatActivity() {
     }
 
     private fun filterByName(name: String) {
-        val filteredList = reservedMedicineList.filter {
+        val filteredList = ordersList.filter {
             it.medecine_name.contains(name, ignoreCase = true)
         }
         adapter = OrderMedicineAdapter(this, filteredList)
