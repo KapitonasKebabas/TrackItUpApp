@@ -4,7 +4,6 @@ import ChatAdapter
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.Gravity
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -44,11 +43,18 @@ class ChatActivity : AppCompatActivity() {
             sendMessage()
         }
 
-        val btnCallOrderUpdate = findViewById<Button>(R.id.btn_call_order_update)
-        btnCallOrderUpdate.setOnClickListener {
-            callOrderUpdate()
+        val btnCancelStatus = findViewById<Button>(R.id.btn_cancel_status)
+        btnCancelStatus.setOnClickListener {
+
         }
+
+        val btnFinishStatus = findViewById<Button>(R.id.btn_finish_status)
+        btnFinishStatus.setOnClickListener {
+
+        }
+
     }
+
 
     private fun sendMessage() {
         val message = findViewById<EditText>(R.id.et_chat_chatboxMessage).text.toString().trim()
@@ -91,4 +97,5 @@ class ChatActivity : AppCompatActivity() {
             })
         }
     }
+
 }

@@ -7,8 +7,8 @@
 
     <ImageView
         android:id="@+id/iv_img"
-        android:layout_width="52dp"
-        android:layout_height="79dp"
+        android:layout_width="60dp"
+        android:layout_height="80dp"
         android:padding="5dp"
         android:src="@drawable/default_drug_image"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -17,8 +17,8 @@
         app:layout_constraintVertical_bias="0.5" />
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="324dp"
+        android:layout_height="74dp"
         android:orientation="vertical"
         android:padding="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -54,20 +54,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.8" />
+        app:layout_constraintGuide_percent="1.0" />
 
-    <Button
-        android:id="@+id/btn_shared_medicine"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:layout_marginEnd="16dp"
-        android:background="@android:color/transparent"
-        app:icon="@drawable/btn_chat"
-        app:iconSize="40dp"
-        app:iconTint="#000000"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5" />
 </androidx.constraintlayout.widget.ConstraintLayout>

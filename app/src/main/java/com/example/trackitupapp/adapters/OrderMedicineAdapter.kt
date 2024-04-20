@@ -16,6 +16,7 @@ import com.example.trackitupapp.R
 import com.example.trackitupapp.activities.ChatActivity
 import com.example.trackitupapp.apiServices.responses.OrderResponse
 import com.example.trackitupapp.dataHolder.AprovedMedicine
+import com.example.trackitupapp.dataHolder.Statuses
 
 class OrderMedicineAdapter(private val context: Context, private val orders: List<OrderResponse>) : RecyclerView.Adapter<OrderMedicineAdapter.ViewHolder>() {
 
@@ -23,6 +24,7 @@ class OrderMedicineAdapter(private val context: Context, private val orders: Lis
         val name: TextView = itemView.findViewById(R.id.tv_name_shared)
         val qty: TextView = itemView.findViewById(R.id.tv_amount_reserved)
         val user: TextView = itemView.findViewById(R.id.tv_User_sharing)
+        val status: TextView = itemView.findViewById(R.id.tv_medicine_status)
         val img: ImageView = itemView.findViewById(R.id.iv_img)
         val chatBtn: Button = itemView.findViewById(R.id.btn_shared_medicine)
     }
@@ -35,9 +37,11 @@ class OrderMedicineAdapter(private val context: Context, private val orders: Lis
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val order = orders[position]
+        val status = Statuses.getObjectByPk(order.status)
         holder.name.text = order.medecine_name
         holder.qty.text = "Reserved Amount: ${order.qty}" // Change qty to shared_reserved_qty
         holder.user.text = "User: ${order.user_seller_username}" // Set user information
+        holder.status.text= "Status: ${status!!.name}"
 
         val photoBase64 = AprovedMedicine.getObjectByPk(order.aproved_medecine)?.photo
         val decodedBytes = Base64.decode(photoBase64 ?: "", Base64.DEFAULT)
