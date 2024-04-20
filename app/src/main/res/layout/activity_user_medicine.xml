@@ -90,4 +90,16 @@
             android:text="Date (max->min)" />
     </RadioGroup>
 
+    <Button
+        android:id="@+id/btn_shared_medicine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Find"
+        app:layout_constraintBottom_toBottomOf="@+id/rv_medicineHolder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.863"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.959" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -34,6 +34,7 @@ class UserMedicineActivity : AppCompatActivity() {
 
         calls = ApiCalls()
         adduserMedicineBtn()
+        sharedMedicineBtn()
         getUserMedecine()
         setupFilters()
     }
@@ -48,7 +49,16 @@ class UserMedicineActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+    fun sharedMedicineBtn()
+    {
+        var addBtn = findViewById<Button>(R.id.btn_shared_medicine)
 
+        addBtn.setOnClickListener()
+        {
+            val intent = Intent(this@UserMedicineActivity, SharedMedicineActivity::class.java)
+            startActivity(intent)
+        }
+    }
     fun getUserMedecine()
     {
         findViewById<ProgressBar>(R.id.pb_loading).visibility = View.VISIBLE
