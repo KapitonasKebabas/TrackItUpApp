@@ -73,7 +73,7 @@ class OrdersActivity : AppCompatActivity() {
     }
 
     private fun fillRecycler() {
-        ordersList = Orders.getList()
+        ordersList = Orders.getList().sortedByDescending { it.status }
         val orderRecyclerView = findViewById<RecyclerView>(R.id.rv_medicineHolder)
 
         adapter = OrderMedicineAdapter(this@OrdersActivity, ordersList) // Initialize the adapter

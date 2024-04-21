@@ -50,10 +50,16 @@ class OrderMedicineAdapter(private val context: Context, private val orders: Lis
             holder.img.setImageBitmap(bitmap)
         }
 
-        holder.chatBtn.setOnClickListener {
-            val intent = Intent(context, ChatActivity::class.java)
-            intent.putExtra("orderId", order.pk)
-            context.startActivity(intent)
+        if (status.pk != 3)
+        {
+            holder.chatBtn.visibility = View.GONE
+        }
+        else {
+            holder.chatBtn.setOnClickListener {
+                val intent = Intent(context, ChatActivity::class.java)
+                intent.putExtra("orderId", order.pk)
+                context.startActivity(intent)
+            }
         }
     }
 

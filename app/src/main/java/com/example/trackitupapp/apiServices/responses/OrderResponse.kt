@@ -11,7 +11,7 @@ data class OrderResponse(
     val user_buyer_username: String,
     val user_medicine_pk: Int,
     val qty: Int,
-    val status: Int,
+    var status: Int,
     val status_name: String,
     val status_helptext: String
 )

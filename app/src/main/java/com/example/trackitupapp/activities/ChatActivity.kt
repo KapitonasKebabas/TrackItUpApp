@@ -20,10 +20,21 @@ import com.example.trackitupapp.dataHolder.Orders
 class ChatActivity : AppCompatActivity() {
 
     private lateinit var chatAdapter: ChatAdapter
-
+    private lateinit var order: OrderResponse
+    private lateinit var calls: ApiCalls
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
+
+        val orderId = intent.getIntExtra("orderId", -1)
+        if(orderId == -1)
+        {
+            finish()
+        }
+
+        calls = ApiCalls()
+
+        order = Orders.getObjectByPk(orderId)!!
 
         setupViews()
         setupListeners()
@@ -45,14 +56,52 @@ class ChatActivity : AppCompatActivity() {
 
         val btnCancelStatus = findViewById<Button>(R.id.btn_cancel_status)
         btnCancelStatus.setOnClickListener {
-
+            cancelOrder()
         }
 
         val btnFinishStatus = findViewById<Button>(R.id.btn_finish_status)
         btnFinishStatus.setOnClickListener {
-
+            finishOrder()
         }
 
+    }
+
+    private fun finishOrder() {
+        order.status = 2
+
+        calls.callOrderUpdate(
+            applicationContext,
+            order,
+            object : OrderCallback {
+                override fun onSuccess(medicine: OrderResponse) {
+                    finish()
+                }
+
+                override fun onFailure(message: String) {
+                    TODO("Info")
+                }
+
+            }
+        )
+    }
+
+    private fun cancelOrder() {
+        order.status = 1
+
+        calls.callOrderUpdate(
+            applicationContext,
+            order,
+            object : OrderCallback {
+                override fun onSuccess(medicine: OrderResponse) {
+                    finish()
+                }
+
+                override fun onFailure(message: String) {
+                    TODO("Info")
+                }
+
+            }
+        )
     }
 
 
@@ -75,27 +124,6 @@ class ChatActivity : AppCompatActivity() {
             chatAdapter.addMessage(ChatMessageResponse(response, false))
             findViewById<RecyclerView>(R.id.rv_chat_messages).scrollToPosition(chatAdapter.itemCount - 1)
         }, 1000)
-    }
-
-    private fun callOrderUpdate() {
-        val intent = intent
-        if (intent != null) {
-            val orderId = intent.getIntExtra("orderId", -1)
-            val order = Orders.getObjectByPk(orderId)
-            if (order == null) {
-                Toast.makeText(this, "No order selected", Toast.LENGTH_SHORT).show()
-                return
-            }
-            ApiCalls().callOrderUpdate(applicationContext, order, object : OrderCallback {
-                override fun onSuccess(orderResponse: OrderResponse) {
-                    Toast.makeText(this@ChatActivity, "Order updated successfully", Toast.LENGTH_SHORT).show()
-                }
-
-                override fun onFailure(errorMessage: String) {
-                    Toast.makeText(this@ChatActivity, "Failed to update order: $errorMessage", Toast.LENGTH_SHORT).show()
-                }
-            })
-        }
     }
 
 }

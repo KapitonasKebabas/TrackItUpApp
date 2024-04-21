@@ -25,7 +25,6 @@ class SharedMedicineAdapter(private val context: Context, private val medicines:
         val qty: TextView = itemView.findViewById(R.id.tv_amount_shared)
         val user: TextView = itemView.findViewById(R.id.tv_user_shared) // User TextView
         val img: ImageView = itemView.findViewById(R.id.iv_img)
-        val chatBtn: Button = itemView.findViewById(R.id.btn_shared_medicine)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
