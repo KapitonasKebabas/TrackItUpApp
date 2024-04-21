@@ -106,4 +106,10 @@ class OrdersActivity : AppCompatActivity() {
         adapter = OrderMedicineAdapter(this, filteredList)
         adapter.notifyDataSetChanged() // Notify adapter about the data change
     }
+
+    override fun onRestart() {
+        super.onRestart()
+
+        fetchSharedMedicineData()
+    }
 }

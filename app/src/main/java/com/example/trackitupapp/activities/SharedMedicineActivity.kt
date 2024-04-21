@@ -65,6 +65,12 @@ class SharedMedicineActivity : AppCompatActivity() {
         })
     }
 
+    override fun onRestart() {
+        super.onRestart()
+
+        fetchSharedMedicineData()
+    }
+
     private fun fillRecycler()
     {
         sharedMedicineList = SharedMedicine.getList()
