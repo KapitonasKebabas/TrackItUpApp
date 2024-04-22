@@ -368,7 +368,6 @@ class ApiCalls {
     }
 
     fun callRefreshToken(applicationContext: Context, param: LoginCallback) {
-        waitForToken(applicationContext)
 
         val tokenManager = TokenManager()
         val refreshToken = tokenManager.getRefToken(applicationContext)
