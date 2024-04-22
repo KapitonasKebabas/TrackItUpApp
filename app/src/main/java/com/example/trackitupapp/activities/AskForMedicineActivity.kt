@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.trackitupapp.R
@@ -88,12 +89,12 @@ class AskForMedicineActivity : AppCompatActivity() {
             object : OrderCallback {
                 override fun onSuccess(medicine: OrderResponse) {
                     finish()
-                    //TODO("Info")
+                    Toast.makeText(this@AskForMedicineActivity, "Užsakymas sukurtas", Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onFailure(message: String) {
+                    Toast.makeText(this@AskForMedicineActivity, "Nepavayko sukurti užsakymo", Toast.LENGTH_SHORT).show()
                     finish()
-                    //TODO("Info, maybe change availible qty")
                 }
 
             }

@@ -42,7 +42,6 @@ class ApiCalls {
     private fun waitForToken(context: Context)
     {
         while (TokenManager().isTokenUpdating(context)) {
-            //TODO(CHECK IF WORKS)
             Thread.sleep(100)
         }
     }

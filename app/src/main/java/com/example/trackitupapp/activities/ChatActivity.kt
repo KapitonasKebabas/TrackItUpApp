@@ -78,7 +78,7 @@ class ChatActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(message: String) {
-                    TODO("Info")
+                    Toast.makeText(this@ChatActivity, "Nepavayko užbaigti užsakymą", Toast.LENGTH_SHORT).show()
                 }
 
             }
@@ -97,7 +97,7 @@ class ChatActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(message: String) {
-                    TODO("Info")
+                    Toast.makeText(this@ChatActivity, "Nepavayko atšaukti užsakymą", Toast.LENGTH_SHORT).show()
                 }
 
             }
