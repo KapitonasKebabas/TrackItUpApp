@@ -34,6 +34,7 @@ class UserMedicineActivity : AppCompatActivity() {
 
         calls = ApiCalls()
         adduserMedicineBtn()
+
         getUserMedecine()
         setupFilters()
 
@@ -41,15 +42,14 @@ class UserMedicineActivity : AppCompatActivity() {
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.my_medicine -> {
-                    bottomNavigationView.menu.findItem(R.id.my_medicine).isChecked = true
                     true
                 }
                 R.id.share_medicine -> {
-                   // startActivity(Intent(this@UserMedicineActivity, ShareMedicineActivity::class.java))
+                    startActivity(Intent(this@UserMedicineActivity, SharedMedicineActivity::class.java))
                     true
                 }
                 R.id.orders -> {
-                   // startActivity(Intent(this@UserMedicineActivity, OrderActivity::class.java))
+                   startActivity(Intent(this@UserMedicineActivity, OrdersActivity::class.java))
                     true
                 }
                 R.id.settings -> {
@@ -59,6 +59,7 @@ class UserMedicineActivity : AppCompatActivity() {
                 else -> false
             }
         }
+        bottomNavigationView.menu.findItem(R.id.my_medicine).isChecked = true
     }
 
     private fun adduserMedicineBtn() {
@@ -70,7 +71,9 @@ class UserMedicineActivity : AppCompatActivity() {
         }
     }
 
-    private fun getUserMedecine() {
+
+    fun getUserMedecine()
+    {
         findViewById<ProgressBar>(R.id.pb_loading).visibility = View.VISIBLE
         calls.callUserMedicine(
             applicationContext,

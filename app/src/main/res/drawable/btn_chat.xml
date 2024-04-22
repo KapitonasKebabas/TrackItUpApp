@@ -1,0 +1,7 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background layer -->
+    <item android:drawable="@android:color/transparent" />
+
+    <!-- Image layer -->
+    <item android:drawable="@drawable/chat" />
+</layer-list>
