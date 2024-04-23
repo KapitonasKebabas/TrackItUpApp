@@ -8,8 +8,10 @@ import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.espresso.action.ViewActions.closeSoftKeyboard
+import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.withText
+import com.example.trackitupapp.activities.LoginActivity
 
 import com.example.trackitupapp.activities.RegisterActivity;
 
@@ -31,22 +33,27 @@ class RegisterTest {
         onView(withId(R.id.btn_reg_registerAct)).perform(click())
         Thread.sleep(1000)
 
-        onView(withId(R.id.tv_emailError)).check(matches(withText("This field is required.")))
-        onView(withId(R.id.tv_pswError)).check(matches(withText("This password is too short. It must contain at least 8 characters.")))
-        onView(withId(R.id.tv_userError)).check(matches(withText("This field is required.")))
+        onView(withId(R.id.tv_emailError)).check(matches(withText("This field may not be blank.\n")))
+        onView(withId(R.id.tv_pswError)).check(matches(withText("This field may not be blank.\n")))
+        onView(withId(R.id.tv_userError)).check(matches(withText("This field may not be blank.\n")))
 
         activityScenario.close()
     }
 
     @Test
     fun testValidRegistration() {
-        val activityScenario = ActivityScenario.launch(RegisterActivity::class.java)
 
-        val firstName = "John"
-        val lastName = "Doe"
-        val username = "johndoe"
-        val password = "test"
-        val email = "johndoe@example.com"
+        val activityScenario = ActivityScenario.launch(LoginActivity::class.java)
+
+        onView(withId(R.id.btn_regActivity)).perform(click())
+
+        Thread.sleep(1000)
+
+        val firstName = "Johns"
+        val lastName = "Does"
+        val username = "Johndoes"
+        val password = "Johndoes123!"
+        val email = "johndoes@example.com"
 
         onView(withId(R.id.et_firstName_registerAct)).perform(typeText(firstName), closeSoftKeyboard())
         onView(withId(R.id.et_lastName_registerAct)).perform(typeText(lastName), closeSoftKeyboard())
@@ -55,19 +62,20 @@ class RegisterTest {
         onView(withId(R.id.et_email_registerAct)).perform(typeText(email), closeSoftKeyboard())
 
         onView(withId(R.id.btn_reg_registerAct)).perform(click())
-        Thread.sleep(3000)
-
+        Thread.sleep(1000)
+        onView(withId(R.id.btn_reg_registerAct)).check(ViewAssertions.doesNotExist())
         activityScenario.close()
+
     }
 
     @Test
     fun testEmptyUsername() {
         val activityScenario = ActivityScenario.launch(RegisterActivity::class.java)
 
-        val firstName = "John"
-        val lastName = "Doe"
-        val password = "test"
-        val email = "johndoe@example.com"
+        val firstName = "Johns"
+        val lastName = "Does"
+        val password = "tests"
+        val email = "johndoes@example.com"
 
         onView(withId(R.id.et_firstName_registerAct)).perform(typeText(firstName), closeSoftKeyboard())
         onView(withId(R.id.et_lastName_registerAct)).perform(typeText(lastName), closeSoftKeyboard())
@@ -78,7 +86,7 @@ class RegisterTest {
         onView(withId(R.id.btn_reg_registerAct)).perform(click())
         Thread.sleep(3000)
 
-        onView(withId(R.id.tv_userError)).check(matches(withText("This field is required.")))
+        onView(withId(R.id.tv_userError)).check(matches(withText("This field may not be blank.\n")))
 
         activityScenario.close()
     }
@@ -86,10 +94,10 @@ class RegisterTest {
     fun testEmptyPassword() {
         val activityScenario = ActivityScenario.launch(RegisterActivity::class.java)
 
-        val firstName = "John"
-        val lastName = "Doe"
-        val username = "johndoe"
-        val email = "johndoe@example.com"
+        val firstName = "Johns"
+        val lastName = "Does"
+        val username = "johndoes"
+        val email = "johndoes@example.com"
 
         onView(withId(R.id.et_firstName_registerAct)).perform(typeText(firstName), closeSoftKeyboard())
         onView(withId(R.id.et_lastName_registerAct)).perform(typeText(lastName), closeSoftKeyboard())
@@ -100,7 +108,7 @@ class RegisterTest {
         onView(withId(R.id.btn_reg_registerAct)).perform(click())
         Thread.sleep(3000)
 
-        onView(withId(R.id.tv_pswError)).check(matches(withText("This password is too short. It must contain at least 8 characters.")))
+        onView(withId(R.id.tv_pswError)).check(matches(withText("This field may not be blank.\n")))
 
         activityScenario.close()
     }
@@ -108,9 +116,9 @@ class RegisterTest {
     fun testEmptyEmail() {
         val activityScenario = ActivityScenario.launch(RegisterActivity::class.java)
 
-        val firstName = "John"
-        val lastName = "Doe"
-        val username = "johndoe"
+        val firstName = "Johns"
+        val lastName = "Does"
+        val username = "johndoes"
         val password = "password123"
 
         onView(withId(R.id.et_firstName_registerAct)).perform(typeText(firstName), closeSoftKeyboard())
@@ -122,7 +130,7 @@ class RegisterTest {
         onView(withId(R.id.btn_reg_registerAct)).perform(click())
         Thread.sleep(3000)
 
-        onView(withId(R.id.tv_emailError)).check(matches(withText("This field is required.")))
+        onView(withId(R.id.tv_emailError)).check(matches(withText("This field may not be blank.\n")))
 
         activityScenario.close()
     }

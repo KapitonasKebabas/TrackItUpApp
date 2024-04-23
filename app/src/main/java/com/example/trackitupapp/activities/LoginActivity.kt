@@ -58,7 +58,7 @@ class LoginActivity : AppCompatActivity() {
                 handler.post(Runnable {
                     try {
                         TokenManager().updateAuthToken(this@LoginActivity)
-                        Log.i("TokenRefresh", "Refresh")
+                        Log.i("TokenRefresh", "Refresh ${TokenManager().getToken(applicationContext)}")
                     } catch (e: Exception) {
                     }
                 })
