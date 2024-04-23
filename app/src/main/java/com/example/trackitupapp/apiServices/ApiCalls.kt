@@ -42,7 +42,6 @@ class ApiCalls {
     private fun waitForToken(context: Context)
     {
         while (TokenManager().isTokenUpdating(context)) {
-            //TODO(CHECK IF WORKS)
             Thread.sleep(100)
         }
     }
@@ -369,7 +368,6 @@ class ApiCalls {
     }
 
     fun callRefreshToken(applicationContext: Context, param: LoginCallback) {
-        waitForToken(applicationContext)
 
         val tokenManager = TokenManager()
         val refreshToken = tokenManager.getRefToken(applicationContext)
