@@ -96,7 +96,7 @@ class ApiCalls {
                 call: Call<RegisterResponse>,
                 response: Response<RegisterResponse>
             ) {
-                if (response.code() == 200) {
+                if (response.code() == 201) {
                     param.onSuccess(response.message().toString())
                 } else {
                     param.onSuccessFail(response)
