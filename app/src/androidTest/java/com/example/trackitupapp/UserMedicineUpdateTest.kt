@@ -84,7 +84,7 @@ class UserMedicineUpdateTest {
         onView(withId(R.id.rv_medicineHolder))
             .perform(
                 RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                    3,
+                    1,
                     click()
                 )
             )

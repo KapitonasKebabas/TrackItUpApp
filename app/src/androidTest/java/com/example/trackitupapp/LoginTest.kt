@@ -46,7 +46,7 @@ class LoginTest {
         onView(withId(R.id.btn_login)).perform(click())
 
         // Patikrinti, ar buvo parodyta klaidos žinutė dėl tuščio vartotojo vardo
-        onView(withId(R.id.tv_token)).check(matches(withText("Please enter username")))
+        onView(withId(R.id.tv_token)).check(matches(withText("Wrong credentials")))
         activityScenario.close()
     }
 
@@ -63,7 +63,7 @@ class LoginTest {
         onView(withId(R.id.btn_login)).perform(click())
 
         // Patikrinti, ar buvo parodyta klaidos žinutė dėl tuščio slaptažodžio
-        onView(withId(R.id.tv_token)).check(matches(withText("Please enter password")))
+        onView(withId(R.id.tv_token)).check(matches(withText("Wrong credentials")))
         activityScenario.close()
     }
 
@@ -80,7 +80,7 @@ class LoginTest {
         onView(withId(R.id.btn_login)).perform(click())
 
         // Patikrinti, ar buvo parodyta klaidos žinutė dėl abiejų tuščių laukų
-        onView(withId(R.id.tv_token)).check(matches(withText("Please enter username and password")))
+        onView(withId(R.id.tv_token)).check(matches(withText("Abu laukai turi buti uzpildyti")))
         activityScenario.close()
     }
 

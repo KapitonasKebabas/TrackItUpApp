@@ -146,11 +146,11 @@ class LoginActivity : AppCompatActivity() {
 
         progressBar.visibility = View.VISIBLE
 
-        if(username.isBlank() || password.isBlank())
+        if(username.isBlank() && password.isBlank())
         {
             username = UserManager().getUserDataByFieldString(applicationContext, ProfilePreferences.Username.toString())
             password = UserManager().getUserDataByFieldString(applicationContext, ProfilePreferences.Password.toString())
-            if(username.isBlank() || password.isBlank()) {
+            if(username.isBlank() && password.isBlank()) {
                 authDenied("Abu laukai turi buti uzpildyti")
                 return
             }
