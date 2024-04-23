@@ -15,6 +15,7 @@ import com.example.trackitupapp.apiServices.ApiCalls
 import com.example.trackitupapp.apiServices.Callbacks.MedicineCallback
 import com.example.trackitupapp.apiServices.responses.MedicineResponse
 import com.example.trackitupapp.dataHolder.UserMedicine
+import java.time.LocalDate
 import java.util.Calendar
 
 class EditMedicineActivity : AppCompatActivity() {
@@ -45,18 +46,54 @@ class EditMedicineActivity : AppCompatActivity() {
             val dialog = AlertDialog.Builder(this)
                 .setTitle("Edit Medicine Details")
                 .setView(dialogView)
-                .setPositiveButton("Save") { _, _ ->
-                    medicine.qty = amountEditText.text.toString().toInt()
-                    medicine.exp_date = expirationEditText.text.toString()
-                    medicine.is_shared = editSwitch.isChecked
-                    updateMedicine(medicine)
-                }
+                .setPositiveButton("Save", null)
                 .setNegativeButton("Cancel") { _, _ ->
                     finish()
                 }
                 .create()
 
+            dialog.setOnShowListener {
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE)?.setOnClickListener {
+                    val amountText = amountEditText.text.toString()
+                    val expirationDateText = expirationEditText.text.toString()
+
+                    val errors = mutableListOf<String>()
+
+                    if (amountText.isEmpty()) {
+                        amountEditText.error = "Amount cannot be empty"
+                        errors.add("Amount cannot be empty")
+                    } else {
+                        val amount = amountText.toInt()
+                        if (amount < 1) {
+                            amountEditText.error = "Amount must be at least 1"
+                            errors.add("Amount must be at least 1")
+                        }
+                    }
+
+                    if (expirationDateText.isEmpty()) {
+                        expirationEditText.error = "Expiration date cannot be empty"
+                        errors.add("Expiration date cannot be empty")
+                    } else {
+                        val expirationDate = LocalDate.parse(expirationDateText)
+                        val currentDate = LocalDate.parse(expirationEditText.text.toString())
+                        if (expirationDate.isBefore(currentDate)) {
+                            expirationEditText.error = "Expiration date cannot be before current date"
+                            errors.add("Expiration date cannot be before current date")
+                        }
+                    }
+
+                    if (errors.isEmpty()) {
+                        medicine.qty = amountText.toInt()
+                        medicine.exp_date = expirationDateText
+                        medicine.is_shared = editSwitch.isChecked
+                        updateMedicine(medicine)
+                        dialog.dismiss()
+                    }
+                }
+            }
+
             dialog.show()
+
         }
     }
 
