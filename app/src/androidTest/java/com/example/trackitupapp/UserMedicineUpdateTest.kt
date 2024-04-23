@@ -1,3 +1,4 @@
+
 import UserMedicineUpdateTest.Constants.updatedAmount
 import UserMedicineUpdateTest.Constants.updatedAmountNegative
 import UserMedicineUpdateTest.Constants.updatedExpiryDate
@@ -18,11 +19,10 @@ import com.example.trackitupapp.activities.UserMedicineActivity
 import com.example.trackitupapp.constants.Constants.DATE_FORMAT
 import org.hamcrest.CoreMatchers
 import org.hamcrest.CoreMatchers.not
-import org.junit.Before
+import org.junit.BeforeClass
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.time.LocalDate
 
 @RunWith(AndroidJUnit4::class)
 class UserMedicineUpdateTest {
@@ -36,21 +36,24 @@ class UserMedicineUpdateTest {
     @get:Rule
     val activityScenarioRule = ActivityScenarioRule(UserMedicineActivity::class.java)
 
-    @Before
-    fun login() {
-        val activityScenario = ActivityScenario.launch(LoginActivity::class.java)
+    companion object {
+        @BeforeClass
+        @JvmStatic
+        fun login() {
+            val activityScenario = ActivityScenario.launch(LoginActivity::class.java)
 
-        val username = "test"
-        val password = "test"
+            val username = "test"
+            val password = "test"
 
-        onView(withId(R.id.username)).perform(typeText(username), closeSoftKeyboard())
-        onView(withId(R.id.password)).perform(typeText(password), closeSoftKeyboard())
+            onView(withId(R.id.username)).perform(typeText(username), closeSoftKeyboard())
+            onView(withId(R.id.password)).perform(typeText(password), closeSoftKeyboard())
 
-        onView(withId(R.id.btn_login)).perform(click())
+            onView(withId(R.id.btn_login)).perform(click())
 
-        Thread.sleep(3000)
+            Thread.sleep(3000)
 
-        activityScenario.close()
+            activityScenario.close()
+        }
     }
 
     @Test

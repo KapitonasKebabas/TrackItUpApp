@@ -1,5 +1,4 @@
 package com.example.trackitupapp.activities
-
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
@@ -18,8 +17,8 @@ import com.example.trackitupapp.apiServices.calls.MedicineCall
 import com.example.trackitupapp.apiServices.responses.MedicineResponse
 import com.example.trackitupapp.dataHolder.AprovedMedicine
 import com.example.trackitupapp.dataHolder.UserMedicine
+import java.time.LocalDate
 import java.util.Calendar
-
 
 class AddUserMedicineActivity : AppCompatActivity() {
     private lateinit var calls: ApiCalls
@@ -38,7 +37,7 @@ class AddUserMedicineActivity : AppCompatActivity() {
 
     private fun populateSpinner() {
         val aprovedMedicineList = AprovedMedicine.getList()
-        val spinner: Spinner = findViewById<Spinner>(R.id.sp_aprovedMedicine)
+        val spinner: Spinner = findViewById(R.id.sp_aprovedMedicine)
         val adapter = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_item,
@@ -49,7 +48,7 @@ class AddUserMedicineActivity : AppCompatActivity() {
     }
 
     private fun setupDatePicker() {
-        expirationEditText = findViewById<EditText>(R.id.editExpirationDate)
+        expirationEditText = findViewById(R.id.editExpirationDate)
         expirationEditText.setOnClickListener {
             showDatePickerDialog()
         }
@@ -87,20 +86,48 @@ class AddUserMedicineActivity : AppCompatActivity() {
             val editSwitch = findViewById<Switch>(R.id.addSwitch)
             val shareAmountEditText: EditText = findViewById(R.id.editShareAmount)
 
+            val amountText = amountEditText.text.toString()
+            val expirationDateText = expirationEditText.text.toString()
+
+            val errors = mutableListOf<String>()
+
             if (shareAmountEditText.text.toString() == "") {
                 shareAmountEditText.setText("1")
             }
 
-            if (amountEditText.text.toString() == "") {
-                shareAmountEditText.setText("1")
+            if (amountText.isEmpty()) {
+                amountEditText.error = "Amount cannot be empty"
+                errors.add("Amount cannot be empty")
+            } else {
+                val amount = amountText.toInt()
+                if (amount < 1) {
+                    amountEditText.error = "Amount must be at least 1"
+                    errors.add("Amount must be at least 1")
+                }
             }
 
-            val expirationDate = expirationEditText.text.toString()
-            val amount = amountEditText.text.toString().toInt()
+            if (expirationDateText.isEmpty()) {
+                expirationEditText.error = "Expiration date cannot be empty"
+                errors.add("Expiration date cannot be empty")
+            } else {
+                val expirationDate = LocalDate.parse(expirationDateText)
+                val currentDate = LocalDate.now()
+                if (expirationDate.isBefore(currentDate)) {
+                    expirationEditText.error = "Expiration date cannot be before current date"
+                    errors.add("Expiration date cannot be before current date")
+                }
+            }
+
+            if (errors.isNotEmpty()) {
+                val errorMessage = errors.joinToString("\n")
+                Toast.makeText(applicationContext, errorMessage, Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+
             val shareAmount = shareAmountEditText.text.toString().toInt()
             val isSwitchChecked = editSwitch.isChecked
 
-            val medicineCall = MedicineCall(selectedPk, amount, expirationDate, isSwitchChecked, shareAmount)
+            val medicineCall = MedicineCall(selectedPk, amountText.toInt(), expirationDateText, isSwitchChecked, shareAmount)
             addMedicine(medicineCall)
         }
     }
@@ -113,16 +140,14 @@ class AddUserMedicineActivity : AppCompatActivity() {
                 override fun onSuccess(medicine: MedicineResponse) {
                     UserMedicine.addItemToList(medicine)
 
-                    val intent =
-                        Intent(this@AddUserMedicineActivity, UserMedicineActivity::class.java)
+                    val intent = Intent(this@AddUserMedicineActivity, UserMedicineActivity::class.java)
                     startActivity(intent)
                 }
 
                 override fun onFailure(message: String) {
                     Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
 
-                    val intent =
-                        Intent(this@AddUserMedicineActivity, UserMedicineActivity::class.java)
+                    val intent = Intent(this@AddUserMedicineActivity, UserMedicineActivity::class.java)
                     startActivity(intent)
                 }
             }
