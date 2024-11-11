@@ -31,7 +31,6 @@ class EditMedicineActivity : AppCompatActivity() {
         calls = ApiCalls()
         val medicineId = intent.getIntExtra("id", -1)
 
-        // CC +1 | Simplified check for valid medicine ID
         if (medicineId != -1) {
             val medicine = UserMedicine.getObjectByPk(medicineId) ?: return
 
@@ -42,12 +41,10 @@ class EditMedicineActivity : AppCompatActivity() {
             expirationEditText = dialogView.findViewById(R.id.editExpirationDate)
             val editSwitch: Switch = dialogView.findViewById(R.id.editSwitch)
 
-            // Pre-fill values from the medicine object (CCog +1)
             amountEditText.setText(medicine.qty.toString())
             expirationEditText.setText(medicine.exp_date)
             editSwitch.isChecked = medicine.is_shared
 
-            // CC +1 | Simplified dialog handling
             val dialog = AlertDialog.Builder(this)
                 .setTitle("Edit Medicine Details")
                 .setView(dialogView)
@@ -57,12 +54,10 @@ class EditMedicineActivity : AppCompatActivity() {
 
             dialog.setOnShowListener {
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE)?.setOnClickListener {
-                    // CCog +1 | Collecting input and validation logic combined
                     val errors = mutableListOf<String>()
                     val amountText = amountEditText.text.toString()
                     val expirationDateText = expirationEditText.text.toString()
 
-                    // CC +1 | Combined validation for amount and expiration date to reduce repetition
                     if (amountText.isEmpty() || amountText.toIntOrNull()?.let { it < 1 } == true) {
                         amountEditText.error = "Amount must be a positive number"
                         errors.add("Amount must be a positive number")
@@ -74,7 +69,6 @@ class EditMedicineActivity : AppCompatActivity() {
                     }
 
                     if (errors.isEmpty()) {
-                        // CC +1 | Proceed with updating the medicine details
                         medicine.qty = amountText.toInt()
                         medicine.exp_date = expirationDateText
                         medicine.is_shared = editSwitch.isChecked
@@ -88,7 +82,6 @@ class EditMedicineActivity : AppCompatActivity() {
         }
     }
 
-    // CCog +1 | Date validation logic moved to a separate function for clarity
     private fun isValidExpirationDate(expirationDateText: String): Boolean {
         return try {
             val expirationDate = LocalDate.parse(expirationDateText)
@@ -99,22 +92,18 @@ class EditMedicineActivity : AppCompatActivity() {
         }
     }
 
-    // CC +1 | Simplified API call and response handling
     fun updateMedicine(medicine: MedicineResponse) {
         calls.callUserMedicineUpdate(applicationContext, medicine, object : MedicineCallback {
             override fun onSuccess(medicineResponse: MedicineResponse) {
-                // CCog +1 | Separate method for handling success (Improves clarity)
                 updateMedicineView(medicineResponse)
             }
 
             override fun onFailure(message: String) {
-                // Reliability Rating +1 | Handle failure with user-friendly message
                 Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
             }
         })
     }
 
-    // CC +1 | Update the view and navigate to the next activity
     fun updateMedicineView(newMedicine: MedicineResponse) {
         Toast.makeText(applicationContext, "Update successful!", Toast.LENGTH_LONG).show()
         val intent = Intent(this, UserMedicineActivity::class.java)
@@ -122,7 +111,6 @@ class EditMedicineActivity : AppCompatActivity() {
         finish()
     }
 
-    // CC +1 | Show date picker with simplified logic
     fun showDatePickerDialog(view: View) {
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
@@ -142,14 +130,13 @@ class EditMedicineActivity : AppCompatActivity() {
             dateParts.getOrNull(2)?.toInt() ?: day
         )
 
-        // CC +1 | Set minimum date for the date picker (current date)
         datePickerDialog.datePicker.minDate = System.currentTimeMillis() - 1000
         datePickerDialog.show()
     }
 }
 
 // **Total Complexity Metrics**:
-// **Cyclomatic Complexity (CC)**: 17 (Best: 10-15)
-// **Cognitive Complexity (CCog)**: 7 (Best: 5-8)
-// **Technical Debt**: 3 (Best: 2-4)
-// **Reliability Rating**: 8 (Best: 9-10)
+// **Cyclomatic Complexity (CC)**: 17
+// **Cognitive Complexity (CCog)**: 7
+// **Technical Debt**: 3
+// **Reliability Rating**: 8
