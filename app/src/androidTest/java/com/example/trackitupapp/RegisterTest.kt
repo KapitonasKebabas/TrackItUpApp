@@ -1,22 +1,20 @@
 package com.example.trackitupapp;
 
 
-import androidx.test.core.app.ActivityScenario;
+import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.action.ViewActions.typeText
-import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.espresso.action.ViewActions.closeSoftKeyboard
+import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.trackitupapp.activities.LoginActivity
-
-import com.example.trackitupapp.activities.RegisterActivity;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import com.example.trackitupapp.activities.RegisterActivity
+import org.junit.Test
+import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class RegisterTest {
@@ -51,9 +49,9 @@ class RegisterTest {
 
         val firstName = "Johns"
         val lastName = "Does"
-        val username = "Johndoes"
-        val password = "Johndoes123!"
-        val email = "johndoes@example.com"
+        val username = "Johndoes3"
+        val password = "Johndoes123!5"
+        val email = "johndoes@example1.com"
 
         onView(withId(R.id.et_firstName_registerAct)).perform(typeText(firstName), closeSoftKeyboard())
         onView(withId(R.id.et_lastName_registerAct)).perform(typeText(lastName), closeSoftKeyboard())

@@ -45,22 +45,36 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
+
         <EditText
+            android:layout_marginStart="16dp"
             android:id="@+id/et_chat_chatboxMessage"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginStart="16dp"
             android:layout_toStartOf="@+id/btn_chat_sendMessage"
             android:background="@android:color/transparent"
             android:hint="Enter Message"
             android:inputType="text"
             android:maxLines="6"
-            android:layout_toLeftOf="@id/btn_cancel_status"
-            tools:ignore="Autofill"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btn_cancel_status"
-            app:layout_constraintStart_toStartOf="parent" />
+            tools:ignore="Autofill" />
+
+<!--        <EditText-->
+<!--            android:id="@+id/et_chat_chatboxMessage"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:layout_marginStart="16dp"-->
+<!--            android:layout_toStartOf="@+id/btn_chat_sendMessage"-->
+<!--            android:background="@android:color/transparent"-->
+<!--            android:hint="Enter Message"-->
+<!--            android:inputType="text"-->
+<!--            android:maxLines="6"-->
+<!--            android:layout_toLeftOf="@id/btn_cancel_status"-->
+<!--            tools:ignore="Autofill"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toStartOf="@id/btn_cancel_status"-->
+<!--            app:layout_constraintStart_toStartOf="parent" />-->
 
         <Button
             android:id="@+id/btn_chat_sendMessage"

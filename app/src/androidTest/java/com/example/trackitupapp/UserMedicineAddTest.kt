@@ -71,7 +71,7 @@ class UserMedicineAddTest {
 
         onView(withId(R.id.editAmount)).perform(typeText("0"), closeSoftKeyboard())
         onView(withId(R.id.editExpirationDate)).perform(click())
-        onView(withClassName(`is`("android.widget.DatePicker"))).perform(setDate(2024, 4, 8))
+        onView(withClassName(`is`("android.widget.DatePicker"))).perform(setDate(2024, 10, 15))
         onView(withText("OK")).perform(click())
         onView(withId(R.id.addSwitch)).perform(click())
 
@@ -91,7 +91,7 @@ class UserMedicineAddTest {
 
         onView(withId(R.id.editAmount)).perform(typeText("2"), closeSoftKeyboard())
         onView(withId(R.id.editExpirationDate)).perform(click())
-        onView(withClassName(`is`("android.widget.DatePicker"))).perform(setDate(2024, 10, 8))
+        onView(withClassName(`is`("android.widget.DatePicker"))).perform(setDate(2025, 10, 8))
         onView(withText("OK")).perform(click())
         onView(withId(R.id.addSwitch)).perform(click())
 

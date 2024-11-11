@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+
 }
 
 android {
@@ -59,5 +60,6 @@ dependencies {
     testImplementation("org.robolectric:robolectric:4.9")
     testImplementation("org.mockito:mockito-core:4.0.0")
     implementation(kotlin("test"))
+
 
 }

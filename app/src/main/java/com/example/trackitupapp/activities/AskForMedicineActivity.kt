@@ -3,7 +3,6 @@ package com.example.trackitupapp.activities
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Base64
-import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView

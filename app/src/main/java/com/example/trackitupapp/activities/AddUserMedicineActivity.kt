@@ -1,4 +1,5 @@
 package com.example.trackitupapp.activities
+
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
@@ -21,27 +22,32 @@ import java.time.LocalDate
 import java.util.Calendar
 
 class AddUserMedicineActivity : AppCompatActivity() {
-    private lateinit var calls: ApiCalls
+
+    private lateinit var apiCalls: ApiCalls
     private lateinit var expirationEditText: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_user_medicine)
 
-        calls = ApiCalls()
+        apiCalls = ApiCalls()
 
-        populateSpinner()
-        addUserMedicineBtn()
+        setupUIComponents()
+    }
+
+    private fun setupUIComponents() {
+        setupSpinner()
+        setupAddButton()
         setupDatePicker()
     }
 
-    private fun populateSpinner() {
-        val aprovedMedicineList = AprovedMedicine.getList()
+    private fun setupSpinner() {
+        val approvedMedicines = AprovedMedicine.getList()
         val spinner: Spinner = findViewById(R.id.sp_aprovedMedicine)
         val adapter = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_item,
-            aprovedMedicineList.map { AprovedMedicineItem(it.pk, it.name) }
+            approvedMedicines.map { AprovedMedicineItem(it.pk, it.name) }
         )
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter
@@ -49,108 +55,105 @@ class AddUserMedicineActivity : AppCompatActivity() {
 
     private fun setupDatePicker() {
         expirationEditText = findViewById(R.id.editExpirationDate)
-        expirationEditText.setOnClickListener {
-            showDatePickerDialog()
-        }
+        expirationEditText.setOnClickListener { showDatePickerDialog() }
     }
 
     private fun showDatePickerDialog() {
         val calendar = Calendar.getInstance()
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
-
-        val datePickerDialog = DatePickerDialog(
+        DatePickerDialog(
             this,
-            DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-                val selectedDate = String.format("%04d-%02d-%02d", year, month + 1, dayOfMonth)
-                expirationEditText.setText(selectedDate)
+            { _, year, month, dayOfMonth ->
+                expirationEditText.setText(formatDate(year, month, dayOfMonth))
             },
-            year,
-            month,
-            day
-        )
-        datePickerDialog.datePicker.minDate = System.currentTimeMillis() - 1000
-        datePickerDialog.show()
-    }
-
-    private fun addUserMedicineBtn() {
-        val addBtn = findViewById<Button>(R.id.btn_addUserMedicine)
-        addBtn.setOnClickListener {
-            val aprovedMedicineSpiner = findViewById<Spinner>(R.id.sp_aprovedMedicine)
-            val selectedMedicineItem = aprovedMedicineSpiner.selectedItem as AprovedMedicineItem
-            val selectedPk = selectedMedicineItem.pk //PK of medicine field
-
-            val amountEditText: EditText = findViewById(R.id.editAmount)
-            val expirationEditText: EditText = findViewById(R.id.editExpirationDate)
-            val editSwitch = findViewById<Switch>(R.id.addSwitch)
-            val shareAmountEditText: EditText = findViewById(R.id.editShareAmount)
-
-            val amountText = amountEditText.text.toString()
-            val expirationDateText = expirationEditText.text.toString()
-
-            val errors = mutableListOf<String>()
-
-            if (shareAmountEditText.text.toString() == "") {
-                shareAmountEditText.setText("1")
-            }
-
-            if (amountText.isEmpty()) {
-                amountEditText.error = "Amount cannot be empty"
-                errors.add("Amount cannot be empty")
-            } else {
-                val amount = amountText.toInt()
-                if (amount < 1) {
-                    amountEditText.error = "Amount must be at least 1"
-                    errors.add("Amount must be at least 1")
-                }
-            }
-
-            if (expirationDateText.isEmpty()) {
-                expirationEditText.error = "Expiration date cannot be empty"
-                errors.add("Expiration date cannot be empty")
-            } else {
-                val expirationDate = LocalDate.parse(expirationDateText)
-                val currentDate = LocalDate.now()
-                if (expirationDate.isBefore(currentDate)) {
-                    expirationEditText.error = "Expiration date cannot be before current date"
-                    errors.add("Expiration date cannot be before current date")
-                }
-            }
-
-            if (errors.isNotEmpty()) {
-                val errorMessage = errors.joinToString("\n")
-                Toast.makeText(applicationContext, errorMessage, Toast.LENGTH_LONG).show()
-                return@setOnClickListener
-            }
-
-            val shareAmount = shareAmountEditText.text.toString().toInt()
-            val isSwitchChecked = editSwitch.isChecked
-
-            val medicineCall = MedicineCall(selectedPk, amountText.toInt(), expirationDateText, isSwitchChecked, shareAmount)
-            addMedicine(medicineCall)
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        ).apply {
+            datePicker.minDate = System.currentTimeMillis() - 1000
+            show()
         }
     }
 
+    private fun formatDate(year: Int, month: Int, day: Int): String {
+        return String.format("%04d-%02d-%02d", year, month + 1, day)
+    }
+
+    private fun setupAddButton() {
+        val addButton = findViewById<Button>(R.id.btn_addUserMedicine)
+        addButton.setOnClickListener { handleAddButtonClick() }
+    }
+
+    private fun handleAddButtonClick() {
+        val selectedMedicine = getSelectedMedicine()
+        val amountText = findViewById<EditText>(R.id.editAmount).text.toString()
+        val expirationDateText = expirationEditText.text.toString()
+        val shareAmountText = findViewById<EditText>(R.id.editShareAmount).text.toString().ifEmpty { "1" }
+        val isShareEnabled = findViewById<Switch>(R.id.addSwitch).isChecked
+
+        val errors = validateInputs(amountText, expirationDateText)
+        if (errors.isNotEmpty()) {
+            showToast(errors.joinToString("\n"))
+            return
+        }
+
+        val medicineCall = createMedicineCall(selectedMedicine.pk, amountText.toInt(), expirationDateText, isShareEnabled, shareAmountText.toInt())
+        addMedicine(medicineCall)
+    }
+
+    private fun getSelectedMedicine(): AprovedMedicineItem {
+        val medicineSpinner = findViewById<Spinner>(R.id.sp_aprovedMedicine)
+        return medicineSpinner.selectedItem as AprovedMedicineItem
+    }
+
+    private fun validateInputs(amountText: String, expirationDateText: String): List<String> {
+        val errors = mutableListOf<String>()
+
+        if (amountText.isEmpty() || amountText.toIntOrNull() ?: 0 < 1) {
+            errors.add("Amount must be at least 1")
+        }
+        if (expirationDateText.isEmpty() || !isDateValid(expirationDateText)) {
+            errors.add("Expiration date must be a valid future date")
+        }
+
+        return errors
+    }
+
+    private fun isDateValid(dateText: String): Boolean {
+        return try {
+            val expirationDate = LocalDate.parse(dateText)
+            expirationDate.isAfter(LocalDate.now())
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    private fun createMedicineCall(pk: Int, amount: Int, expirationDate: String, isShareEnabled: Boolean, shareAmount: Int): MedicineCall {
+        return MedicineCall(pk, amount, expirationDate, isShareEnabled, shareAmount)
+    }
+
     private fun addMedicine(medicine: MedicineCall) {
-        calls.callAddUserMedicine(
+        apiCalls.callAddUserMedicine(
             applicationContext,
             medicine,
             object : MedicineCallback {
                 override fun onSuccess(medicine: MedicineResponse) {
                     UserMedicine.addItemToList(medicine)
-
-                    val intent = Intent(this@AddUserMedicineActivity, UserMedicineActivity::class.java)
-                    startActivity(intent)
+                    navigateToUserMedicineActivity()
                 }
 
                 override fun onFailure(message: String) {
-                    Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
-
-                    val intent = Intent(this@AddUserMedicineActivity, UserMedicineActivity::class.java)
-                    startActivity(intent)
+                    showToast(message)
+                    navigateToUserMedicineActivity()
                 }
             }
         )
+    }
+
+    private fun navigateToUserMedicineActivity() {
+        startActivity(Intent(this, UserMedicineActivity::class.java))
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
     }
 }

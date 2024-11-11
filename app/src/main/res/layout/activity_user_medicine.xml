@@ -16,12 +16,12 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_medicineHolder"
-        android:layout_width="409dp"
-        android:layout_height="610dp"
+        android:layout_width="407dp"
+        android:layout_height="544dp"
         android:layout_marginTop="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toBottomOf="@+id/search_filter"
-        tools:layout_editor_absoluteX="0dp" />
+        tools:layout_editor_absoluteX="-13dp" />
 
     <Button
         android:id="@+id/btn_addUserMedicine"
@@ -34,7 +34,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.986" />
 
     <SearchView
         android:id="@+id/search_filter"

@@ -5,10 +5,13 @@
       <entry key="All Tests">
         <State />
       </entry>
-      <entry key="Login">
+      <entry key="LoginTest">
         <State />
       </entry>
-      <entry key="Register test">
+      <entry key="RegisterTest">
+        <State />
+      </entry>
+      <entry key="UserMedicineAddTest">
         <State />
       </entry>
       <entry key="TracItUp">
@@ -18,6 +21,15 @@
         <State />
       </entry>
       <entry key="app">
+        <State />
+      </entry>
+      <entry key="testEmptyPassword()">
+        <State />
+      </entry>
+      <entry key="testLoginButton()">
+        <State />
+      </entry>
+      <entry key="testValidLoginCredentials()">
         <State />
       </entry>
       <entry key="testItemPickerSetup()">
