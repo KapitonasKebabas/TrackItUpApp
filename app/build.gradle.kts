@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.example.trackitupapp"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.trackitupapp"
@@ -36,31 +36,21 @@ android {
 }
 
 dependencies {
-
-    implementation("androidx.core:core-ktx:1.13.1")
+    implementation("androidx.core:core-ktx:1.15.0")
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("com.google.android.material:material:1.12.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("androidx.constraintlayout:constraintlayout:2.2.0")
+
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    // Searchible Spinner
-    implementation("com.github.miteshpithadiya:SearchableSpinner:master")
-    implementation("androidx.test.espresso:espresso-contrib:3.6.1")
 
+    // AndroidX Test Dependencies
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
+    // Unit Testing Dependencies
     testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.2.1")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
-    androidTestImplementation("androidx.test:core-ktx:1.6.1")
-    androidTestImplementation("androidx.test.ext:junit-ktx:1.2.1")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.espresso:espresso-intents:3.6.1")
-    androidTestImplementation("androidx.test.espresso:espresso-contrib:3.6.1")
-    testImplementation("io.mockk:mockk:1.13.10")
-    testImplementation("org.mockito:mockito-core:5.11.0")
-    testImplementation("androidx.arch.core:core-testing:2.2.0")
-
-
-
-
+    testImplementation("org.mockito:mockito-core:5.11.0") // For mocking
+    testImplementation("androidx.arch.core:core-testing:2.2.0") // For LiveData testing
 }
