@@ -1,4 +1,3 @@
-
 import UserMedicineUpdateTest.Constants.updatedAmount
 import UserMedicineUpdateTest.Constants.updatedExpiryDate
 import androidx.recyclerview.widget.RecyclerView
@@ -28,6 +27,7 @@ class UserMedicineUpdateTest {
         val updatedExpiryDate = DATE_FORMAT.format(DATE_FORMAT.parse("2025-06-10"))
         val updatedAmountNegative = -111
         val updatedExpiryDateNegative = DATE_FORMAT.format(DATE_FORMAT.parse("2020-04-10"))
+
     }
 
     @get:Rule
@@ -42,12 +42,14 @@ class UserMedicineUpdateTest {
             val username = "test"
             val password = "test"
 
+
             onView(withId(R.id.username)).perform(typeText(username), closeSoftKeyboard())
             onView(withId(R.id.password)).perform(typeText(password), closeSoftKeyboard())
 
             onView(withId(R.id.btn_login)).perform(click())
 
-            Thread.sleep(3000)
+            // Ensure the next screen appears
+            onView(withId(R.id.rv_medicineHolder)).check(matches(isDisplayed()))
 
             activityScenario.close()
         }
@@ -62,7 +64,9 @@ class UserMedicineUpdateTest {
                     click()
                 )
             )
+
     }
+
     @Test
     fun testDatePickerSetup() {
         onView(withId(R.id.rv_medicineHolder))
@@ -73,7 +77,6 @@ class UserMedicineUpdateTest {
                 )
             )
 
-        Thread.sleep(1000)
 
         onView(withId(R.id.editExpirationDate)).perform(click())
         onView(withClassName(CoreMatchers.`is`("android.widget.DatePicker"))).check(matches(isDisplayed()))
@@ -89,7 +92,6 @@ class UserMedicineUpdateTest {
                 )
             )
 
-        Thread.sleep(1000)
 
         onView(withText("Cancel")).perform(click())
     }
@@ -104,14 +106,12 @@ class UserMedicineUpdateTest {
                 )
             )
 
-        Thread.sleep(1000)
 
         onView(withId(R.id.editAmount))
             .perform(clearText(), typeText(updatedAmount.toString()), closeSoftKeyboard())
 
         onView(withId(R.id.editExpirationDate)).perform(click())
-        onView(withClassName(CoreMatchers.`is`("android.widget.DatePicker")))
-            .perform(setDate(2025, 6, 10))
+        onView(withClassName(CoreMatchers.`is`("android.widget.DatePicker"))).perform(setDate(2025, 6, 10))
         onView(withText("OK")).perform(click())
 
         onView(withText("Save")).perform(click())
@@ -123,8 +123,6 @@ class UserMedicineUpdateTest {
                     click()
                 )
             )
-
-        Thread.sleep(1000)
 
         onView(withId(R.id.editAmount)).check(matches(withText(updatedAmount.toString())))
         onView(withId(R.id.editExpirationDate)).check(matches(withText(updatedExpiryDate)))
@@ -140,14 +138,12 @@ class UserMedicineUpdateTest {
                 )
             )
 
-        Thread.sleep(1000)
 
         onView(withId(R.id.editAmount))
             .perform(clearText(), typeText(updatedAmount.toString()), closeSoftKeyboard())
 
         onView(withId(R.id.editExpirationDate)).perform(click())
-        onView(withClassName(CoreMatchers.`is`("android.widget.DatePicker")))
-            .perform(setDate(2025, 6, 10))
+        onView(withClassName(CoreMatchers.`is`("android.widget.DatePicker"))).perform(setDate(2025, 6, 10))
         onView(withText("OK")).perform(click())
 
         onView(withId(R.id.editSwitch)).perform(click())
@@ -161,8 +157,6 @@ class UserMedicineUpdateTest {
                     click()
                 )
             )
-
-        Thread.sleep(1000)
 
         onView(withId(R.id.editAmount)).check(matches(withText(updatedAmount.toString())))
         onView(withId(R.id.editExpirationDate)).check(matches(withText(updatedExpiryDate)))
@@ -178,23 +172,16 @@ class UserMedicineUpdateTest {
                 )
             )
 
-        Thread.sleep(1000)
 
         onView(withId(R.id.editAmount))
             .perform(clearText(), typeText("0"), closeSoftKeyboard())
 
         onView(withId(R.id.editExpirationDate)).perform(click())
-        onView(withClassName(CoreMatchers.`is`("android.widget.DatePicker")))
-            .perform(setDate(2020,4,10))
+        onView(withClassName(CoreMatchers.`is`("android.widget.DatePicker"))).perform(setDate(2020, 4, 10))
         onView(withText("OK")).perform(click())
 
         onView(withText("Save")).perform(click())
 
-
-        Thread.sleep(1000)
-
         onView(withId(R.id.editAmount)).check(matches(hasErrorText("Amount must be at least 1")))
-        //onView(withId(R.id.editExpirationDate)).check(matches(not(withText(updatedExpiryDateNegative))))
     }
-
 }

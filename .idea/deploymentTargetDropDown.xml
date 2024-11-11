@@ -11,7 +11,16 @@
       <entry key="Register test">
         <State />
       </entry>
+      <entry key="TracItUp">
+        <State />
+      </entry>
+      <entry key="Update Medicine">
+        <State />
+      </entry>
       <entry key="app">
+        <State />
+      </entry>
+      <entry key="testItemPickerSetup()">
         <State />
       </entry>
     </value>

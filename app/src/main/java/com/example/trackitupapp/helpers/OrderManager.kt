@@ -14,7 +14,7 @@ class OrderManager(private val apiCalls: ApiCalls) {
         quantity: Int,
         callback: OrderCallback
     ) {
-        val order = OrderCall(sharedMedicine.user_pk, sharedMedicine.pk, quantity, 3)
+        val order =     OrderCall(sharedMedicine.user_pk, sharedMedicine.pk, quantity, 3)
         apiCalls.callAddOrder(context, order, callback)
     }
 }

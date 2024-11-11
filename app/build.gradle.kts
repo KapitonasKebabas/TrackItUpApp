@@ -56,4 +56,8 @@ dependencies {
 
     androidTestImplementation("androidx.test.espresso:espresso-contrib:3.6.1")  // For contrib module
 
+    testImplementation("org.robolectric:robolectric:4.9")
+    testImplementation("org.mockito:mockito-core:4.0.0")
+    implementation(kotlin("test"))
+
 }

@@ -23,93 +23,81 @@ import com.example.trackitupapp.dataHolder.SharedMedicine
 class AskForMedicineActivity : AppCompatActivity() {
     private lateinit var calls: ApiCalls
     private lateinit var sharedMedicine: SharedMedicineResponse
-    private lateinit var approvedMedicine: AprovedMedecineResponse
+    private lateinit var aprovedMedicine: AprovedMedecineResponse
 
-    public override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ask_for_medicine)
 
         calls = ApiCalls()
-        val sharedId = intent.getIntExtra("sharedId", -1)
 
-        if (sharedId == -1) {
+        var sharedId = intent.getIntExtra("sharedId", -1)
+
+        if(sharedId == -1)
+        {
             finish()
-            return
         }
 
-        loadMedicines(sharedId)
-        showMedicineDetails()
-        setupOrderDialog()
-    }
-
-    private fun loadMedicines(sharedId: Int) {
         sharedMedicine = SharedMedicine.getObjectByPk(sharedId)!!
-        approvedMedicine = AprovedMedicine.getObjectByPk(sharedMedicine.medecine)!!
-    }
+        aprovedMedicine = AprovedMedicine.getObjectByPk(sharedMedicine.medecine)!!
 
-    private fun showMedicineDetails() {
-        val photoBase64 = approvedMedicine.photo
-        photoBase64?.let {
-            val decodedBytes = Base64.decode(it, Base64.DEFAULT)
-            if (decodedBytes.isNotEmpty()) {
-                val bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
-                findViewById<ImageView>(R.id.iv_img).setImageBitmap(bitmap)
-            }
+
+        val photoBase64 = aprovedMedicine.photo
+        val decodedBytes = Base64.decode(photoBase64 ?: "", Base64.DEFAULT)
+        if (decodedBytes.isNotEmpty()) {
+            val bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
+            findViewById<ImageView>(R.id.iv_img).setImageBitmap(bitmap)
         }
 
-        findViewById<TextView>(R.id.tv_name_shared).text = approvedMedicine.name
+        findViewById<TextView>(R.id.tv_name_shared).text = aprovedMedicine.name
         findViewById<TextView>(R.id.tv_amount_shared).text = sharedMedicine.shared_qty.toString()
-    }
 
-    private fun setupOrderDialog() {
-        val dialogView = layoutInflater.inflate(R.layout.activity_ask_for_medicine, null)
-        AlertDialog.Builder(this)
+
+        val inflater = layoutInflater
+        val dialogView = inflater.inflate(R.layout.activity_ask_for_medicine, null)
+        val dialog = AlertDialog.Builder(this)
             .setTitle("Ask For Medicine")
             .setView(dialogView)
-            .setPositiveButton("Save") { _, _ -> handleSave(dialogView) }
-            .setNegativeButton("Cancel") { _, _ -> finish() }
+            .setPositiveButton("Save") { _, _ ->
+                if(findViewById<TextView>(R.id.tv_user_shared).text.isNotEmpty()) {
+                    val amountEditText: EditText = dialogView.findViewById(R.id.editAmount)
+                    createOrder(amountEditText.text.toString().toInt())
+                }
+            }
+            .setNegativeButton("Cancel") { _, _ ->
+                finish()
+            }
             .create()
-            .show()
+
+        dialog.show()
     }
 
-    private fun handleSave(dialogView: View) {
-        val amountEditText: EditText = dialogView.findViewById(R.id.editAmount)
-        val quantity = amountEditText.text.toString().toIntOrNull()
+    fun createOrder(qty: Int)
+    {
 
-        if (quantity != null && quantity > 0) {
-            createOrder(quantity)
-        } else {
-            Toast.makeText(this, "Invalid amount", Toast.LENGTH_SHORT).show()
-        }
-    }
+        val order = OrderCall(
+            sharedMedicine.user_pk,
+            sharedMedicine.pk,
+            qty,
+            3
+        )
 
-    private fun createOrder(qty: Int) {
-        val order = OrderCall(sharedMedicine.user_pk, sharedMedicine.pk, qty, 3)
 
-        calls.callAddOrder(applicationContext, order, object : OrderCallback {
-            override fun onSuccess(medicine: OrderResponse) {
-                finish()
-                Toast.makeText(this@AskForMedicineActivity, "Order created", Toast.LENGTH_SHORT).show()
+        calls.callAddOrder(
+            applicationContext,
+            order,
+            object : OrderCallback {
+                override fun onSuccess(medicine: OrderResponse) {
+                    finish()
+                    Toast.makeText(this@AskForMedicineActivity, "Užsakymas sukurtas", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onFailure(message: String) {
+                    Toast.makeText(this@AskForMedicineActivity, "Nepavayko sukurti užsakymo", Toast.LENGTH_SHORT).show()
+                    finish()
+                }
+
             }
-
-            override fun onFailure(message: String) {
-                Toast.makeText(this@AskForMedicineActivity, "Failed to create order", Toast.LENGTH_SHORT).show()
-                finish()
-            }
-        })
-    }
-
-    /**
-     * Validates the quantity input. It should be a positive integer.
-     * @param quantity The quantity as a string.
-     * @return true if the quantity is valid, false otherwise.
-     */
-    fun validateQuantity(quantity: String): Boolean {
-        return try {
-            val qty = quantity.toInt()
-            qty > 0
-        } catch (e: NumberFormatException) {
-            false
-        }
+        )
     }
 }
