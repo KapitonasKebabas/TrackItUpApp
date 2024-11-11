@@ -53,4 +53,7 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.mockito:mockito-core:5.11.0") // For mocking
     testImplementation("androidx.arch.core:core-testing:2.2.0") // For LiveData testing
+
+    androidTestImplementation("androidx.test.espresso:espresso-contrib:3.6.1")  // For contrib module
+
 }
