@@ -12,12 +12,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.example.trackitupapp.apiServices.responses.MedicineResponse
 import com.example.trackitupapp.R
 import com.example.trackitupapp.activities.EditMedicineActivity
 import com.example.trackitupapp.activities.UserMedicineActivity
 import com.example.trackitupapp.apiServices.ApiCalls
 import com.example.trackitupapp.apiServices.Callbacks.SimpleCallback
+import com.example.trackitupapp.apiServices.responses.MedicineResponse
 import com.example.trackitupapp.dataHolder.AprovedMedicine
 import com.example.trackitupapp.dataHolder.UserMedicine
 
@@ -40,8 +40,8 @@ class MedicineAdapter (private val context: Context, private val medicine: List<
         val medicine = medicine[position]
         holder.itemView.apply {
             holder.name.text    = medicine.medecine_name
-            holder.expDate.text = "Expiration Date: ${medicine.exp_date}"
-            holder.qty.text     = "Amount:  ${medicine.qty}"
+            holder.expDate.text = "Galioja iki: ${medicine.exp_date}"
+            holder.qty.text     = "Kiekis:  ${medicine.qty}"
 
             val photoBase64 = AprovedMedicine.getObjectByPk(medicine.medecine)?.photo
             val decodedBytes = Base64.decode(photoBase64 ?: "", Base64.DEFAULT)

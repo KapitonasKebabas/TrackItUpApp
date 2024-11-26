@@ -29,7 +29,7 @@
             android:id="@+id/editAmount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Amount"
+            android:hint="Kiekis"
             android:inputType="numberDecimal"/>
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -48,7 +48,7 @@
             android:id="@+id/editExpirationDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Expiration Date"
+            android:hint="Galiojimo pabaigos data"
             android:inputType="text"
             android:focusable="false"
             android:onClick="showDatePickerDialog" />
@@ -60,6 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Share Medicine"
+        android:visibility="invisible"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="@+id/sp_aprovedMedicine"
         app:layout_constraintStart_toStartOf="@+id/sp_aprovedMedicine"

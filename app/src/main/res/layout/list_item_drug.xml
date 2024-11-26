@@ -38,14 +38,14 @@
             android:id="@+id/tv_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Amount: "
+            android:text="Kiekis: "
             android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tv_expDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Expiration Date: "
+            android:text="Galioja iki: "
             android:textSize="14sp" />
     </LinearLayout>
 

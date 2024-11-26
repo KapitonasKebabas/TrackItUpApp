@@ -5,7 +5,13 @@
     <color name="darkPrimaryColor">#455A64</color>
     <color name="darkPrimaryDarkColor">#263238</color>
     <color name="my_light_primary">#3F51B5</color>
+    <color name="reg">#7986CB</color>
     <color name="baby_blue">#7EC8E3</color>
     <color name="silver">#C0C0C0</color>
     <color name="purple_indigo">#774df2</color>
+    <color name="grey">#BABABA</color>
+    <color name="clear">#00FFFFFF</color>
+    <color name="blacktxt">#B3000000</color>
+    <color name="grey_light">#ECECEC</color>
+
 </resources>

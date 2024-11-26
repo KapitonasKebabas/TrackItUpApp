@@ -35,13 +35,13 @@ class SharedMedicineActivity : AppCompatActivity() {
                     startActivity(Intent(this@SharedMedicineActivity, UserMedicineActivity::class.java))
                     true
                 }
-                R.id.share_medicine -> {
+                /*R.id.share_medicine -> {
                     true
                 }
                 R.id.orders -> {
                     startActivity(Intent(this@SharedMedicineActivity, OrdersActivity::class.java))
                     true
-                }
+                }*/
                 R.id.settings -> {
                     startActivity(Intent(this@SharedMedicineActivity, SettingsActivity::class.java))
                     true
@@ -49,7 +49,7 @@ class SharedMedicineActivity : AppCompatActivity() {
                 else -> false
             }
         }
-        bottomNavigationView.menu.findItem(R.id.share_medicine).isChecked = true
+        /*bottomNavigationView.menu.findItem(R.id.share_medicine).isChecked = true*/
     }
 
     private fun fetchSharedMedicineData() {

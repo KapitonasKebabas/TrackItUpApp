@@ -130,8 +130,8 @@ class LoginActivity : AppCompatActivity() {
         }
 
         // Find the start and end indices of "Reset password" in the text
-        val respasswStartIndex = spannableString.indexOf("Reset password")
-        val respasswEndIndex = respasswStartIndex + "Reset password".length
+        val respasswStartIndex = spannableString.indexOf("Pamiršote slaptažodį?")
+        val respasswEndIndex = "Pamiršote slaptažodį?".length
 
         // Set clickable spans for "Reset password"
         spannableString.setSpan(respasswClickableSpan, respasswStartIndex, respasswEndIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)

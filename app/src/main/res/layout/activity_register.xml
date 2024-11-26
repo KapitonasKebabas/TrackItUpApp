@@ -8,136 +8,210 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_username"
         style="@style/Widget.AppCompat.ActionButton.CloseMode"
-        android:layout_width="411dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
-        app:layout_constraintEnd_toEndOf="@+id/til_firstName"
-        app:layout_constraintStart_toStartOf="@+id/til_firstName"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_width="362dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/rounded_corner"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
 
         <EditText
             android:id="@+id/et_username_registerAct"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Username"
+            android:layout_width="347dp"
+            android:layout_height="51dp"
+            android:background="@color/clear"
+            android:ems="40"
+            android:hint="Įveskite Vartotojo vardą"
             android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_firstName"
         style="@style/Widget.AppCompat.ActionButton.CloseMode"
-        android:layout_width="411dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/til_username"
-        app:layout_constraintStart_toStartOf="@+id/til_username"
-        app:layout_constraintTop_toBottomOf="@+id/tv_userError">
+        android:layout_width="362dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/rounded_corner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/til_username">
 
         <EditText
             android:id="@+id/et_firstName_registerAct"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="First Name"
+            android:layout_width="347dp"
+            android:layout_height="51dp"
+            android:background="@color/clear"
+            android:ems="40"
+            android:hint="Įveskite Vardą"
             android:inputType="text" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <!-- Error TextViews -->
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_lastName"
-        style="@style/Widget.AppCompat.ActionButton.CloseMode"
-        android:layout_width="411dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        app:layout_constraintEnd_toEndOf="@+id/til_firstName"
-        app:layout_constraintStart_toStartOf="@+id/til_firstName"
-        app:layout_constraintTop_toBottomOf="@+id/til_firstName">
-
-        <EditText
-            android:id="@+id/et_lastName_registerAct"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Last Name"
-            android:inputType="text" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_email"
-        style="@style/Widget.AppCompat.ActionButton.CloseMode"
-        android:layout_width="411dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        app:layout_constraintEnd_toEndOf="@+id/til_lastName"
-        app:layout_constraintStart_toStartOf="@+id/til_lastName"
-        app:layout_constraintTop_toBottomOf="@+id/til_lastName">
-
-        <EditText
-            android:id="@+id/et_email_registerAct"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Email"
-            android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_password"
         style="@style/Widget.AppCompat.ActionButton.CloseMode"
-        android:layout_width="411dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/til_email"
-        app:layout_constraintStart_toStartOf="@+id/til_email"
-        app:layout_constraintTop_toBottomOf="@+id/tv_emailError">
+        android:layout_width="362dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/rounded_corner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/til_email">
 
         <EditText
             android:id="@+id/et_password_registerAct"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Password"
+            android:layout_width="347dp"
+            android:layout_height="51dp"
+            android:background="@color/clear"
+            android:ems="40"
+            android:hint="Įveskite Slaptažodį"
             android:inputType="textPassword"
-            tools:layout_editor_absoluteX="28dp"
-            tools:layout_editor_absoluteY="340dp" />
+            tools:layout_editor_absoluteX="12dp"
+            tools:layout_editor_absoluteY="505dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/btn_reg_registerAct"
-        android:layout_width="125dp"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_email"
+        style="@style/Widget.AppCompat.ActionButton.CloseMode"
+        android:layout_width="362dp"
         android:layout_height="55dp"
-        android:layout_marginTop="30dp"
-        android:text="Submit"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/til_password"
-        app:layout_constraintStart_toStartOf="@+id/til_password"
-        app:layout_constraintTop_toBottomOf="@+id/tv_pswError"
-        app:layout_constraintVertical_bias="0.0" />
+        android:layout_marginTop="32dp"
+        android:background="@drawable/rounded_corner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/til_gimimo_data">
+
+        <EditText
+            android:id="@+id/et_email_registerAct"
+            android:layout_width="347dp"
+            android:layout_height="51dp"
+            android:background="@color/clear"
+            android:ems="40"
+            android:hint="Įveskite El.paštą"
+            android:inputType="textEmailAddress"
+            tools:layout_editor_absoluteX="12dp"
+            tools:layout_editor_absoluteY="409dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_gimimo_data"
+        style="@style/Widget.AppCompat.ActionButton.CloseMode"
+        android:layout_width="362dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/rounded_corner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/til_lastName">
+
+        <EditText
+            android:id="@+id/et_gimimo_registerAct"
+            android:layout_width="347dp"
+            android:layout_height="51dp"
+            android:background="@color/clear"
+            android:ems="40"
+            android:focusable="false"
+            android:hint="Įveskite Gimimo datą"
+            android:inputType="date" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_lastName"
+        style="@style/Widget.AppCompat.ActionButton.CloseMode"
+        android:layout_width="362dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/rounded_corner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/til_firstName">
+
+        <EditText
+            android:id="@+id/et_lastName_registerAct"
+            android:layout_width="347dp"
+            android:layout_height="51dp"
+            android:background="@color/clear"
+            android:ems="40"
+            android:hint="Įveskite Pavardę"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/tv_userError"
-        android:layout_width="202dp"
-        android:layout_height="24dp"
-        android:hint=""
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.052"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_username" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        tools:layout_editor_absoluteX="196dp"
+        tools:layout_editor_absoluteY="133dp" />
 
     <TextView
         android:id="@+id/tv_emailError"
-        android:layout_width="202dp"
-        android:layout_height="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.052"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_email" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        tools:layout_editor_absoluteX="196dp"
+        tools:layout_editor_absoluteY="384dp" />
 
     <TextView
         android:id="@+id/tv_pswError"
-        android:layout_width="380dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="4dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        tools:layout_editor_absoluteX="196dp"
+        tools:layout_editor_absoluteY="480dp" />
 
+    <Button
+        android:id="@+id/btn_reg_registerAct"
+        android:layout_width="299dp"
+        android:layout_height="61dp"
+        android:text="Prisijungti"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.354"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkBox"
+        app:layout_constraintVertical_bias="0.283" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Sukurti paskyrą"
+        android:textSize="32dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.095"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Pradėkime kurti paskyrą, tai nužtruks!"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.175"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Sutinku su šiomis sąlygomis"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.091"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/til_password" />
 

@@ -14,7 +14,7 @@
             android:id="@+id/editAmount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Amount"
+            android:hint="Kiekis"
             android:inputType="numberDecimal"/>
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -29,18 +29,57 @@
             android:id="@+id/editExpirationDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Expiration Date"
+            android:hint="Galiojimo pabaigos data"
             android:focusable="false"
             android:onClick="showDatePickerDialog"/>
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/frequencyLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editFrequency"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Dažnumas (pvz., kas 3 valandas)"
+            android:inputType="number" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
+
+        <TextView
+            android:id="@+id/periodLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Įjungti priminimus:"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="8dp" />
+
+        <Switch
+            android:id="@+id/periodSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false" />
+
+    </LinearLayout>
 
     <Switch
         android:id="@+id/editSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Share Medicine"
+        android:visibility="invisible"
         android:layout_marginTop="16dp"/>
+
 
 </LinearLayout>
 

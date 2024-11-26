@@ -1,5 +1,6 @@
 package com.example.trackitupapp
 
+
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
@@ -9,15 +10,12 @@ import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.trackitupapp.activities.LoginActivity
-
+import com.example.trackitupapp.activities.SettingsActivity
+import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
-
-import org.junit.Assert.*
-
-
-import androidx.test.ext.junit.runners.AndroidJUnit4
 @RunWith(AndroidJUnit4::class)
 class LoginTest {
     @Test
@@ -28,7 +26,7 @@ class LoginTest {
         onView(withId(R.id.btn_login)).perform(click())
 
         // Palaukite, kol bus baigtas prisijungimo veiksmas
-        onView(withId(R.id.tv_token)).check(matches(withText("Wrong credentials")))
+        onView(withId(R.id.tv_token)).check(matches(withText("Abu laukai turi buti uzpildyti")))
 
         activityScenario.close()
     }
@@ -102,6 +100,10 @@ class LoginTest {
 
         onView(withId(R.id.username)).check(doesNotExist())
 
+        val activityScenario2 = ActivityScenario.launch(SettingsActivity::class.java)
+        onView(withId(R.id.logoutButton)).perform(click())
+
+        activityScenario2.close()
         activityScenario.close()
 
     }

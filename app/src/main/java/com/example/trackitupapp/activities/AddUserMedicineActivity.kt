@@ -6,7 +6,6 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
-import android.widget.Switch
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.trackitupapp.AprovedMedicineItem
@@ -83,38 +82,33 @@ class AddUserMedicineActivity : AppCompatActivity() {
 
             val amountEditText: EditText = findViewById(R.id.editAmount)
             val expirationEditText: EditText = findViewById(R.id.editExpirationDate)
-            val editSwitch = findViewById<Switch>(R.id.addSwitch)
-            val shareAmountEditText: EditText = findViewById(R.id.editShareAmount)
+            //val editSwitch = 0//findViewById<Switch>(R.id.addSwitch)
+            //val shareAmountEditText: EditText = "0"//findViewById(R.id.editShareAmount)
 
             val amountText = amountEditText.text.toString()
             val expirationDateText = expirationEditText.text.toString()
 
             val errors = mutableListOf<String>()
 
-            if (shareAmountEditText.text.toString() == "") {
+            /*if (shareAmountEditText.text.toString() == "") {
                 shareAmountEditText.setText("1")
-            }
+            }*/
 
-            if (amountText.isEmpty()) {
-                amountEditText.error = "Amount cannot be empty"
-                errors.add("Amount cannot be empty")
+            if (amountText.isEmpty() || expirationDateText.isEmpty()) {
+                amountEditText.error = "Prašome užpildyti visus laukus."
+                errors.add("Prašome užpildyti visus laukus.")
             } else {
                 val amount = amountText.toInt()
                 if (amount < 1) {
                     amountEditText.error = "Amount must be at least 1"
                     errors.add("Amount must be at least 1")
-                }
-            }
-
-            if (expirationDateText.isEmpty()) {
-                expirationEditText.error = "Expiration date cannot be empty"
-                errors.add("Expiration date cannot be empty")
-            } else {
-                val expirationDate = LocalDate.parse(expirationDateText)
-                val currentDate = LocalDate.now()
-                if (expirationDate.isBefore(currentDate)) {
-                    expirationEditText.error = "Expiration date cannot be before current date"
-                    errors.add("Expiration date cannot be before current date")
+                }else {
+                    val expirationDate = LocalDate.parse(expirationDateText)
+                    val currentDate = LocalDate.now()
+                    if (expirationDate.isBefore(currentDate)) {
+                        expirationEditText.error = "Netinkama galiojimo data."
+                        errors.add("Netinkama galiojimo data.")
+                    }
                 }
             }
 
@@ -124,8 +118,8 @@ class AddUserMedicineActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            val shareAmount = shareAmountEditText.text.toString().toInt()
-            val isSwitchChecked = editSwitch.isChecked
+            val shareAmount = 0 //shareAmountEditText.text.toString().toInt()
+            val isSwitchChecked = false //editSwitch.isChecked
 
             val medicineCall = MedicineCall(selectedPk, amountText.toInt(), expirationDateText, isSwitchChecked, shareAmount)
             addMedicine(medicineCall)
@@ -138,6 +132,7 @@ class AddUserMedicineActivity : AppCompatActivity() {
             medicine,
             object : MedicineCallback {
                 override fun onSuccess(medicine: MedicineResponse) {
+                    Toast.makeText(applicationContext, "Vaistas pridėtas sėkmingai.", Toast.LENGTH_SHORT).show()
                     UserMedicine.addItemToList(medicine)
 
                     val intent = Intent(this@AddUserMedicineActivity, UserMedicineActivity::class.java)

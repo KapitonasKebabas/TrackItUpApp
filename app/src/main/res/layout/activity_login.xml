@@ -8,81 +8,82 @@
 
     <Button
         android:id="@+id/btn_login"
-        android:layout_width="125dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="40dp"
-        android:text="Log in"
+        android:layout_width="299dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="24dp"
+        android:text="Prisijungti"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="@+id/btn_regActivity"
-        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/btn_regActivity"
         app:layout_constraintTop_toBottomOf="@+id/question" />
 
     <Button
         android:id="@+id/btn_regActivity"
-        android:layout_width="208dp"
-        android:layout_height="56dp"
-        android:text="Registration"
+        android:layout_width="299dp"
+        android:layout_height="61dp"
+        android:text="Registracija"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_login"
-        app:layout_constraintVertical_bias="0.191" />
-
-    <TextView
-        android:id="@+id/tv_token"
-        android:layout_width="369dp"
-        android:layout_height="71dp"
-        android:layout_marginTop="60dp"
-        android:text=""
-        app:layout_constraintEnd_toEndOf="@+id/til_username"
-        app:layout_constraintStart_toStartOf="@+id/til_username"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.453" />
 
     <TextView
         android:id="@+id/question"
-        android:layout_width="239dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="28dp"
+        android:layout_width="147dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="24dp"
         android:text="@string/login_psw_forget"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.077"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/til_password" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_username"
         style="@style/Widget.AppCompat.ActionButton.CloseMode"
-        android:layout_width="411dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="108dp"
-        app:layout_constraintEnd_toEndOf="@+id/til_password"
+        android:layout_width="362dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="130dp"
+        android:background="@drawable/rounded_corner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/til_password"
-        app:layout_constraintTop_toBottomOf="@+id/tv_token">
+        app:layout_constraintTop_toBottomOf="@+id/textView4">
 
         <EditText
             android:id="@+id/username"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Username"
+            android:layout_width="352dp"
+            android:layout_height="51dp"
+            android:background="@color/clear"
+            android:ems="40"
+            android:hint="Įveskite Vartotojo vardą"
             android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_password"
         style="@style/Widget.AppCompat.ActionButton.CloseMode"
-        android:layout_width="411dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_width="362dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/rounded_corner"
         app:layout_constraintEnd_toEndOf="@+id/btn_login"
+        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="@+id/btn_login"
-        app:layout_constraintTop_toBottomOf="@+id/til_username">
+        app:layout_constraintTop_toBottomOf="@+id/til_username"
+        app:passwordToggleEnabled="true">
 
         <EditText
             android:id="@+id/password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Password"
+            android:layout_width="347dp"
+            android:layout_height="51dp"
+            android:background="@color/clear"
+            android:ems="15"
+            android:hint="Įveskite Slaptažodį"
             android:inputType="textPassword"
             tools:layout_editor_absoluteX="28dp"
             tools:layout_editor_absoluteY="340dp" />
@@ -94,5 +95,81 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:text="Sveiki,"
+        android:textSize="32dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.063"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Sveiki sugrįžę!"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.068"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/tv_token"
+        android:layout_width="267dp"
+        android:layout_height="76dp"
+        android:text="                    "
+        tools:layout_editor_absoluteX="63dp"
+        tools:layout_editor_absoluteY="146dp" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="320dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="40dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_login">
+
+        <!-- Left line -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:background="#CCCCCC"
+            android:backgroundTint="@color/grey" />
+
+        <!-- Text -->
+
+        <!-- Right line -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="Neturite paskyro?"
+            android:textColor="@color/grey"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:background="#CCCCCC"
+            android:backgroundTint="@color/grey" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

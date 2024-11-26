@@ -18,6 +18,7 @@ import com.example.trackitupapp.dataHolder.UserMedicine
 import java.time.LocalDate
 import java.util.Calendar
 
+
 class EditMedicineActivity : AppCompatActivity() {
     private lateinit var calls: ApiCalls
     private lateinit var expirationEditText: EditText
@@ -27,6 +28,7 @@ class EditMedicineActivity : AppCompatActivity() {
         setContentView(R.layout.activity_user_medicine)
 
         calls = ApiCalls()
+
 
         val medicineId = intent.getIntExtra("id", -1)
         if (medicineId != -1) {
@@ -42,14 +44,14 @@ class EditMedicineActivity : AppCompatActivity() {
             amountEditText.setText(medicine.qty.toString())
             expirationEditText.setText(medicine.exp_date)
             editSwitch.isChecked = medicine.is_shared
-
             val dialog = AlertDialog.Builder(this)
-                .setTitle("Edit Medicine Details")
+                .setTitle("Redaguoti vaistų duomenis")
                 .setView(dialogView)
-                .setPositiveButton("Save", null)
-                .setNegativeButton("Cancel") { _, _ ->
+                .setPositiveButton("Išsaugoti", null)
+                .setNegativeButton("Atšaukti") { _, _ ->
                     finish()
                 }
+                    
                 .create()
 
             dialog.setOnShowListener {

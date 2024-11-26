@@ -50,14 +50,14 @@ class SettingsActivity : AppCompatActivity() {
                     startActivity(Intent(this@SettingsActivity, UserMedicineActivity::class.java))
                     true
                 }
-                R.id.share_medicine -> {
+                /*R.id.share_medicine -> {
                     startActivity(Intent(this@SettingsActivity, SharedMedicineActivity::class.java))
                     true
                 }
                 R.id.orders -> {
                     startActivity(Intent(this@SettingsActivity, OrdersActivity::class.java))
                     true
-                }
+                }*/
                 R.id.settings -> {
                     true
                 }

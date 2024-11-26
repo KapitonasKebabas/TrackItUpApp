@@ -6,11 +6,8 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import android.widget.Button
-import android.widget.CheckBox
 import android.widget.FrameLayout
 import android.widget.ProgressBar
-import android.widget.RadioButton
-import android.widget.SearchView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -36,7 +33,7 @@ class UserMedicineActivity : AppCompatActivity() {
         adduserMedicineBtn()
 
         getUserMedecine()
-        setupFilters()
+        //setupFilters()
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
@@ -44,18 +41,19 @@ class UserMedicineActivity : AppCompatActivity() {
                 R.id.my_medicine -> {
                     true
                 }
-                R.id.share_medicine -> {
+                /*R.id.share_medicine -> {
                     startActivity(Intent(this@UserMedicineActivity, SharedMedicineActivity::class.java))
                     true
-                }
-                R.id.orders -> {
+                }*/
+                /*R.id.orders -> {
                    startActivity(Intent(this@UserMedicineActivity, OrdersActivity::class.java))
                     true
-                }
+                }*/
                 R.id.settings -> {
                     startActivity(Intent(this@UserMedicineActivity, SettingsActivity::class.java))
                     true
                 }
+
                 else -> false
             }
         }
@@ -72,8 +70,7 @@ class UserMedicineActivity : AppCompatActivity() {
     }
 
 
-    fun getUserMedecine()
-    {
+    fun getUserMedecine() {
         findViewById<ProgressBar>(R.id.pb_loading).visibility = View.VISIBLE
         calls.callUserMedicine(
             applicationContext,
@@ -114,7 +111,8 @@ class UserMedicineActivity : AppCompatActivity() {
             val isExpiring = isExpirationDateWithinAWeek(medicineResponse.exp_date)
 
             if (isExpiring) {
-                val message = "'${medicineResponse.medecine_name}' " + getString(R.string.medicineExpiring)
+                val message =
+                    "'${medicineResponse.medecine_name}' " + getString(R.string.medicineExpiring)
                 showTopSnackbar(userMedicineRecyclerView, message)
             }
         }
@@ -129,7 +127,8 @@ class UserMedicineActivity : AppCompatActivity() {
 
         snackbarView.layoutParams = params
 
-        val textView = snackbarView.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
+        val textView =
+            snackbarView.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
         textView.setTextColor(Color.WHITE)
         textView.gravity = Gravity.CENTER_HORIZONTAL
 
@@ -146,7 +145,7 @@ class UserMedicineActivity : AppCompatActivity() {
         return differenceInDays <= 7
     }
 
-    private fun setupFilters() {
+   /* private fun setupFilters() {
         val prescriptionFilter = findViewById<CheckBox>(R.id.PrescriptionMedicine)
         val search = findViewById<SearchView>(R.id.search_filter)
         val ascRadioButton = findViewById<RadioButton>(R.id.radio_asc)
@@ -185,11 +184,10 @@ class UserMedicineActivity : AppCompatActivity() {
 
         prescriptionFilter.setOnCheckedChangeListener { buttonView, isChecked ->
             var isPrescriptionChecked = isChecked
-            if(!isChecked){
+            if (!isChecked) {
                 refreshRVView()
-            }
-            else
-            filterByPrescription()
+            } else
+                filterByPrescription()
         }
     }
 
@@ -219,5 +217,5 @@ class UserMedicineActivity : AppCompatActivity() {
         val userMedicineRecyclerView = findViewById<RecyclerView>(R.id.rv_medicineHolder)
         val medicineAdapter = MedicineAdapter(this@UserMedicineActivity, updatedList)
         userMedicineRecyclerView.adapter = medicineAdapter
-    }
+    }*/
 }

@@ -10,13 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.trackitupapp.R
 import com.example.trackitupapp.adapters.OrderMedicineAdapter
 import com.example.trackitupapp.apiServices.ApiCalls
-import com.example.trackitupapp.apiServices.Callbacks.OrderCallback
 import com.example.trackitupapp.apiServices.Callbacks.OrdersCallback
-import com.example.trackitupapp.apiServices.Callbacks.SharedMedicineCallback
 import com.example.trackitupapp.apiServices.responses.OrderResponse
-import com.example.trackitupapp.apiServices.responses.SharedMedicineResponse
 import com.example.trackitupapp.dataHolder.Orders
-import com.example.trackitupapp.dataHolder.SharedMedicine
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class OrdersActivity : AppCompatActivity() {
@@ -40,13 +36,13 @@ class OrdersActivity : AppCompatActivity() {
                     startActivity(Intent(this@OrdersActivity, UserMedicineActivity::class.java))
                     true
                 }
-                R.id.share_medicine -> {
+                /*R.id.share_medicine -> {
                     startActivity(Intent(this@OrdersActivity, SharedMedicineActivity::class.java))
                     true
                 }
                 R.id.orders -> {
                     true
-                }
+                }*/
                 R.id.settings -> {
                     startActivity(Intent(this@OrdersActivity, SettingsActivity::class.java))
                     true
@@ -54,7 +50,7 @@ class OrdersActivity : AppCompatActivity() {
                 else -> false
             }
         }
-        bottomNavigationView.menu.findItem(R.id.orders).isChecked = true
+       /* bottomNavigationView.menu.findItem(R.id.orders).isChecked = true*/
     }
 
     private fun fetchSharedMedicineData() {

@@ -7,23 +7,32 @@
     <Button
         android:id="@+id/logoutButton"
         android:layout_width="208dp"
-        android:layout_height="56dp"
-        android:layout_above="@id/bottom_navigation"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="596dp"
-        android:text="Log Out" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="47dp"
+        android:layout_marginEnd="39dp"
+        android:text="Atsijungti" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="91dp"
+        android:layout_width="353dp"
+        android:layout_height="71dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:background="@color/white"
-        app:itemIconSize="50dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="612dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="19dp"
+        android:background="@drawable/rounded_corner"
+        app:itemIconSize="30dp"
         app:itemIconTint="@color/black"
         app:itemTextColor="@color/black"
         app:labelVisibilityMode="labeled"
+        app:layout_constraintTop_toBottomOf="@+id/logoutButton"
         app:menu="@menu/bottom_navigation_menu" />
 
 </RelativeLayout>
