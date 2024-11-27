@@ -45,7 +45,7 @@ class EditMedicineActivity : AppCompatActivity() {
             expirationEditText.setText(medicine.exp_date)
             editSwitch.isChecked = medicine.is_shared
             val dialog = AlertDialog.Builder(this)
-                .setTitle("Redaguoti vaistų duomenis")
+                .setTitle("Redaguoti vaisto duomenis")
                 .setView(dialogView)
                 .setPositiveButton("Išsaugoti", null)
                 .setNegativeButton("Atšaukti") { _, _ ->

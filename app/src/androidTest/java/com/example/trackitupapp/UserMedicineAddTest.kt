@@ -66,12 +66,29 @@ class UserMedicineAddTest {
     }
 
     @Test
-    fun testAddMedicineinvalid() {
+    fun testAddMedicineinvalidDate() {
         onView(withId(R.id.btn_addUserMedicine)).perform(click())
 
-        onView(withId(R.id.editAmount)).perform(typeText("0"), closeSoftKeyboard())
+        onView(withId(R.id.editAmount)).perform(typeText("6"), closeSoftKeyboard())
         onView(withId(R.id.editExpirationDate)).perform(click())
-        onView(withClassName(`is`("android.widget.DatePicker"))).perform(setDate(2024, 4, 8))
+        onView(withClassName(`is`("android.widget.DatePicker"))).perform(setDate(2020, 12, 1))
+        onView(withText("OK")).perform(click())
+        //onView(withId(R.id.addSwitch)).perform(click())
+
+        onView(withId(R.id.btn_addUserMedicine)).perform(click())
+
+        Thread.sleep(1000)
+
+        onView(withId(R.id.editExpirationDate)).check(matches(hasErrorText("Expiration date cannot be before current date")))
+    }
+
+    @Test
+    fun testAddMedicineinvalidAmount() {
+        onView(withId(R.id.btn_addUserMedicine)).perform(click())
+
+        onView(withId(R.id.editAmount)).perform(typeText("-10"), closeSoftKeyboard())
+        onView(withId(R.id.editExpirationDate)).perform(click())
+        onView(withClassName(`is`("android.widget.DatePicker"))).perform(setDate(2028, 12, 1))
         onView(withText("OK")).perform(click())
         //onView(withId(R.id.addSwitch)).perform(click())
 
@@ -80,8 +97,7 @@ class UserMedicineAddTest {
         Thread.sleep(1000)
 
         onView(withId(R.id.editAmount)).check(matches(hasErrorText("Amount must be at least 1")))
-        onView(withId(R.id.editExpirationDate)).check(matches(hasErrorText("Expiration date cannot be before current date")))
-    }
+        }
 
 
     @Test

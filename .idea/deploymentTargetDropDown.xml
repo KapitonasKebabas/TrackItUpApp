@@ -5,6 +5,9 @@
       <entry key="All Tests">
         <State />
       </entry>
+      <entry key="MedicineAdapterTest">
+        <State />
+      </entry>
       <entry key="RegisterTest">
         <State />
       </entry>
@@ -15,9 +18,6 @@
         <State />
       </entry>
       <entry key="testInvalidBirth()">
-        <State />
-      </entry>
-      <entry key="testLoginButton()">
         <State />
       </entry>
       <entry key="testValidRegistration()">

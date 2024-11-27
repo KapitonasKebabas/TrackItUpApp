@@ -90,7 +90,7 @@
         android:id="@+id/btn_addUserMedicine"
         android:layout_width="241dp"
         android:layout_height="84dp"
-        android:text="Prideti"
+        android:text="Pridėti"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
