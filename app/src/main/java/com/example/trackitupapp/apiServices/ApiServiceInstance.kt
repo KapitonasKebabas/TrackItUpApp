@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class ApiServiceInstance
 {
     companion object {
-        private const val BASE_URL = "http://192.168.1.114:5000/"
+        private const val BASE_URL = "http://172.20.10.2:5000/"
     }
     object Auth {
         private val retrofit = Retrofit.Builder()

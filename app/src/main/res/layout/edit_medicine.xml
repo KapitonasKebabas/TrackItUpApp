@@ -39,38 +39,19 @@
         android:id="@+id/frequencyLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editFrequency"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Dažnumas (pvz., kas 3 valandas)"
-            android:inputType="number" />
-
-    </com.google.android.material.textfield.TextInputLayout>
+        android:layout_marginTop="16dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="16dp"/>
 
-        <TextView
-            android:id="@+id/periodLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Įjungti priminimus:"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="8dp" />
-
-        <Switch
-            android:id="@+id/periodSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="false" />
-
-    </LinearLayout>
+    <Button
+        android:id="@+id/btnNotification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nustatyti priminimą" />
 
     <Switch
         android:id="@+id/editSwitch"
